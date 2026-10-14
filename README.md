@@ -14,8 +14,10 @@ the tool dispatch, and the session format are written in Bend2.
 ## Scope
 
 - The turn loop, tool dispatch, and session persistence are written in Bend2.
-- The tool set is small: read files, write files, edit files, run shell commands, and read the
+- The tool set is minimal: read files, write files, edit files, run shell commands, and read the
   orchestrator inbox.
+- Tool calls run asynchronously. A tool streams its output into the session as the tool produces
+  it.
 - The harness speaks the orchestrator's existing CLI protocol (baton2) for task assignment,
   messages, receipts, and completion requests.
 - One session maps to one agent seat. The session format records turns, tool calls, and
@@ -48,6 +50,9 @@ canonical repositories.
 ## Open research questions
 
 - What is the minimal tool set that keeps an agent effective on the orchestrator's task profile?
+- What does asynchronous, streaming tool execution require from the session format and the turn
+  loop: ordering of concurrent results, chunked output events, cancellation of in-flight tools
+  when a turn ends, and completion tracking for long-running remote gates?
 - How should programmatic tool calls (generated code that batches tool operations) compare with
   discrete tool calls on this workload, and where is the crossover?
 - What Bend2-native session format records turns, tool calls, and outputs so the orchestrator can
