@@ -52,11 +52,6 @@ canonical repositories.
   discrete tool calls on this workload, and where is the crossover?
 - What Bend2-native session format records turns, tool calls, and outputs so the orchestrator can
   resume or fork a seat at a turn boundary, and compact a seat's history without losing tasking?
-- How should inbox wake delivery and history compaction interact so a degraded session cannot be
-  overfilled while it cannot respond? baton#718 and baton#720 document this failure in the
-  current codex-based harness: notification delivery continued during a connectivity outage,
-  overfilled the session context, and blocked remote compaction; worker status loops amplified
-  it.
 - What does a minimal permission and sandbox model look like in Bend2, given that all compiler and
   test gates already run remotely on designated build hosts?
 
