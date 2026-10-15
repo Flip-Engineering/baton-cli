@@ -14,7 +14,7 @@ commits, and the benchmark figures come from primary sources. Start with
 | [prime-agent.md](prime-agent.md) | Prime Agent (Prime Intellect): RLM context-as-variable kernel, recursive subagents, continual harness | 150 |
 | [minimal-harness-survey.md](minimal-harness-survey.md) | 15 further minimal harnesses (mini-SWE-agent, Aider, goose, opencode, Codex CLI, and others) | 255 |
 | [benchmarks.md](benchmarks.md) | Agent-harness benchmarks: same-model harness variance, ablations, time horizons | 208 |
-| [synthesis.md](synthesis.md) | Convergent patterns and the target shape for baton-cli | — |
+| [synthesis.md](synthesis.md) | Evaluation of the harness-engineering approaches and how their architectures achieve them | 210 |
 
 Method notes: single-harness reports cite repo-relative file paths from the cloned source
 (HEAD sha recorded per report); survey and benchmark claims link primary sources; uncertainties

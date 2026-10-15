@@ -1,153 +1,262 @@
-# Synthesis: architectural patterns for baton-cli
+# Harness engineering approaches: evaluation of the research reports
 
-This document synthesizes the six research reports in this directory into design guidance for
-baton-cli, a minimal Bend2 agent harness for the baton orchestrator (possibly renamed Orchestra).
-Method: each named harness was analyzed at code level (shallow clones at recorded HEAD commits;
-see each report's Sources), the survey covered fifteen additional harnesses, and the benchmarks
-report pulled figures from primary sources. GLM 5.3 Flash subagents authored the reports;
-this synthesis was written from their concepts sections.
+The aim of the research was to understand conceptual approaches to harness engineering and the
+architectures that achieve them. Each single-harness report is a code-level study of one
+approach; this document evaluates the approaches and contrasts them on the engineering problems
+every harness must solve. It draws no design prescriptions: design is a later phase, and these
+reports plus this comparison are the input to it.
 
-Reports: [pi.md](pi.md), [deepseek-harness.md](deepseek-harness.md), [fx.md](fx.md),
+Method: the single-harness reports analyze shallow clones at recorded HEAD commits (Pi
+`b06c1f2c`, DeepSeek Harness `5719020`, fx `6afa7c33`, Prime Agent `3e141d10`); the survey
+covers fifteen further harnesses from primary sources; benchmark figures come from primary
+sources. Reports: [pi.md](pi.md), [deepseek-harness.md](deepseek-harness.md), [fx.md](fx.md),
 [prime-agent.md](prime-agent.md), [minimal-harness-survey.md](minimal-harness-survey.md),
 [benchmarks.md](benchmarks.md).
 
-## Convergent patterns
+## The four approaches
 
-Five patterns recur across every harness analyzed, implemented independently in each codebase.
+### Pi — policy at hooks, capability in the surface
 
-### 1. The session is an append-only event log; everything else is a projection
+Concept: the agent loop is a thin envelope; capability lives in the prompt and the tool
+surface; every policy decision is expressed at a hook seam. The kernel ships tools without
+approval logic, a loop without step limits, and a session without privacy rules; plan mode and
+subagents are absent from the core and re-expressible as hooks or tools
+(`packages/agent/src/agent-loop.ts`, `packages/agent/src/agent.ts`).
 
-Pi stores sessions as immutable entry trees with a leaf pointer (fork = append a child of an
-earlier node). DeepSeek's session log is the program: model history, pending input, tool
-declarations, approval policy, and turn boundaries are all folds over one append-only,
-turn-enclosed event stream. fx keeps an offset-confirmed, fsynced `events.jsonl` with a
-state-machine validator; manifest, index, and UI state are re-derivable projections with
-byte-exact staleness checks. Prime Agent runs sessions, spawn topology, and refinement history
-as separate append-only JSONL ledgers. The survey found the same shape in Codex rollouts,
-OpenHands typed events, gptme logs, and mini-SWE-agent's trajectory-equals-messages invariant.
+Architecture that achieves it:
 
-Consequence for baton-cli: the session format is the design centerpiece. Model context, resume,
-fork, compaction, and the orchestrator's view are all projections of one log. Correctness of
-resume comes from the log shape, not from recovery code.
+- Layered packages, each knowing only the layer below: `pi-ai` normalizes four wire APIs into
+  one closed stream-event union across ~30 endpoint adapters; `pi-agent` runs the event-sourced
+  loop; `pi-coding-agent` owns files, sessions, and screens.
+- The event-tree session: append-only JSONL entries with `id`/`parentId` and a leaf pointer
+  (`session-manager.ts`). Resume is re-walking; fork is appending a child of an earlier node;
+  nothing is deleted; files materialize lazily.
+- Transcript-owned prompt and tool state: named prompt sections and `toolsAdded`/`toolsRemoved`
+  entries are replayed from the transcript, so unchanged state is never re-sent and provider
+  caches stay warm; an idle-time cache warmer replays the request at a one-token output cap.
+- Strict turn discipline: one assistant response plus its complete tool-result batch is the
+  atom for persistence and compaction cut points; a tool result never separates from its call;
+  truncated responses fail pending tool calls rather than executing incomplete arguments.
+- pi-durable, the second Pi architecture: a committed task graph over the same transcript — a
+  single serialized mutation line, durable tool tasks committing intent plus a replay
+  declaration before execution, head-marker context selection, ownership-indexed subagent
+  conversations with bottom-up abort cascades, and busy-conversation submission queues.
 
-### 2. The turn is the unit of consistency; prefix operations are the only mutations
+Costs and limits: batch-scoped `Promise.all` concurrency with source-order persistence;
+single-process JSONL persistence in the coding agent; awaited-listener settlement couples run
+liveness to consumer speed (pi-durable's "only committed state is observable" is the fix);
+per-conversation, single-model compaction; in-process TypeScript extensions carry the shared
+process's security posture.
 
-DeepSeek encloses all durable side effects in `turn/start`…`turn/end` and closes every exit path
-with a reason; crash repair, fork, and interrupted-turn settling are the same operation with
-different causes. Pi makes the turn (one model response plus its complete tool-result batch) the
-atom for persistence, compaction cut points, and durable run phases. The survey's pattern:
-fork, summarize, and compaction are prefix cuts or suffix replaces of the event log, and turn
-boundaries are the only safe mutation points.
+### DeepSeek Harness — seams everywhere, the log as the program
 
-Consequence for baton-cli: the orchestrator's operations — resume a seat, fork a seat, compact a
-seat's history, deliver an input — are all turn-boundary operations on one log. This matches the
-orchestrator's existing resume/fork semantics exactly.
+Concept: every subsystem is swappable at a named seam; product behavior is data (presets
+compose plugins, patches replace configs by id); and one append-only, turn-enclosed event log
+is the program whose folds produce all state — model history, pending input, tool
+declarations, approval policy, and turn boundaries are projections
+(`packages/core/agent-loop/src/agent.ts`, `packages/core/session/src/tool-history.ts`). Resume,
+fork, search, and UI replay share one implementation because the log is the only truth.
 
-### 3. Concurrency is scheduled by declared safety class, committed in model order
+Architecture that achieves it:
 
-DeepSeek classifies each tool (`isConcurrencySafe` → execution mode) and drives three schedulers
-from that one classification: a rolling pool in the native loop, a bounded PTC sub-dispatch lane
-(maxParallelSubCalls = 10), and tool-binding parallelism; ordered commits through a
-head-of-line cursor keep the log model-ordered. fx groups leading prefix calls by declared class
-(read-only / subagent / host-concurrent, capped at 16), runs the first writer alone, and fences
-writers with file locks. Pi runs tool calls in parallel by default and persists results in
-assistant source order.
+- The Cordis microkernel with three-role capability seams: `ctx.llm`, `ctx.sandbox`,
+  `ctx.ptcRuntime`, subagent providers, session persistence providers — each a swap point with
+  shipped default providers (bundled Node/TS PTC, bwrap/Landlock/Seatbelt/ACL sandboxes, JSONL
+  session log).
+- Turn enclosure as atomicity: every exit path closes the turn with a reason in a `finally`;
+  crash repair synthesizes closers in the same shape as live repair; fork is the same mechanism
+  with a different cause. Crash recovery and fork are one operation.
+- Bounded concurrency as a portable contract: one per-tool classification
+  (`isConcurrencySafe` → execution mode) drives three schedulers (native rolling pool, PTC
+  sub-dispatch lane with `maxParallelSubCalls = 10`, tool-binding parallelism), with ordered
+  commits through a head-of-line cursor so the log stays model-ordered.
+- PTC: the model writes TypeScript against a generated byte-stable SDK; each program runs in a
+  fresh Node process confined by the same sandbox as bash (worker-threads confinement was
+  abandoned — workers cannot apply OS file policy to direct `node:fs` imports); bindings cross a
+  dedicated untrusted control channel; nested calls re-enter the full guarded pipeline;
+  failures resolve as typed result fields and failed programs never replay. The prompt's PTC
+  presentation renders from the same predicate the executor denies by, so prompt and
+  enforcement cannot drift.
+- Fail closed, report honestly: approval normalizes rogue answerers to `unavailable` with the
+  never-gate inside the approval service before the fallback waterfall; sandbox enforcement is
+  reported as `full`/`partial` with named per-backend reasons; torn session tails are
+  truncate-and-rewrite with recorded markers.
 
-Consequence for baton-cli: async-streaming tool execution (a stated design default) needs exactly
-this machinery: a declared concurrency class per tool, streaming output as chunked events
-appended in model order, a commit cursor, and cancellation of in-flight tools at turn end. The
-reports show this is standard, load-bearing harness machinery, not an optional extra.
+Costs and limits: the microkernel and patch-composition machinery is itself a large system;
+per-call fresh-process PTC is expensive; every assembly listener owns the integrity of
+rewritten protocol sections; much behavior hides behind seams — the report found shipped
+controls (PTC `timeoutMs`, per-program sandbox escalation) absent from the docs.
 
-### 4. Effects are journaled before they run; recovery is replay under a contract
+### fx — budgeted native binary, formally specified durability
 
-fx commits a `tool_intent` with a barrier before effect-bearing batches; on resume, ambiguous
-calls are rerun under a stable execution id or answered as possibly-run, per a declared
-idempotency/writes classification. pi-durable commits tool-call intent before execution and
-reruns only when both the stored intent and the current tool definition declare replay-safe.
-DeepSeek never replays a failed PTC program and synthesizes interrupted-turn closers rather than
-truncating.
+Concept: smallness and speed are enforced as CI contracts; one agent core serves many hosts
+through injected effects; durability and concurrency correctness are first-class properties,
+formally specified where they are hardest; the terminal is a plain Unix stream; context is a
+budgeted variable.
 
-Consequence for baton-cli: tool calls are durable tasks with an intent-before-effect commit and
-an explicit replay contract. This is also what makes orchestrator-driven fork/resume safe: a
-forked seat can answer interrupted tools honestly.
+Architecture that achieves it:
 
-### 5. Prompt assembly is cache-aware, and the prefix is an asset
+- Budgeted binaries: 6.74 MiB arm64 release binary (measured; vendor-reported 6.39 MiB at
+  launch), byte-delta annotations over a 52,429-byte threshold per pull request, and 2 ms
+  wall-clock budgets on trivial commands, measured with hyperfine
+  (`.github/workflows/binary-size.yml`, `benchmarks/check_budgets.py`).
+- The dependency-injection seam: the 12,655-line turn engine calls only `AgentRuntimeDeps`
+  function pointers (`src/core/agent/runtime/deps.zig`); the ACP server is shared verbatim by
+  CLI, Node addon, and WebAssembly; embedded hosts get typed capabilities that are
+  default-deny.
+- The fenced session log: `events.jsonl` with a state-machine validator (out-of-order seqs,
+  duplicate tool-call ids, results answering nothing are rejected), offset-confirmed fsynced
+  appends, writers that latch a failure state on any offset mismatch, a byte-exact manifest,
+  and a disposable binary replay cache bound by watermark and CRC while the log stays the
+  authority (`src/core/session/session_log.zig`).
+- Intent-before-effect journaling: a `tool_intent` event with a barrier precedes
+  effect-bearing batches; idempotent-non-writing tools run ahead; ambiguous calls on resume
+  rerun under a stable execution id or are answered to the model as possibly-run.
+- Safety-class concurrency: a leading prefix of each batch runs concurrently (read-only /
+  subagent / host-concurrent, capped at 16), the first writer runs alone, and permission review
+  is identical per call whether concurrent or not.
+- Formal verification with runtime replay: TLA+ modules (`DurableSession.tla`,
+  `DurableSteer.tla`, `AgentRouting.tla`) model-check writer fencing, lease takeover, cutoff
+  continuation, and named-agent routing, with witness configs that must violate each named
+  invariant; TLC-generated state graphs are then walked against the real runtime.
+- Budgeted context: tool results cap at 64 KiB for the model and spill to content-addressed
+  handles searchable after resume; skill catalogs and MCP schemas spend against declared byte
+  budgets; token estimates self-calibrate against provider counts; compaction is
+  lossy-verbatim reclamation — user intent and final answers survive word for word, the rest is
+  displaced into searchable records, and model-written glue is linted against saved evidence.
 
-DeepSeek records change reasons in request headers, admits tool-catalog changes as deltas, keeps
-the tool catalog identical across modes, and renders the PTC SDK section byte-stable. Pi replays
-prompt and tool state from transcript entries so unchanged state is never re-sent. rasbt's
-mini-coding-agent (survey) pins a stable prompt prefix for cache reuse.
+Costs and limits: no cross-process wake model — durable queueing, lease takeover, and
+named-agent routing exist at the libfx SDK layer and stop there; subagent children are first
+class sessions but deliberately invisible to listing and external resume; the scrollback
+interface and three modal islands are human-viewer investment; the `auto` mode's LLM permission
+reviewer adds a model call and nondeterminism at action time; two referenced spec files are
+absent from the public clone.
 
-Consequence for baton-cli: the session format and prompt assembly must be designed together so
-that wake deliveries and tool-catalog changes extend the prefix rather than rewriting it.
+### Prime Agent — context as a queryable variable
 
-## What the benchmarks add
+Concept: information management belongs in a persistent kernel, not in prompts; the model's
+effective context is what it can retrieve programmatically; the harness optimizes for
+long-horizon autonomy with auditable self-modification.
 
-The benchmarks report (primary-source figures) sets the floor and the first investments:
+Architecture that achieves it:
 
-- A near-zero harness is competitive at the top: mini-SWE-agent (bash-only, no tool-calling API,
-  fresh process per action, linear history) scores >74% on SWE-bench Verified.
-- Harness spread on the same model is large and real: on Terminal-Bench 2.0, GPT-5.4 mini scores
-  57.8% on Codex CLI versus 37.8% on Terminus 2; Opus 4.6 spans 76.4% (Meta-Harness), 62.9%
-  (Terminus 2), 58.0% (Claude Code). Harness choice moves scores by double digits.
-- Extra narrow tools can score below having none (SWE-agent ablations: search tool -6.0, RAG
-  scaffold 2.67% vs 18.0% for its ACI); the one tool that consistently pays is a single edit
-  operation with a uniqueness check and error feedback (+7.7).
-- Limits are load-bearing: step budgets and timeouts move scores and are logged as part of
-  results.
+- One kernel tool, everything programmatic: the model-facing surface is a single
+  `python_repl` tool plus programmatic tools (PTC); loops, batched subagent calls, and
+  background handles compose in one cell (`crates/pa-core/src/prompts/layers/core.md`). Context
+  reads are capped at 64 KiB host-side and 1 MiB kernel-side; the blog's answer-variable
+  protocol and 8,192-char cap belong to the verifiers training scaffold, not the product.
+- Spawning as admission, results as durable messages: children pass a depth gate (default 2),
+  a model allowlist, and name uniqueness; results arrive through persisted `agent_message`
+  entries and typed collect snapshots; a daemon-owned append-only spawn ledger preserves family
+  topology across passivation and restart; state-machine factories run stored orchestration
+  graphs over spawned children to quiescence.
+- Append-only ledgers per concern: sessions, semantic edges, spawn topology, and refinement
+  history are separate JSONL ledgers; fork-by-prefix makes restart a replay
+  (`crates/pa-core/src/session_store.rs`).
+- Refinement as reviewed, versioned commits: durable harness state (memories, skills, prompts,
+  subagent specs) changes only at turn boundaries through gated plans recording trigger,
+  evidence, and outcome, with versioned rollback; review-gated auto-refine re-arms after every
+  compaction.
+- Process-per-session supervision: one worker per active session with backoff restarts,
+  passivation, and descriptor-based adoption; subtree accounting attributes usage down the
+  spawn tree; harness state reaches the model as a `[harness-digest]` user message at cold
+  boundaries.
 
-Design translation: start bash + read + one robust edit tool + inbox; add nothing until a
-measured gap justifies it; record limits as logged harness parameters.
+Costs and limits: a full Python runtime per session; product/training-scaffold divergence
+carries parity code and a stale AGENTS.md contract; self-modification has a documented exploit
+(the RCON incident in its refinement history); performance claims are tied to RL-trained
+models.
 
-## The Bend2-native opportunity: programmatic tool calls in the harness's own language
+## The space of approaches
 
-DeepSeek's PTC mode and Prime Agent's one-kernel-tool design both let the model write program
-text that batches tool operations, instead of issuing discrete tool calls. Both run a foreign
-runtime for this (Node/TypeScript for dsh, Python for Prime). baton-cli's harness is written in
-Bend2 and compiles native — the model can emit Bend2 program text that the harness executes
-directly, with the same confinement and logging machinery as discrete tools. No foreign runtime,
-one language across harness, session tooling, and generated programs. This is the one capability
-in this research that none of the analyzed harnesses has, and it aligns with the async-streaming
-default: a generated program is a natural batching unit with one streamed result stream.
+The survey situates the four in the wider field: near-zero loops (mini-SWE-agent's ~100-line
+bash-only agent scoring >74% on SWE-bench Verified; Hugging Face Tiny Agents' while-loop over
+an MCP client; rasbt's stdlib single script) at one end; structured SDKs (OpenHands' typed-event
+software-agent-sdk) at the other; and most of the industry between (Aider, goose, opencode,
+Codex CLI, Gemini CLI, gptme, Crush). Recurring answers include two-layer context control
+(deterministic bounding at the tool boundary, LLM-mediated compaction at the session boundary),
+subagents as child sessions returning summary receipts, safety as policy layers with undo on
+the same substrate as persistence, and session operations as prefix cuts of event logs. The
+ecosystem also churns: Open Interpreter is now a Rust fork of Codex with switchable harness
+emulation, OpenHands' core moved to a standalone SDK, goose moved to a foundation — the
+approaches are young, and none has consolidated.
 
-Research questions this raises, tracked in the README: what the generated-program surface
-exposes, how programs confine (reuse the sandbox machinery of shell tools), and how program
-results commit under the ordered log.
+## Evidence on which engineering choices matter
 
-## Non-goals confirmed by the evidence
+The benchmark report grounds the evaluation empirically (all figures from primary sources):
 
-- A plugin microkernel with npm-style distribution (DeepSeek/Cordis) costs more than a
-  minimal harness recovers; preset composition of a fixed tool catalog achieves the same
-  mode-switching at the seam level.
-- A full-screen TUI is a human-viewer investment; a headless orchestrator seat's interface is the
-  event stream itself (fx's process-boundary protocols — `fx ask` stdout/stderr split, ACP
-  ndJSON JSON-RPC — are the relevant prior art, and fx formalized durable session and steering
-  semantics in TLA+ specs: `sdk/tests/model/DurableSession.tla`, `AgentRouting.tla`,
-  `DurableSteer.tla`).
-- Self-modifying harness state (Prime's refinement) is valuable for long-horizon autonomy but is
-  the highest-risk pattern in the set (Prime documents its own RCON-exploit failure mode); it is
-  a later milestone behind reviewed, versioned commits, not a v1 feature.
+- Harness choice moves same-model scores by double digits. Terminal-Bench 2.0: GPT-5.4 mini
+  scores 57.8% on Codex CLI and 37.8% on Terminus 2; Opus 4.6 spans 76.4% (Meta-Harness),
+  62.9% (Terminus 2), and 58.0% (Claude Code).
+- A near-zero harness is competitive at the top: mini-SWE-agent (>74% SWE-bench Verified,
+  bash-only, no tool-calling API) and live-SWE-agent (79.2% on Opus 4.5, evolved on the mini
+  base) show the loop is the primary instrument.
+- Extra narrow tools can score below having none (SWE-agent ablations: search −6.0; RAG
+  scaffold 2.67% vs 18.0% for its interface-centric design). The one addition that reliably
+  pays is a single robust edit operation with a uniqueness check and error feedback (+7.7).
+- Limits are load-bearing: step budgets (tau-bench's 30→100 step cap) and timeouts move scores
+  and must be recorded with results.
+- No published streaming-vs-blocking tool-execution comparison exists; the question is
+  unmeasured in the ecosystem.
 
-## Target shape
+## Contrasting the approaches
 
-1. Session: append-only, turn-enclosed event log in Bend2; fork/resume/compact/deliver as
-   turn-boundary prefix operations; the orchestrator's messages and receipts are events in the
-   same log.
-2. Tools: minimal set (read, write, edit, shell, inbox read) with declared concurrency classes,
-   streaming chunked outputs committed in model order, intent-before-effect commits, and an
-   explicit replay contract.
-3. Programmatic lane: generated Bend2 programs as PTC, confined and logged like any tool.
-4. Prompt assembly: cache-aware; stable prefix; tool catalog identical across presets.
-5. Presets: minimal first (per DeepSeek's minimal mode and the benchmark evidence), standard
-   later.
-6. Boundaries: fail-closed, honestly reported; limits recorded as logged harness parameters.
+Each approach's answer to the engineering problems every harness must solve:
 
-## Open questions (carried)
+| Problem | Pi | DeepSeek Harness | fx | Prime Agent |
+| --- | --- | --- | --- | --- |
+| Where policy lives | Hook seams; kernel ships none | Seam plugins; behavior as preset/patch data | Typed capability injection; default-deny embeds; ranked permission modes | Admission gates; refinement gates; supervisor-owned policy |
+| Session durability | Append-only entry tree, leaf pointer; single-process JSONL; pi-durable adds committed task graph + head markers | Turn-enclosed generations, lease single-writer, torn-tail repair, never renamed | Fenced fsynced log, byte-exact manifest, disposable replay cache, TLA+ checked | Append-only ledgers per concern; fork-by-prefix; descriptor adoption |
+| Concurrency | `Promise.all` per batch, source-order persistence; durable rounds one task at a time | One classification → three schedulers; head-of-line commit cursor | Leading-prefix classes (cap 16); first writer alone; per-call threads | Per-file mutation queues; programmatic parallelism in the kernel; process isolation per session |
+| Context management | Compaction cut points at turn boundaries; tool results kept whole; cache warmer | Deterministic tool-bounding + LLM compaction modes; budgeted result sizes | Budgeted variable: 64 KiB results → spill handles; byte budgets for catalogs; self-calibrating estimates | Retrieval over kernel variables under caps; agentic compaction at 95%; harness-digest delivery |
+| Extension surface | jiti in-process TS extensions over one `ExtensionAPI` | Three-role seams, preset patches, npm distribution | Function-pointer deps; typed host capabilities; ACP shared by all hosts | PTC; state-machine factories; gated refinement commits |
+| Subagents | Ownership-indexed conversations, bottom-up abort, background boundaries | Subagent providers (spawn/fork/SDK-external) | One-level, captured non-escalating authority; children invisible to external resume | Recursive spawn (depth 2), durable message results, quiescence factories |
 
-- Exact concurrency semantics of streamed tool output interleaved with the model stream
-  (fx marks its in-turn tool concurrency as an open question too).
-- Whether compaction should be an operation on the log (dsh: rewrite preserving raw history;
-  fx: raw history immutable under compaction) or a projection (survey's two-layer model).
-- Generated-Bend2-program confinement and capability surface.
-- Session format versioning and migration (dsh's v0/vN generation model is the most developed
-  prior art).
+Reading the table by column rather than by row shows what each approach optimizes for: Pi for
+surface minimality and a documented, resumable session; dsh for modularity and one
+reconstructable log; fx for enforced budgets and checked durability; Prime for retrieval-based
+context and auditable autonomy. The benchmark evidence cuts across the columns: same-model
+score spreads are large, the minimal loop is competitive, and most incremental scaffolding
+does not pay for itself — so the engineering problem each harness solves hardest is the one
+that distinguishes it.
+
+## Cross-harness highlights
+
+Where independent engineering arrived at the same answer, as observation:
+
+- **Append-only event log as the session substrate**, realized differently: Pi as an entry
+  tree with a leaf pointer, dsh as turn-enclosed generations under a lease, fx as a fenced
+  fsynced log with TLA+ specs, Prime as separate ledgers per concern.
+- **Turn boundaries as the only mutation points** for fork, compaction, and delivery; dsh
+  makes crash repair and fork the same code path with different causes.
+- **Concurrency from declared per-tool safety classes with ordered commits** in all three
+  loop-level designs (dsh, fx, pi-durable).
+- **Intent-before-effect journaling with explicit replay contracts** (fx, pi-durable; dsh via
+  never-replay of failed programs plus synthesized interrupt closers).
+- **Cache-aware prompt assembly** (dsh records change reasons and byte-stable catalogs; Pi
+  replays prompt state from transcript entries; rasbt pins a stable prefix).
+- **Fail-closed, honestly reported boundaries** (dsh's closed outcome unions and enforcement
+  tables; fx's latched failure states; both refuse to guess).
+
+## Open questions on the approaches
+
+- Where the minimal-loop ceiling sits: the benchmark record rewards interfaces (edit
+  reliability, one interactive surface) and penalizes narrow tool additions, but long-horizon,
+  multi-party, or compliance-heavy workloads are underrepresented in published results; no
+  benchmark yet measures where heavier scaffolds begin to pay.
+- Streaming interleaving: each loop-level design has a commit discipline for ordered logs
+  (head-of-line cursor, leading-prefix fences, source-order persistence), and none publishes
+  measurements of streamed tool output interleaved with the model stream under that discipline.
+- Formal specification cost/benefit: fx is the only analyzed harness with TLA+ modules and
+  runtime replay of TLC-generated state graphs; what the minimum viable spec set is for a
+  given harness's durability claims is unexplored.
+- Self-modification safety: Prime's gated, versioned refinement is the most developed
+  mechanism, and its documented exploit shows the open problem; no benchmark measures
+  refinement value against its risk.
+- Approach portability: Open Interpreter's harness-emulation switch (claude-code, swe-agent,
+  minimal, and others on one core) suggests harness approaches are becoming testable,
+  swappable artifacts; whether any approach's advantages survive that kind of controlled
+  comparison is unmeasured.
+
+Design work for baton-cli starts from these reports and this evaluation; no design decisions
+are drawn here.
