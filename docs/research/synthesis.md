@@ -10,10 +10,10 @@ Method: the single-harness reports analyze shallow clones at recorded HEAD commi
 `b06c1f2c`, DeepSeek Harness `5719020`, fx `6afa7c33`, Prime Agent `3e141d10`, NOOA
 `3187c6df`); the survey covers fifteen further harnesses from primary sources; benchmark
 figures come from primary sources. Reports: [pi.md](pi.md),
-[deepseek-harness.md](deepseek-harness.md), [fx.md](fx.md),
-[prime-agent.md](prime-agent.md), [nooa.md](nooa.md),
-[minimal-harness-survey.md](minimal-harness-survey.md), [benchmarks.md](benchmarks.md).
-
+[deepseek-harness.md](deepseek-harness.md), [fx.md](fx.md), [prime-agent.md](prime-agent.md),
+[nooa.md](nooa.md), [minimal-harness-survey.md](minimal-harness-survey.md),
+[benchmarks.md](benchmarks.md), [no-compaction-approaches.md](no-compaction-approaches.md),
+[no-compaction-harnesses.md](no-compaction-harnesses.md).
 ## The five approaches
 
 ### Pi — policy at hooks, capability in the surface
@@ -208,6 +208,31 @@ no-ops pending a refactor), so long-session growth rests on the overflow archive
 stdout past 50,000 characters is unrecoverably elided unless the file-backed option streams it
 to disk; REPL locals die with the method by design.
 
+### The no-compaction field
+
+Two companion reports ([no-compaction-approaches.md](no-compaction-approaches.md),
+[no-compaction-harnesses.md](no-compaction-harnesses.md)) extend the context-management
+evaluation beyond the five approaches above. The published approaches sort into four postures:
+budget the history (selective clearing — Anthropic's context-editing API clears stale tool
+uses while keeping recent ones and instructions; Mastra's sliding window with a documented
+cache cost); move the projection out (filesystem-as-context — Manus keeps state in files and
+recites objectives; deepagents evicts oversized tool results to `/large_tool_results` with
+preview stubs; Letta pages memory between core blocks, recall, and archival storage); curate
+the standing artifact (Magentic-One's task and progress ledgers; ACE's evolving playbook with
+delta updates; sleep-time agents that edit memory in the background); and spend the native
+window (1M+ contexts with prompt caching, accepted until context rot degrades effective
+use — Chroma's measurements). Folding (arXiv:2510.11967) and ReFold (arXiv:2610.07863)
+compress active context with reversible, history-preserving removals; both are training-side
+mechanisms without shipping-harness adoption. Compaction itself remains a shipped default
+almost everywhere: Amp removed it in favor of handoffs between threads, and Claude Code pairs
+the memory tool with server-side compaction as a fallback; NOOA stays the one analyzed harness
+whose architecture keeps compaction dormant.
+
+At long horizons (100+ turns, multi-hour runs) the load-bearing mechanisms in the evidence are
+the ones that move state out of the window entirely — filesystem or paged memory — while
+selective clearing and sliding windows postpone the same pressure; the harnesses report does
+the mechanism-by-mechanism analysis.
+
 ## The space of approaches
 
 The survey situates the five in the wider field: near-zero loops (mini-SWE-agent's ~100-line
@@ -310,6 +335,10 @@ Where independent engineering arrived at the same answer, as observation:
   minimal, and others on one core) suggests harness approaches are becoming testable,
   swappable artifacts; whether any approach's advantages survive that kind of controlled
   comparison is unmeasured.
+- External-memory benchmarks conflict across vendors (Mem0, MemOS, and Zep report different
+  LOCOMO/DMR results with different scoring), and ACE, Folding, and ReFold have no independent
+  replications; compaction-free claims rest on vendor-reported numbers more often than on
+  shared harnesses.
 
 Design work for baton-cli starts from these reports and this evaluation; no design decisions
 are drawn here.

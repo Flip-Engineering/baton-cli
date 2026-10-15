@@ -14,6 +14,8 @@ commits, and the benchmark figures come from primary sources. Start with
 | [prime-agent.md](prime-agent.md) | Prime Agent (Prime Intellect): RLM context-as-variable kernel, recursive subagents, continual harness | 150 |
 | [minimal-harness-survey.md](minimal-harness-survey.md) | 15 further minimal harnesses (mini-SWE-agent, Aider, goose, opencode, Codex CLI, and others) | 255 |
 | [nooa.md](nooa.md) | NVIDIA NOOA: agent as a Python object, pass-by-reference context, the no-compaction architecture | 152 |
+| [no-compaction-approaches.md](no-compaction-approaches.md) | Published approaches to compaction-free contexts: Manus, Anthropic, Letta, ACE, external memory, mega-context, Folding/ReFold, Cloudflare | 150 |
+| [no-compaction-harnesses.md](no-compaction-harnesses.md) | Shipping harnesses operating without compaction: Letta, deepagents, Claude Code memory/editing, Manus, Amp, Magentic-One, Mastra | 193 |
 | [benchmarks.md](benchmarks.md) | Agent-harness benchmarks: same-model harness variance, ablations, time horizons | 208 |
 | [synthesis.md](synthesis.md) | Evaluation of the harness-engineering approaches and how their architectures achieve them | 210 |
 
