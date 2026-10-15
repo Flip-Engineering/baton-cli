@@ -7,13 +7,14 @@ every harness must solve. It draws no design prescriptions: design is a later ph
 reports plus this comparison are the input to it.
 
 Method: the single-harness reports analyze shallow clones at recorded HEAD commits (Pi
-`b06c1f2c`, DeepSeek Harness `5719020`, fx `6afa7c33`, Prime Agent `3e141d10`); the survey
-covers fifteen further harnesses from primary sources; benchmark figures come from primary
-sources. Reports: [pi.md](pi.md), [deepseek-harness.md](deepseek-harness.md), [fx.md](fx.md),
-[prime-agent.md](prime-agent.md), [minimal-harness-survey.md](minimal-harness-survey.md),
-[benchmarks.md](benchmarks.md).
+`b06c1f2c`, DeepSeek Harness `5719020`, fx `6afa7c33`, Prime Agent `3e141d10`, NOOA
+`3187c6df`); the survey covers fifteen further harnesses from primary sources; benchmark
+figures come from primary sources. Reports: [pi.md](pi.md),
+[deepseek-harness.md](deepseek-harness.md), [fx.md](fx.md),
+[prime-agent.md](prime-agent.md), [nooa.md](nooa.md),
+[minimal-harness-survey.md](minimal-harness-survey.md), [benchmarks.md](benchmarks.md).
 
-## The four approaches
+## The five approaches
 
 ### Pi — policy at hooks, capability in the surface
 
@@ -167,9 +168,49 @@ carries parity code and a stale AGENTS.md contract; self-modification has a docu
 (the RCON incident in its refinement history); performance claims are tied to RL-trained
 models.
 
+### NVIDIA NOOA — budget the projection, not the value
+
+Concept: where the host language already has the right abstraction, use it. An agent is a
+Python class — methods are capabilities, fields are state, docstrings are prompts, type
+annotations are runtime-enforced contracts — and the model acts by writing Python against that
+same object, so developer and model share one vocabulary. Its distinctive engineering
+position: tool results are values passed by reference, and the harness budgets only the
+projections the model sees.
+
+Architecture that achieves it:
+
+- The class as framework surface: `AgentMeta` wraps ellipsis-bodied methods for LLM
+  completion; `@strategy` selects execution per method (CodeAct default, single-shot
+  Predict, and others); return annotations are enforced through a generated Pydantic wrapper
+  whose failures feed back into the loop (`src/nooa/metaclass.py`,
+  `src/nooa/strategies/codeact.py`).
+- Two data planes. The transcript carries three regions — a byte-stable static prefix, an
+  append-only typed event log with stable string tags, and a dynamic tail re-evaluated each
+  turn — so live-state updates never invalidate the cached prefix. The execution plane is a
+  `CodeActSession` whose `session_locals` persist across cells of a method call; a
+  multi-million-row table lives whole in the process while the transcript carries one bounded
+  preview (`prefill_format`: 25 items, 2,000 characters, depth 4).
+- Serialization at exactly one boundary: durability. `AgentSnapshot` v2 records typed fields
+  through a type allowlist and `PersistentVars` refuses live objects; events persist only
+  through the optional SQLite backend. Live by reference within the session; by value at the
+  session boundary; never serialized through the model context unless the author places a
+  value there.
+- Compaction exists in triplicate and is dormant by headroom: an opt-in summarizer triggers
+  at 75% of the window (installed by default in the benchmark agent; never triggered at
+  reported token peaks), a reactive archive fires only when the provider rejects a request as
+  too large, and `events.collapse()` lets the model compact its own history with originals
+  addressable by tag. "No compaction" is a statement about triggering, not capability.
+
+Costs and limits: the design depends on in-process execution — the opt-in sandbox backend
+trades reference semantics away at the boundary (the paper states this limitation); events are
+never individually budget-evicted (`max_event_tokens` and `min_preserved_events` are shipped
+no-ops pending a refactor), so long-session growth rests on the overflow archive; captured
+stdout past 50,000 characters is unrecoverably elided unless the file-backed option streams it
+to disk; REPL locals die with the method by design.
+
 ## The space of approaches
 
-The survey situates the four in the wider field: near-zero loops (mini-SWE-agent's ~100-line
+The survey situates the five in the wider field: near-zero loops (mini-SWE-agent's ~100-line
 bash-only agent scoring >74% on SWE-bench Verified; Hugging Face Tiny Agents' while-loop over
 an MCP client; rasbt's stdlib single script) at one end; structured SDKs (OpenHands' typed-event
 software-agent-sdk) at the other; and most of the industry between (Aider, goose, opencode,
@@ -203,19 +244,23 @@ The benchmark report grounds the evaluation empirically (all figures from primar
 
 Each approach's answer to the engineering problems every harness must solve:
 
-| Problem | Pi | DeepSeek Harness | fx | Prime Agent |
-| --- | --- | --- | --- | --- |
-| Where policy lives | Hook seams; kernel ships none | Seam plugins; behavior as preset/patch data | Typed capability injection; default-deny embeds; ranked permission modes | Admission gates; refinement gates; supervisor-owned policy |
-| Session durability | Append-only entry tree, leaf pointer; single-process JSONL; pi-durable adds committed task graph + head markers | Turn-enclosed generations, lease single-writer, torn-tail repair, never renamed | Fenced fsynced log, byte-exact manifest, disposable replay cache, TLA+ checked | Append-only ledgers per concern; fork-by-prefix; descriptor adoption |
-| Concurrency | `Promise.all` per batch, source-order persistence; durable rounds one task at a time | One classification → three schedulers; head-of-line commit cursor | Leading-prefix classes (cap 16); first writer alone; per-call threads | Per-file mutation queues; programmatic parallelism in the kernel; process isolation per session |
-| Context management | Compaction cut points at turn boundaries; tool results kept whole; cache warmer | Deterministic tool-bounding + LLM compaction modes; budgeted result sizes | Budgeted variable: 64 KiB results → spill handles; byte budgets for catalogs; self-calibrating estimates | Retrieval over kernel variables under caps; agentic compaction at 95%; harness-digest delivery |
-| Extension surface | jiti in-process TS extensions over one `ExtensionAPI` | Three-role seams, preset patches, npm distribution | Function-pointer deps; typed host capabilities; ACP shared by all hosts | PTC; state-machine factories; gated refinement commits |
-| Subagents | Ownership-indexed conversations, bottom-up abort, background boundaries | Subagent providers (spawn/fork/SDK-external) | One-level, captured non-escalating authority; children invisible to external resume | Recursive spawn (depth 2), durable message results, quiescence factories |
+| Problem | Pi | DeepSeek Harness | fx | Prime Agent | NOOA |
+| --- | --- | --- | --- | --- | --- |
+| Where policy lives | Hook seams; kernel ships none | Seam plugins; behavior as preset/patch data | Typed capability injection; default-deny embeds; ranked permission modes | Admission gates; refinement gates; supervisor-owned policy | Typed methods as enforced contracts; deterministic gates as ordinary code; strategies per method |
+| Session durability | Append-only entry tree, leaf pointer; single-process JSONL; pi-durable adds committed task graph + head markers | Turn-enclosed generations, lease single-writer, torn-tail repair, never renamed | Fenced fsynced log, byte-exact manifest, disposable replay cache, TLA+ checked | Append-only ledgers per concern; fork-by-prefix; descriptor adoption | Serialization at one boundary: `AgentSnapshot` v2 JSON with a type allowlist; live objects refused; optional SQLite event backend |
+| Concurrency | `Promise.all` per batch, source-order persistence; durable rounds one task at a time | One classification → three schedulers; head-of-line commit cursor | Leading-prefix classes (cap 16); first writer alone; per-call threads | Per-file mutation queues; programmatic parallelism in the kernel; process isolation per session | Model-written parallelism (`asyncio.gather` over generated cells); no harness scheduler axis in the analyzed code |
+| Context management | Compaction cut points at turn boundaries; tool results kept whole; cache warmer | Deterministic tool-bounding + LLM compaction modes; budgeted result sizes | Budgeted variable: 64 KiB results → spill handles; byte budgets for catalogs; self-calibrating estimates | Retrieval over kernel variables under caps; agentic compaction at 95%; harness-digest delivery | Pass by reference: bounded previews only, values live in the process; compaction shipped but dormant (75% summarizer, provider-rejection archive, model-callable collapse) |
+| Extension surface | jiti in-process TS extensions over one `ExtensionAPI` | Three-role seams, preset patches, npm distribution | Function-pointer deps; typed host capabilities; ACP shared by all hosts | PTC; state-machine factories; gated refinement commits | Ordinary Python declarations (methods, docstrings, annotations); strategies; model-callable harness APIs (`ContextApi`, `EventsApi`) |
+| Subagents | Ownership-indexed conversations, bottom-up abort, background boundaries | Subagent providers (spawn/fork/SDK-external) | One-level, captured non-escalating authority; children invisible to external resume | Recursive spawn (depth 2), durable message results, quiescence factories | Depth-bounded `delegate` (max 4) constructing subagents of the same class; model-written fan-out over generated subcalls |
 
 Reading the table by column rather than by row shows what each approach optimizes for: Pi for
 surface minimality and a documented, resumable session; dsh for modularity and one
 reconstructable log; fx for enforced budgets and checked durability; Prime for retrieval-based
-context and auditable autonomy. The benchmark evidence cuts across the columns: same-model
+context and auditable autonomy; NOOA for context economy by reference, with compaction kept
+off the critical path. The benchmark evidence cuts across the columns: same-model score
+spreads are large, the minimal loop is competitive, and most incremental scaffolding does not
+pay for itself — so the engineering problem each harness solves hardest is the one that
+distinguishes it.
 score spreads are large, the minimal loop is competitive, and most incremental scaffolding
 does not pay for itself — so the engineering problem each harness solves hardest is the one
 that distinguishes it.
@@ -237,6 +282,10 @@ Where independent engineering arrived at the same answer, as observation:
   replays prompt state from transcript entries; rasbt pins a stable prefix).
 - **Fail-closed, honestly reported boundaries** (dsh's closed outcome unions and enforcement
   tables; fx's latched failure states; both refuse to guess).
+- **Compaction made dormant rather than load-bearing**: NOOA budgets the projection, not the
+  value — bounded previews with whole values in the process — and ships three compaction paths
+  that stayed unused at reported token levels; the other harnesses budget values (bytes, cut
+  points) and treat compaction as a required stage.
 
 ## Open questions on the approaches
 
@@ -253,6 +302,10 @@ Where independent engineering arrived at the same answer, as observation:
 - Self-modification safety: Prime's gated, versioned refinement is the most developed
   mechanism, and its documented exploit shows the open problem; no benchmark measures
   refinement value against its risk.
+- Pass by reference versus execution isolation: NOOA's no-compaction architecture requires
+  in-process execution (its sandbox backend trades reference semantics away at the boundary),
+  and its per-event budget fields are shipped no-ops; the tension between reference-based
+  context economy and execution isolation is unresolved in every analyzed harness.
 - Approach portability: Open Interpreter's harness-emulation switch (claude-code, swe-agent,
   minimal, and others on one core) suggests harness approaches are becoming testable,
   swappable artifacts; whether any approach's advantages survive that kind of controlled
