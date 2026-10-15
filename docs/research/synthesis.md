@@ -14,6 +14,7 @@ figures come from primary sources. Reports: [pi.md](pi.md),
 [nooa.md](nooa.md), [minimal-harness-survey.md](minimal-harness-survey.md),
 [benchmarks.md](benchmarks.md), [no-compaction-approaches.md](no-compaction-approaches.md),
 [no-compaction-harnesses.md](no-compaction-harnesses.md).
+
 ## The five approaches
 
 ### Pi — policy at hooks, capability in the surface
