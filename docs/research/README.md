@@ -5,7 +5,8 @@ orchestrator (possibly renamed Orchestra). Authored October 2026 by GLM 5.3 Flas
 single-harness reports are grounded in code-level analysis of shallow clones at recorded HEAD
 commits, and the benchmark figures come from primary sources. Start with
 [synthesis.md](synthesis.md); the design proposal these reports feed is
-[../design/design-sketch.md](../design/design-sketch.md).
+[../design/design-sketch.md](../design/design-sketch.md), and the adversarial review of that
+proposal, consolidated, is [../design/audit-findings.md](../design/audit-findings.md).
 
 | Report | Subject | Lines |
 | --- | --- | --- |
