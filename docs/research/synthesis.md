@@ -16,7 +16,10 @@ sources. Reports: [pi.md](pi.md), [deepseek-harness.md](deepseek-harness.md), [f
 [arcee-nac.md](arcee-nac.md), [minimal-harness-survey.md](minimal-harness-survey.md),
 [benchmarks.md](benchmarks.md), [no-compaction-approaches.md](no-compaction-approaches.md),
 [no-compaction-harnesses.md](no-compaction-harnesses.md),
-[context-networking.md](context-networking.md).
+[context-networking.md](context-networking.md),
+[addressing-and-authority.md](addressing-and-authority.md),
+[deref-and-consistency.md](deref-and-consistency.md),
+[networked-context-program.md](networked-context-program.md).
 
 ## The six approaches
 
@@ -401,7 +404,13 @@ Where independent engineering arrived at the same answer, as observation:
   price and its Suffix Cache Reuse mitigation are measured on one serving stack, and its
   paper/repo numbers drift; the context-networking verdicts identify the missing primitives
   (cross-session addressing, read grants, deref budgets, passivation consistency) but no
-  implementation measures them.
+  implementation measures them; the research program
+  ([networked-context-program.md](networked-context-program.md)) now specifies candidate
+  designs for each missing primitive from the prior art — MVCC read semantics for
+  passivation consistency, byte-denominated projection-time budgets, the seL4/macaroon grant
+  shapes, and the append-only shared ledger as the only sharing mechanism consistent with
+  baton's recorded non-goals — plus an experimental ladder (commit-and-cite, one navigation
+  path, the measurement campaign).
 
 Design work for baton-cli starts from these reports and this evaluation; no design decisions
 are drawn here.

@@ -18,8 +18,11 @@ commits, and the benchmark figures come from primary sources. Start with
 | [context-language-models.md](context-language-models.md) | Meta Context Language Models: the context as a read-write file, edit-priced with serving-layer Suffix Cache Reuse | 164 |
 | [unreal-agent.md](unreal-agent.md) | Unreal Agent: async tool-call contract, exactly-once crash recovery over an event-sourced runtime journal | 151 |
 | [arcee-nac.md](arcee-nac.md) | Arcee NAC (Slate): tool-less orchestrator, fresh-process worker episodes, structurally compaction-free workers | 350 |
-| [context-networking.md](context-networking.md) | Evaluation of two posed compositions: native context passing and networked infinite context; idea-population as a fifth posture | 184 |
 | [no-compaction-harnesses.md](no-compaction-harnesses.md) | Shipping harnesses operating without compaction: Letta, deepagents, Claude Code memory/editing, Manus, Amp, Magentic-One, Mastra | 193 |
+| [context-networking.md](context-networking.md) | Evaluation of two posed compositions: native context passing and networked infinite context; idea-population as a fifth posture | 184 |
+| [addressing-and-authority.md](addressing-and-authority.md) | Prior art for the addressing + authority primitives: object capabilities, macaroons, Git/Datomic isomorphism, blackboard, Plan 9 | 154 |
+| [deref-and-consistency.md](deref-and-consistency.md) | Prior art for deref budgets, passivation consistency (MVCC), and the shared-live-context question; measurement design | 180 |
+| [networked-context-program.md](networked-context-program.md) | The consolidated research program: five primitives with candidate designs, the experimental ladder, what baton needs | 141 |
 | [benchmarks.md](benchmarks.md) | Agent-harness benchmarks: same-model harness variance, ablations, time horizons | 208 |
 | [synthesis.md](synthesis.md) | Evaluation of the harness-engineering approaches and how their architectures achieve them | 210 |
 
