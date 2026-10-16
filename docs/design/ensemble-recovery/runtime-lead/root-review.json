@@ -1,0 +1,9 @@
+{
+  "reviewed": "2026-10-16T19:09:01.929095+00:00",
+  "report": ".scratch/crash-recovery-20261016/proposal-orchestra/continuation/postboot-capture-20261016T190651Z/deliverables/runtime-lead/final-synthesis.md",
+  "bytes": 12039,
+  "sha256": "38810c8ff826512b6243c2b16231ac6af939d262cf5efd0efbf8f5409d8e64f8",
+  "accepted": true,
+  "scope": "Runtime integration final synthesis reviewed; no substantive change requested to published32f5f9217c953ebb04c63dcb6d8bcb5b90a91436. Exact CTE correction and original dissent/qualification limits preserved. Original design-lead final remains outstanding.",
+  "muse_seat": "Muse Spark1.3 contributor mode"
+}

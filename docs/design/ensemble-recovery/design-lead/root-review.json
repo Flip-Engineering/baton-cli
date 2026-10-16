@@ -1,0 +1,32 @@
+{
+  "reviewed_utc": "2026-10-16T19:26:42.637991+00:00",
+  "reader": "audit-root",
+  "path": ".scratch/crash-recovery-20261016/proposal-orchestra/continuation/postboot-capture-20261016T192554Z/deliverables/design-lead/final-synthesis.md",
+  "bytes": 9507,
+  "sha256": "50d259320c16a5c198becbf981dc5215c2b7fef053441dbc63a069d74d3cd37d",
+  "complete_authored_body_read": true,
+  "verdict": "Accepted as final design-lane synthesis with two narrow wording corrections authorized.",
+  "accepted_wording_corrections": [
+    "Baton REPL and compiler are required product components; REPL accepts Bend2 source only.",
+    "JS-hosted loader is an execution backend and establishes no additional REPL source language."
+  ],
+  "preserved_dissent": [
+    "No imposed duration/token/step ceilings.",
+    "Visibility and authorized cancellation govern unfinished observable work.",
+    "Declared byte projections retain complete handles and byte receipts."
+  ],
+  "unmeasured_limits_preserved": [
+    "Confined-child OS enforcement.",
+    "fd-versus-CAS binding race guarantees.",
+    "Async comparison and provider continuation acceptance."
+  ],
+  "formal_completion_request": "message:design-lead:bc940646577142cd9bdb77a663b563fe",
+  "native_uuid": "01a143e2-707c-7000-93b9-a48cd502d418",
+  "formal_report": "report:f492374c26b49ca39d3eb19053c7ea7d",
+  "formal_confirmation": "message:proposal-root:b15611ed34ca1cc25dbb6d81ed82fb0c",
+  "final_wording_design_sha256": "094353b74d8702b490a9cef5d99fa76b7df13114cfe3b06740481e0497a622f7",
+  "final_wording_design_bytes": 44481,
+  "original_reviewed_design_sha256": "b49ab64a5464ce8f042c2321968a4a40c854c87f5d1dd660a365863a1d51f57a",
+  "native_settlement": "Pending natural ordinary receive observation.",
+  "updated_utc": "2026-10-16T19:28:06.858323+00:00"
+}

@@ -1,8 +1,8 @@
 # Nested proposal audit
 
-Status: reviewed proposal revision. This contributor report accompanies the proposed
-[design sketch](design-sketch.md). The runtime and design leads' formal final syntheses remain
-pending recovery. The seat remains unimplemented.
+Status: reconciled proposal revision. This contributor report accompanies the proposed
+[design sketch](design-sketch.md). All three leads' formal final syntheses are reviewed and their
+exact completion requests confirmed. The seat remains unimplemented.
 Tracking: [baton-cli issue 1](https://github.com/Flip-Engineering/baton-cli/issues/1).
 
 The audit checked proposal baseline `5941316491eb01d8794abddc5dcf1798801c4aaf`, the
@@ -107,7 +107,10 @@ The corrected packet projects all 28 lifecycle events through an explicit metada
 All 315 authored message bodies and the authored reports are preserved. Complete original
 records remain in private custody. The manifest records the correction, original digest,
 replacement digest, and the structural audit of all 137 packet files. The configured credential
-patterns found no matches.
+patterns found no matches. The operator then approved a history cleanup preserving the
+corrected tree in `60a96c6728314a5d870cc58101d33b9b91199d49`. Root verified that the
+exposed conversation blob and its introducing commit are unreachable from main. Hosted
+unadvertised caches remain outside that verification.
 
 The packet includes the citation auditor's complete register, evidence lead's reviewed register
 and experiments, contracts review and scratch-database evidence, competing designs and reciprocal
@@ -198,8 +201,23 @@ native was composing its synthesis. The design lead's original pre-reboot stream
 observer reconciliation; its advancing checkpoint establishes no live native authorship. The
 remaining raw cursor was not obtained before host access failed.
 
-Root source review and the retained worker reports support this proposal revision. They establish
-no missing Conductor verdict or confirmation. Tracking issue 1 remains open. Recovery will retain
-the original identities, reconcile the actual final reports in a follow-up, and preserve dissent.
-The artifact manifest records hashes and source/capture lineage. Implementation, build, and live
-acceptance require their respective evidence.
+The [recovery supplement](ensemble-recovery/manifest.json) records completion on 2026-10-16.
+After boot `490a7e35-e3ce-4675-a6d3-ee7a25bf7183`, normal receives reconciled both original
+streams, retained their unknown-after-keeper-loss outcomes, and resumed each lead's exact original
+native history. Both leads delivered formal finals and received confirmation of their exact
+requests. Their native acknowledgments are retained. Runtime's ordinary receive ended naturally
+with exit 0 at 19:09:19 UTC; design's did so at 19:31:12 UTC. Original parent/model/native records
+and explicit stops were unchanged. Lifecycle metadata and handling evidence accompany the reports.
+
+Both leads accepted the reviewed design with SHA-256
+`b49ab64a5464ce8f042c2321968a4a40c854c87f5d1dd660a365863a1d51f57a`.
+Design-lead requested explicit required-product compiler/REPL scope, Bend2-only REPL source, and
+the JS-hosted loader's execution-backend qualification. Root reviewed those wording corrections;
+the resulting design has SHA-256
+`094353b74d8702b490a9cef5d99fa76b7df13114cfe3b06740481e0497a622f7`.
+The original verdicts, reviewed hashes and dissent remain preserved. The changes establish no
+implementation or execution result.
+
+Tracking issue 1 remains open and the seat remains unimplemented. The manifests record hashes
+and source/capture lineage. Implementation, build, release and live acceptance require their
+respective evidence.

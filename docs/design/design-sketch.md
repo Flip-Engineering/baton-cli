@@ -9,8 +9,10 @@ The target is **Baton**, using its native Bend2 coordinator. Current-source stat
 to `b1f006a6308bbb00e29a24322e4f7d5164774470` and its recorded Baton fork of Bend 2.0.25. Release
 installation and live acceptance require their own evidence. Historical JavaScript mechanisms are
 reference material at `1e050e420a99d775d3d2f943453c23535a701fd9`; that revision's `impl/` tree was
-removed from the native line in `2b8449af`. The separate Bend2 REPL/context work supplies a named
-dependency for the proposed commit-and-cite interface.
+removed from the native line in `2b8449af`. Baton's required product scope includes the compiler
+and a persistent Bend2 REPL. The REPL accepts Bend2 source only. The coordinator/REPL lane owns
+its interface and context substrate; the proposed seat's commit-and-cite interface depends on
+that work.
 
 ## 1. Seat and coordinator
 
@@ -133,8 +135,9 @@ omitted-byte receipts. Provenance records the source class, including peer input
 model-authored content.
 
 The initial seat preserves a typed workset, operation records, and spill references across turns.
-Generated-program values live in that program's process. A persistent Bend2 REPL may later own
-cross-turn values through an explicit storage and recovery contract (§8). In-process object
+Generated-program values live in that program's process. The seat may later store cross-turn
+values in the required persistent Bend2 REPL through an explicit storage and recovery contract
+(§8). In-process object
 identity, durable serialization, and process confinement are separate properties. The initial
 program lane specifies durable serialization and an executor policy independently; each needs its
 own implementation evidence.
@@ -243,7 +246,7 @@ The initial generated-program path runs Bend2 out of process. The seat writes th
 versioned SDK under its session directory, starts `bend <program> <args>` through authored process
 effects, and captures complete stdout, stderr, and status. SDK calls use a local codec endpoint and
 retain parent attribution. The reviewed upstream CLI supplies no embedded evaluator contract;
-the separate Baton Bend2 REPL work is an explicit dependency for any later persistent evaluator
+the seat's later persistent evaluator depends on the required Baton Bend2 REPL interface
 ([feasibility-bend2.md](feasibility-bend2.md), Use 3).
 
 A same-UID child inherits ambient filesystem, process, and network authority available to that
@@ -271,7 +274,8 @@ host costs; a promoted program needs its own size and reuse measurement.
 The interpreter checks before running and reports reliance on unsafe or foreign definitions.
 Admission records the applicable checker result, including `--check-only` where that is the chosen
 gate. The JS-hosted loader also checks and can call exported non-IO Bend2 definitions, returning
-JS-projected values. P10 demonstrates that interface in a Bun host; a typed seat result-codec
+JS-projected values. P10 demonstrates that interface in a Bun host. This loader is an execution
+backend; the REPL accepts Bend2 source only. A typed seat result-codec
 contract remains untested. Relative to the native seat, the host is a separate process whose
 authority, startup cost, and SDK interaction still need evaluation.
 

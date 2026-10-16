@@ -1,6 +1,6 @@
 {
   "preparedUtc": "2026-10-16T18:41:41.831119+00:00",
-  "status": "Evidence packet accompanying the root-reviewed proposal revision; runtime/design formal final syntheses and native continuation remain pending recovery.",
+  "status": "Original 137-file evidence packet with approved privacy/history correction; completed original-lead recovery is recorded in ../ensemble-recovery/manifest.json.",
   "auditBaseline": "5941316491eb01d8794abddc5dcf1798801c4aaf",
   "sourcePin": "b1f006a6308bbb00e29a24322e4f7d5164774470",
   "revisionBase": "26beba64b0d10336ff7783dcee58e78e5bb13c56",
@@ -1371,19 +1371,19 @@
   ],
   "formalSynthesisStatus": {
     "evidence-lead": "Exact completion request confirmed; no residual evidence conflicts reported.",
-    "runtime-lead": "Formal final synthesis and native continuation pending recovery; last observed native composing synthesis.",
-    "design-lead": "Formal final synthesis pending original pre-reboot stream reconciliation; no live native author established."
+    "runtime-lead": "Formal final reviewed, exact request confirmed, native acknowledgment observed; original ordinary receive natural exit 0 at 2026-10-16T19:09:19Z. See ../ensemble-recovery/manifest.json.",
+    "design-lead": "Formal final reviewed, exact request confirmed, native acknowledgment observed; original ordinary receive natural exit 0 at 2026-10-16T19:31:12Z. See ../ensemble-recovery/manifest.json."
   },
   "followupIssues": [
     "https://github.com/Flip-Engineering/baton-cli/issues/2",
     "https://github.com/Flip-Engineering/baton-cli/issues/3",
     "https://github.com/Flip-Engineering/baton-cli/issues/4"
   ],
-  "publishedDesignSha256": "b49ab64a5464ce8f042c2321968a4a40c854c87f5d1dd660a365863a1d51f57a",
+  "publishedDesignSha256": "094353b74d8702b490a9cef5d99fa76b7df13114cfe3b06740481e0497a622f7",
   "publicationCorrection": {
     "preparedUtc": "2026-10-16T19:16:37.195093+00:00",
     "priorPublicationCommit": "32f5f9217c953ebb04c63dcb6d8bcb5b90a91436",
-    "scope": "Remove unintended private native conversation bodies from public lifecycle evidence. Complete originals remain in private custody. No Git history rewrite was performed.",
+    "scope": "Remove unintended private native conversation bodies from public lifecycle evidence. Complete originals remain in private custody. The initial packet correction preserved history; the operator subsequently approved a main-history cleanup preserving the corrected tree.",
     "packetFilesAudited": 137,
     "affectedFiles": [
       "records.json"
@@ -1430,6 +1430,22 @@
       ],
       "originalRecordsSha256": "b74752e8d65c7d0b94bccd63e4526bcdba0d8296c81c0bbf22ea1d89c288a64c",
       "privateOriginalRetained": true
+    },
+    "approvedHistoryCleanup": {
+      "completedUtc": "2026-10-16T19:21:55.997185+00:00",
+      "operatorApproved": true,
+      "publicationCommit": "60a96c6728314a5d870cc58101d33b9b91199d49",
+      "parent": "26beba64b0d10336ff7783dcee58e78e5bb13c56",
+      "correctedTreePreserved": true,
+      "privateBlobReachableFromMain": false,
+      "exposingCommitReachableFromMain": false,
+      "cacheScope": "GitHub may retain unadvertised cached objects; this receipt proves main ref and its reachable objects."
     }
-  }
+  },
+  "leadReviewedDesignSha256": "b49ab64a5464ce8f042c2321968a4a40c854c87f5d1dd660a365863a1d51f57a",
+  "postSynthesisWordingAmendments": [
+    "State that compiler and persistent Bend2 REPL are required product components, with coordinator/REPL ownership and Bend2-only REPL source. Preserve the seat storage milestone choice.",
+    "Identify the demonstrated JS-hosted loader as an execution backend; preserve its measured interface and untested codec/confinement limits."
+  ],
+  "recoverySupplement": "../ensemble-recovery/manifest.json"
 }

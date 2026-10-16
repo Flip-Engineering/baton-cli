@@ -1,0 +1,19 @@
+{
+  "actor": "design-lead",
+  "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+  "report": "report:f492374c26b49ca39d3eb19053c7ea7d",
+  "request": "message:design-lead:bc940646577142cd9bdb77a663b563fe",
+  "confirmedBy": "proposal-root",
+  "confirmation": "message:proposal-root:b15611ed34ca1cc25dbb6d81ed82fb0c",
+  "read": "postboot-root-public-read-20261016T192707Z.json",
+  "finalFileBytes": 9507,
+  "finalFileSha256": "50d259320c16a5c198becbf981dc5215c2b7fef053441dbc63a069d74d3cd37d",
+  "status": "confirmed; original native completion acknowledgment observed; ordinary receive ended naturally with exit 0",
+  "acknowledgment": "receive:design-lead:340:151fd4a894e6670e744c3cd95ec26016",
+  "acknowledgmentRead": "postboot-root-public-read-20261016T193143Z.json",
+  "ordinaryReceiveEndedUtc": "2026-10-16T19:31:12.030855+00:00",
+  "ordinaryReceivePid": 38926,
+  "ordinaryReceiveBirth": "63563",
+  "uid": 986,
+  "naturalReturncode": 0
+}

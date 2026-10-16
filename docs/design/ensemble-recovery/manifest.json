@@ -1,0 +1,84 @@
+{
+  "preparedUtc": "2026-10-16T19:33:39.492097+00:00",
+  "status": "Original runtime and design lead formal finals reviewed, exact completion requests confirmed, native acknowledgments observed, and both ordinary receives ended naturally with exit 0.",
+  "reviewedSourcePin": "b1f006a6308bbb00e29a24322e4f7d5164774470",
+  "safePublicationCommit": "60a96c6728314a5d870cc58101d33b9b91199d49",
+  "leadReviewedDesignSha256": "b49ab64a5464ce8f042c2321968a4a40c854c87f5d1dd660a365863a1d51f57a",
+  "reconciledDesignSha256": "094353b74d8702b490a9cef5d99fa76b7df13114cfe3b06740481e0497a622f7",
+  "reconciliation": "Both leads accepted the reviewed design. Design-lead requested required-product REPL/compiler scope and Bend2-only REPL source wording, plus the JS-hosted loader execution-backend qualification. Root accepted those narrow wording changes. Original reviewed hashes, reports and dissent remain preserved.",
+  "privacy": "Native histories and raw conversation events remain in private custody. Public records use an explicit lifecycle metadata allowlist.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2632,
+      "sha256": "509e09cf5442cf3464b772043d119ea34a7c39920a4337738ead702677f78cc3"
+    },
+    {
+      "path": "design-completion.json",
+      "bytes": 940,
+      "sha256": "156a7b9577c9088bb688c7dfa6b3241de319712dea02f56025e117880aad44fe"
+    },
+    {
+      "path": "design-lead/final-synthesis.md",
+      "bytes": 9507,
+      "sha256": "50d259320c16a5c198becbf981dc5215c2b7fef053441dbc63a069d74d3cd37d"
+    },
+    {
+      "path": "design-lead/root-review.json",
+      "bytes": 1793,
+      "sha256": "509863f4adb3dec3bf937835060e9149952e7ab54867756179c9eeb8de9ddfea"
+    },
+    {
+      "path": "final-custody.json",
+      "bytes": 2428,
+      "sha256": "b0251a88005494feee3bca1d880c660d826bbcb5f9b5bdd3ce139c257cf74ffe"
+    },
+    {
+      "path": "records.json",
+      "bytes": 112826,
+      "sha256": "c4918375d2bd02069bf49cb858e58df0496f1aad8d4420794df8bb0b0a868667"
+    },
+    {
+      "path": "recovery-observation.json",
+      "bytes": 11146,
+      "sha256": "580d41f94abd3849ca070decc6454eb926979130fcb24b8b5834c11995eefc9d"
+    },
+    {
+      "path": "roster.json",
+      "bytes": 4204,
+      "sha256": "570ff15a78c283a2a82a001587e793d749d8545b4795ebf1f472bd2f5df1d691"
+    },
+    {
+      "path": "runtime-completion.json",
+      "bytes": 778,
+      "sha256": "c58631c21175a028da8c6fefba085fcaab10b712e974f4b21fa1e02e62329536"
+    },
+    {
+      "path": "runtime-lead/final-synthesis.md",
+      "bytes": 12039,
+      "sha256": "38810c8ff826512b6243c2b16231ac6af939d262cf5efd0efbf8f5409d8e64f8"
+    },
+    {
+      "path": "runtime-lead/probes/knowledge-laws-check.txt",
+      "bytes": 1332,
+      "sha256": "b899b5abfef966ccdff7d3fa6c65495da0d9cd1c42f807230a7e0566344c4e7c"
+    },
+    {
+      "path": "runtime-lead/probes/knowledge-search-scratch.err",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runtime-lead/probes/knowledge-search-scratch.out",
+      "bytes": 1063,
+      "sha256": "b4574882b37e84a5ac98d235c3a58dc43696eef88ccf3a224441cc6e2bc144e1"
+    },
+    {
+      "path": "runtime-lead/root-review.json",
+      "bytes": 647,
+      "sha256": "fe9f7f5d4b9bc302be9a5647be34129b4609d3645baf80d46dcaa80879fce2bf"
+    }
+  ],
+  "completedUtc": "2026-10-16T19:31:12.030855+00:00",
+  "issue1Status": "open; seat unimplemented"
+}

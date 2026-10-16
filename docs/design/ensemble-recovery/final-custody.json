@@ -1,0 +1,76 @@
+{
+  "observedUtc": "2026-10-16T19:32:28.315530+00:00",
+  "boot": "490a7e35-e3ce-4675-a6d3-ee7a25bf7183",
+  "namespaceOwner": {
+    "pid": 5001,
+    "birth": "2985",
+    "uid": 986
+  },
+  "stopsBefore": [],
+  "stopsAfter": [],
+  "stopsUnchanged": true,
+  "originalIdentityAndParentRecordsUnchanged": true,
+  "sessionCountBefore": 11,
+  "sessionCountAfter": 11,
+  "ordinaryReceiveResults": [
+    {
+      "actor": "runtime-lead",
+      "argv": [
+        "/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton",
+        "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db",
+        "as",
+        "proposal-root",
+        "receive",
+        "--session",
+        "runtime-lead"
+      ],
+      "pid": 38925,
+      "birth": "63563",
+      "uid": 986,
+      "boot_id": "490a7e35-e3ce-4675-a6d3-ee7a25bf7183",
+      "started": "2026-10-16T19:01:53.607964+00:00",
+      "original_native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "scope": "original retained observation and same-actor continuation; no new research assignment",
+      "ended": "2026-10-16T19:09:19.093942+00:00",
+      "returncode": 0,
+      "wait_status": 0,
+      "natural_wait_completed": true,
+      "usage": {
+        "maxrss": 2254668,
+        "utime": 362.331301,
+        "stime": 26.626668
+      }
+    },
+    {
+      "actor": "design-lead",
+      "argv": [
+        "/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton",
+        "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db",
+        "as",
+        "proposal-root",
+        "receive",
+        "--session",
+        "design-lead"
+      ],
+      "pid": 38926,
+      "birth": "63563",
+      "uid": 986,
+      "boot_id": "490a7e35-e3ce-4675-a6d3-ee7a25bf7183",
+      "started": "2026-10-16T19:01:53.609448+00:00",
+      "original_native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "scope": "original retained observation and same-actor continuation; no new research assignment",
+      "ended": "2026-10-16T19:31:12.030855+00:00",
+      "returncode": 0,
+      "wait_status": 0,
+      "natural_wait_completed": true,
+      "usage": {
+        "maxrss": 44443296,
+        "utime": 1570.598544,
+        "stime": 114.318571
+      }
+    }
+  ],
+  "normalRecoveryCompleted": {
+    "ended": "2026-10-16T19:31:12.031894+00:00"
+  }
+}

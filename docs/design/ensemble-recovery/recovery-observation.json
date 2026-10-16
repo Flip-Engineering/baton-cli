@@ -1,0 +1,273 @@
+{
+  "observedUtc": "2026-10-16T19:06:50.638235+00:00",
+  "boot": "490a7e35-e3ce-4675-a6d3-ee7a25bf7183",
+  "sourcePin": "b1f006a6308bbb00e29a24322e4f7d5164774470",
+  "checkpointValidationSource": "bend2/src/host/process-spawn.c: BrCheckpoint, br_checkpoint_check, br_checkpoint_verified_offset, br_attempt_identity, br_manifest_digest",
+  "priorPublicationCommit": "32f5f9217c953ebb04c63dcb6d8bcb5b90a91436",
+  "initialPostbootCustody": [
+    {
+      "session": "runtime-lead",
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "checkpointSha256": "acae1691de5e4f9ac6eb724f51668cb362a4e57677f733e14e75372493c4da64",
+      "checkpointBytes": 6334,
+      "manifestSha256": "fe780402e20eb8ff3d138d9b9196fbe9a2271bba50bd4358bc33fe58a148d4c6",
+      "nativeBirthSha256": "da646b74fd3928199c0002dc2414d362e5d753c4d2aaaf2a378f97517d0e9bad",
+      "checks": {
+        "magic": true,
+        "length": true,
+        "checksum": true,
+        "birth": true,
+        "manifest": true,
+        "attemptNamespacePath": true,
+        "attemptPhysicalPath": false,
+        "spoolInode": true,
+        "spoolDevice": true,
+        "offsetBounds": true
+      },
+      "stdoutBytes": 261467449,
+      "offset": 256008774,
+      "remainingBytes": 5458675
+    },
+    {
+      "session": "design-lead",
+      "attempt": "receive:design-lead:3:9602d8604a2a93fb75cb420cdd6d1f3f",
+      "checkpointSha256": "30c48d3415e528d33b3cb8fd4922335fba26186cbbeac54a77c2911883dbb891",
+      "checkpointBytes": 79298,
+      "manifestSha256": "1595daad6a2b39c45d5e305277cf6603d5dbc4275fd23b90aed32beab60f5700",
+      "nativeBirthSha256": "c9b102ff500f6160d94941c0f4bd9e5cd14302de014ca2bb9a170165800bfe1d",
+      "checks": {
+        "magic": true,
+        "length": true,
+        "checksum": true,
+        "birth": true,
+        "manifest": true,
+        "attemptNamespacePath": true,
+        "attemptPhysicalPath": false,
+        "spoolInode": true,
+        "spoolDevice": true,
+        "offsetBounds": true
+      },
+      "stdoutBytes": 967455208,
+      "offset": 814952333,
+      "remainingBytes": 152502875
+    }
+  ],
+  "normalRecoveryProcesses": [
+    {
+      "pid": 38901,
+      "ppid": 38899,
+      "birth": "63552",
+      "uid": 986,
+      "rssKiB": 24204,
+      "utimeTicks": "5",
+      "stimeTicks": "3",
+      "state": "S",
+      "cmdline": "/usr/bin/python3 -I -u /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/recovery-20261016T1901Z/operator.py "
+    },
+    {
+      "pid": 38925,
+      "ppid": 38901,
+      "birth": "63563",
+      "uid": 986,
+      "rssKiB": 10568,
+      "utimeTicks": "0",
+      "stimeTicks": "0",
+      "state": "S",
+      "cmdline": "/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db as proposal-root receive --session runtime-lead "
+    },
+    {
+      "pid": 38926,
+      "ppid": 38901,
+      "birth": "63563",
+      "uid": 986,
+      "rssKiB": 10584,
+      "utimeTicks": "0",
+      "stimeTicks": "0",
+      "state": "S",
+      "cmdline": "/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db as proposal-root receive --session design-lead "
+    },
+    {
+      "pid": 38934,
+      "ppid": 38926,
+      "birth": "63565",
+      "uid": 986,
+      "rssKiB": 9359544,
+      "utimeTicks": "27189",
+      "stimeTicks": "1721",
+      "state": "R",
+      "cmdline": "/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db agent-native-input "
+    },
+    {
+      "pid": 38935,
+      "ppid": 38925,
+      "birth": "63565",
+      "uid": 986,
+      "rssKiB": 1890188,
+      "utimeTicks": "24563",
+      "stimeTicks": "1785",
+      "state": "S",
+      "cmdline": "/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db agent-native-input "
+    },
+    {
+      "pid": 38938,
+      "ppid": 38934,
+      "birth": "63568",
+      "uid": 986,
+      "rssKiB": 9048,
+      "utimeTicks": "5",
+      "stimeTicks": "34",
+      "state": "S",
+      "cmdline": "/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton --instance-owner /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db "
+    },
+    {
+      "pid": 39048,
+      "ppid": 38938,
+      "birth": "64369",
+      "uid": 986,
+      "rssKiB": 272372,
+      "utimeTicks": "1594",
+      "stimeTicks": "787",
+      "state": "S",
+      "cmdline": "/mnt/nvme4tb/ci-runners/baton2-native-homelab/home/.local/share/baton-native-clients/omp-17.4.0-linux-x64/omp --mode rpc --model kimi-code/k3 --thinking high --approval-mode yolo --session-dir /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db.session-72756e74696d652d6c656164 --resume /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db.session-72756e74696d652d6c656164/2026-10-16T08-44-35-708Z_01a143e2-6ffc-7000-8bd1-f85cf7a147ad.jsonl "
+    }
+  ],
+  "memory": {
+    "MemAvailable:": "MemAvailable:   186332684 kB",
+    "SwapFree:": "SwapFree:        8388604 kB",
+    "MemTotal:": "MemTotal:       230946120 kB",
+    "pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=5668\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=5356\n"
+  },
+  "qualification": "Both original lead attempts settled as unknown after keeper loss through normal custody. Each continuation resumed its exact original native conversation, authored its actual formal final, received confirmation of its exact request, acknowledged completion, and ended its ordinary receive naturally with exit 0. Raw conversation histories and private model context remain in private custody. Stream sizes and memory observations establish no cause of the prior host outage.",
+  "latestObservation": {
+    "observedUtc": "2026-10-16T19:19:34.926455+00:00",
+    "memory": {
+      "MemAvailable:": "MemAvailable:   160460748 kB",
+      "SwapFree:": "SwapFree:        8388604 kB",
+      "MemTotal:": "MemTotal:       230946120 kB",
+      "pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=5668\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=5357\n"
+    },
+    "processes": [
+      {
+        "pid": 38901,
+        "ppid": 38899,
+        "birth": "63552",
+        "uid": 986,
+        "rssKiB": 24204,
+        "utimeTicks": "5",
+        "stimeTicks": "3",
+        "state": "S",
+        "cmdline": "/usr/bin/python3 -I -u /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/recovery-20261016T1901Z/operator.py "
+      },
+      {
+        "pid": 38926,
+        "ppid": 38901,
+        "birth": "63563",
+        "uid": 986,
+        "rssKiB": 10584,
+        "utimeTicks": "0",
+        "stimeTicks": "0",
+        "state": "S",
+        "cmdline": "/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db as proposal-root receive --session design-lead "
+      },
+      {
+        "pid": 38934,
+        "ppid": 38926,
+        "birth": "63565",
+        "uid": 986,
+        "rssKiB": 33297908,
+        "utimeTicks": "97164",
+        "stimeTicks": "6098",
+        "state": "R",
+        "cmdline": "/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db agent-native-input "
+      },
+      {
+        "pid": 38938,
+        "ppid": 38934,
+        "birth": "63568",
+        "uid": 986,
+        "rssKiB": 9048,
+        "utimeTicks": "5",
+        "stimeTicks": "50",
+        "state": "S",
+        "cmdline": "/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton --instance-owner /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db "
+      }
+    ],
+    "designRawCursor": {
+      "stdoutBytes": 967455208,
+      "recordedOffset": 934471276,
+      "remainingBytes": 32983932,
+      "headerLengthMatches": true,
+      "spoolInodeMatches": true,
+      "checksumVerified": false
+    }
+  },
+  "finalObservation": {
+    "observedUtc": "2026-10-16T19:33:39.302757+00:00",
+    "boot": "490a7e35-e3ce-4675-a6d3-ee7a25bf7183",
+    "memory": {
+      "MemAvailable:": "MemAvailable:   139456840 kB",
+      "SwapFree:": "SwapFree:        7715940 kB",
+      "MemTotal:": "MemTotal:       230946120 kB",
+      "pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=393264\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=388519\n"
+    },
+    "proposalProcesses": [],
+    "ordinaryReceiveResults": {
+      "runtime-lead": {
+        "actor": "runtime-lead",
+        "argv": [
+          "/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton",
+          "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db",
+          "as",
+          "proposal-root",
+          "receive",
+          "--session",
+          "runtime-lead"
+        ],
+        "pid": 38925,
+        "birth": "63563",
+        "uid": 986,
+        "boot_id": "490a7e35-e3ce-4675-a6d3-ee7a25bf7183",
+        "started": "2026-10-16T19:01:53.607964+00:00",
+        "original_native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+        "scope": "original retained observation and same-actor continuation; no new research assignment",
+        "ended": "2026-10-16T19:09:19.093942+00:00",
+        "returncode": 0,
+        "wait_status": 0,
+        "natural_wait_completed": true,
+        "usage": {
+          "maxrss": 2254668,
+          "utime": 362.331301,
+          "stime": 26.626668
+        }
+      },
+      "design-lead": {
+        "actor": "design-lead",
+        "argv": [
+          "/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton",
+          "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db",
+          "as",
+          "proposal-root",
+          "receive",
+          "--session",
+          "design-lead"
+        ],
+        "pid": 38926,
+        "birth": "63563",
+        "uid": 986,
+        "boot_id": "490a7e35-e3ce-4675-a6d3-ee7a25bf7183",
+        "started": "2026-10-16T19:01:53.609448+00:00",
+        "original_native": "01a143e2-707c-7000-93b9-a48cd502d418",
+        "scope": "original retained observation and same-actor continuation; no new research assignment",
+        "ended": "2026-10-16T19:31:12.030855+00:00",
+        "returncode": 0,
+        "wait_status": 0,
+        "natural_wait_completed": true,
+        "usage": {
+          "maxrss": 44443296,
+          "utime": 1570.598544,
+          "stime": 114.318571
+        }
+      }
+    }
+  }
+}

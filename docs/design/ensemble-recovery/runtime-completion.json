@@ -1,0 +1,16 @@
+{
+  "actor": "runtime-lead",
+  "report": "report:d1ef8db13421ab4f9eb4157327785ef4",
+  "request": "message:runtime-lead:75e021b6f16925aca480e51b1b728216",
+  "confirmedBy": "proposal-root",
+  "confirmation": "message:proposal-root:2b72db95379bf0de5e6054023d663c11",
+  "read": "postboot-root-public-read-20261016T190713Z.json",
+  "status": "confirmed; ordinary receive ended naturally with exit 0 and original actor authored completion acknowledgment",
+  "acknowledgment": "receive:runtime-lead:326:364dc5a45273f883eb2be9e542fa7bbe",
+  "acknowledgmentRead": "postboot-root-public-read-20261016T191228Z.json",
+  "ordinaryReceiveEndedUtc": "2026-10-16T19:09:19.093942+00:00",
+  "ordinaryReceivePid": 38925,
+  "ordinaryReceiveBirth": "63563",
+  "uid": 986,
+  "naturalReturncode": 0
+}

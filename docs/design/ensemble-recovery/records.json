@@ -1,0 +1,1382 @@
+{
+  "observedUtc": "2026-10-16T19:31:43.793330+00:00",
+  "sourceCapture": "postboot-capture-20261016T193144Z",
+  "sessions": [
+    {
+      "id": "proposal-root",
+      "parent": null,
+      "harness": "terminal",
+      "model": "",
+      "effort": "",
+      "native": "",
+      "observed_harness": "",
+      "observed_model": "",
+      "observed_effort": "",
+      "endpoint": "",
+      "workspace": "",
+      "branch": "",
+      "base": ""
+    },
+    {
+      "id": "operator",
+      "parent": null,
+      "harness": "terminal",
+      "model": "",
+      "effort": "",
+      "native": "",
+      "observed_harness": "",
+      "observed_model": "",
+      "observed_effort": "",
+      "endpoint": "",
+      "workspace": "",
+      "branch": "",
+      "base": ""
+    },
+    {
+      "id": "evidence-lead",
+      "parent": "proposal-root",
+      "harness": "muse",
+      "model": "muse-spark-1.3-contributor",
+      "effort": "high",
+      "native": "01a143e2-6760-7193-98c0-743b818c355e",
+      "observed_harness": "",
+      "observed_model": "muse-spark-1.3-contributor",
+      "observed_effort": "",
+      "endpoint": "[\"/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db\",\"receive\",\"evidence-lead\",\"/mnt/nvme4tb/ci-runners/baton2-native-homelab/home/.local/share/baton-native-clients/muse-stable/muse\",\"\",\"\",\"\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/evidence-lead.jsonl\"]",
+      "workspace": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/baton-cli",
+      "branch": "HEAD",
+      "base": "5941316491eb01d8794abddc5dcf1798801c4aaf"
+    },
+    {
+      "id": "citation-auditor",
+      "parent": "evidence-lead",
+      "harness": "omp",
+      "model": "zai/glm-5.3-flash",
+      "effort": "high",
+      "native": "01a143e3-b034-7000-9427-4c77abd5bec0",
+      "observed_harness": "",
+      "observed_model": "zai/glm-5.3-flash",
+      "observed_effort": "",
+      "endpoint": "[\"/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db\",\"receive\",\"citation-auditor\",\"/mnt/nvme4tb/ci-runners/baton2-native-homelab/home/.local/share/baton-native-clients/omp-17.4.0-linux-x64/omp\",\"\",\"\",\"\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/citation-auditor.jsonl\"]",
+      "workspace": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/baton-cli",
+      "branch": "HEAD",
+      "base": "5941316491eb01d8794abddc5dcf1798801c4aaf"
+    },
+    {
+      "id": "research-critic",
+      "parent": "evidence-lead",
+      "harness": "omp",
+      "model": "zai/glm-5.3-flash",
+      "effort": "high",
+      "native": "01a143e3-e0d6-7000-991e-1c0168674a28",
+      "observed_harness": "",
+      "observed_model": "zai/glm-5.3-flash",
+      "observed_effort": "",
+      "endpoint": "[\"/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db\",\"receive\",\"research-critic\",\"/mnt/nvme4tb/ci-runners/baton2-native-homelab/home/.local/share/baton-native-clients/omp-17.4.0-linux-x64/omp\",\"\",\"\",\"\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/research-critic.jsonl\"]",
+      "workspace": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/baton-cli",
+      "branch": "HEAD",
+      "base": "5941316491eb01d8794abddc5dcf1798801c4aaf"
+    },
+    {
+      "id": "runtime-lead",
+      "parent": "proposal-root",
+      "harness": "omp",
+      "model": "kimi-code/k3",
+      "effort": "high",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "observed_harness": "",
+      "observed_model": "kimi-code/k3",
+      "observed_effort": "",
+      "endpoint": "[\"/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db\",\"receive\",\"runtime-lead\",\"/mnt/nvme4tb/ci-runners/baton2-native-homelab/home/.local/share/baton-native-clients/omp-17.4.0-linux-x64/omp\",\"\",\"\",\"\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/runtime-lead.jsonl\"]",
+      "workspace": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/baton-cli",
+      "branch": "HEAD",
+      "base": "5941316491eb01d8794abddc5dcf1798801c4aaf"
+    },
+    {
+      "id": "bend-feasibility",
+      "parent": "runtime-lead",
+      "harness": "omp",
+      "model": "zai/glm-5.3-flash",
+      "effort": "high",
+      "native": "01a143e3-b220-7000-add4-eac134c19cb3",
+      "observed_harness": "",
+      "observed_model": "zai/glm-5.3-flash",
+      "observed_effort": "",
+      "endpoint": "[\"/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db\",\"receive\",\"bend-feasibility\",\"/mnt/nvme4tb/ci-runners/baton2-native-homelab/home/.local/share/baton-native-clients/omp-17.4.0-linux-x64/omp\",\"\",\"\",\"\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/bend-feasibility.jsonl\"]",
+      "workspace": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/baton-cli",
+      "branch": "HEAD",
+      "base": "5941316491eb01d8794abddc5dcf1798801c4aaf"
+    },
+    {
+      "id": "baton-contracts",
+      "parent": "runtime-lead",
+      "harness": "muse",
+      "model": "muse-spark-1.3-contributor",
+      "effort": "high",
+      "native": "01a143e3-a972-7ba0-b915-d01414e7441e",
+      "observed_harness": "",
+      "observed_model": "muse-spark-1.3-contributor",
+      "observed_effort": "",
+      "endpoint": "[\"/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db\",\"receive\",\"baton-contracts\",\"/mnt/nvme4tb/ci-runners/baton2-native-homelab/home/.local/share/baton-native-clients/muse-stable/muse\",\"\",\"\",\"\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/baton-contracts.jsonl\"]",
+      "workspace": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/baton-cli",
+      "branch": "HEAD",
+      "base": "5941316491eb01d8794abddc5dcf1798801c4aaf"
+    },
+    {
+      "id": "design-lead",
+      "parent": "proposal-root",
+      "harness": "omp",
+      "model": "deepseek/deepseek-flash",
+      "effort": "high",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "observed_harness": "",
+      "observed_model": "deepseek/deepseek-flash",
+      "observed_effort": "",
+      "endpoint": "[\"/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db\",\"receive\",\"design-lead\",\"/mnt/nvme4tb/ci-runners/baton2-native-homelab/home/.local/share/baton-native-clients/omp-17.4.0-linux-x64/omp\",\"\",\"\",\"\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/design-lead.jsonl\"]",
+      "workspace": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/baton-cli",
+      "branch": "HEAD",
+      "base": "5941316491eb01d8794abddc5dcf1798801c4aaf"
+    },
+    {
+      "id": "proposal-strongman",
+      "parent": "design-lead",
+      "harness": "muse",
+      "model": "muse-spark-1.3-contributor",
+      "effort": "high",
+      "native": "01a143e3-cb26-7322-865a-112f34f9b610",
+      "observed_harness": "",
+      "observed_model": "muse-spark-1.3-contributor",
+      "observed_effort": "",
+      "endpoint": "[\"/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db\",\"receive\",\"proposal-strongman\",\"/mnt/nvme4tb/ci-runners/baton2-native-homelab/home/.local/share/baton-native-clients/muse-stable/muse\",\"\",\"\",\"\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/proposal-strongman.jsonl\"]",
+      "workspace": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/baton-cli",
+      "branch": "HEAD",
+      "base": "5941316491eb01d8794abddc5dcf1798801c4aaf"
+    },
+    {
+      "id": "failure-evaluation",
+      "parent": "design-lead",
+      "harness": "omp",
+      "model": "zai/glm-5.3-flash",
+      "effort": "high",
+      "native": "01a143e4-34e5-7000-a837-d80957bbce0c",
+      "observed_harness": "",
+      "observed_model": "zai/glm-5.3-flash",
+      "observed_effort": "",
+      "endpoint": "[\"/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db\",\"receive\",\"failure-evaluation\",\"/mnt/nvme4tb/ci-runners/baton2-native-homelab/home/.local/share/baton-native-clients/omp-17.4.0-linux-x64/omp\",\"\",\"\",\"\",\"/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/failure-evaluation.jsonl\"]",
+      "workspace": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/baton-cli",
+      "branch": "HEAD",
+      "base": "5941316491eb01d8794abddc5dcf1798801c4aaf"
+    }
+  ],
+  "executions": [
+    {
+      "session": "evidence-lead",
+      "id": "receive:evidence-lead:282:5e61a7325b5d099f2644e23d813d5ce9",
+      "mode": "retained",
+      "directory": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db.attempt-726563656976653a65766964656e63652d6c6561643a3238323a3565363161373332356235643039396632363434653233643831336435636539",
+      "phase": "exited",
+      "status": "exit 0"
+    },
+    {
+      "session": "runtime-lead",
+      "id": "receive:runtime-lead:326:364dc5a45273f883eb2be9e542fa7bbe",
+      "mode": "retained",
+      "directory": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db.attempt-726563656976653a72756e74696d652d6c6561643a3332363a3336346463356134353237336638383365623262653965353432666137626265",
+      "phase": "exited",
+      "status": "exit 0"
+    },
+    {
+      "session": "design-lead",
+      "id": "receive:design-lead:340:151fd4a894e6670e744c3cd95ec26016",
+      "mode": "retained",
+      "directory": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db.attempt-726563656976653a64657369676e2d6c6561643a3334303a3135316664346138393465363637306537343463336364393565633236303136",
+      "phase": "exited",
+      "status": "exit 0"
+    },
+    {
+      "session": "citation-auditor",
+      "id": "receive:citation-auditor:281:08c18f3abe00eb02183be17d607cabb5",
+      "mode": "retained",
+      "directory": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db.attempt-726563656976653a6369746174696f6e2d61756469746f723a3238313a3038633138663361626530306562303231383362653137643630376361626235",
+      "phase": "exited",
+      "status": "exit 0"
+    },
+    {
+      "session": "bend-feasibility",
+      "id": "receive:bend-feasibility:316:8727c8a783a713df959c275ae7c23ef3",
+      "mode": "retained",
+      "directory": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db.attempt-726563656976653a62656e642d666561736962696c6974793a3331363a3837323763386137383361373133646639353963323735616537633233656633",
+      "phase": "exited",
+      "status": "exit 0"
+    },
+    {
+      "session": "baton-contracts",
+      "id": "receive:baton-contracts:317:5fa5657cfe4d4a04c53828b5b10e016d",
+      "mode": "retained",
+      "directory": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db.attempt-726563656976653a6261746f6e2d636f6e7472616374733a3331373a3566613536353763666534643461303463353338323862356231306530313664",
+      "phase": "exited",
+      "status": "exit 0"
+    },
+    {
+      "session": "proposal-strongman",
+      "id": "receive:proposal-strongman:332:ed2ec2efd075a9d2c16eb7cdc2e77547",
+      "mode": "retained",
+      "directory": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db.attempt-726563656976653a70726f706f73616c2d7374726f6e676d616e3a3333323a6564326563326566643037356139643263313665623763646332653737353437",
+      "phase": "exited",
+      "status": "exit 0"
+    },
+    {
+      "session": "research-critic",
+      "id": "receive:research-critic:239:4de8fa1584220522b89a9b5abbebf508",
+      "mode": "retained",
+      "directory": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db.attempt-726563656976653a72657365617263682d6372697469633a3233393a3464653866613135383432323035323262383961396235616262656266353038",
+      "phase": "exited",
+      "status": "exit 0"
+    },
+    {
+      "session": "failure-evaluation",
+      "id": "receive:failure-evaluation:333:c5612a3918dfb17b1051e4ce590d2b14",
+      "mode": "retained",
+      "directory": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db.attempt-726563656976653a6661696c7572652d6576616c756174696f6e3a3333333a6335363132613339313864666231376231303531653463653539306432623134",
+      "phase": "exited",
+      "status": "exit 0"
+    }
+  ],
+  "messages": [
+    {
+      "seq": 316,
+      "id": "message:runtime-lead:23d329f0f6af997acb6f0463fe4d1701",
+      "sender": "runtime-lead",
+      "recipient": "bend-feasibility",
+      "kind": "completion-confirmed",
+      "body": "message:bend-feasibility:cb86dbf04d015bb2c78ad140be8bcd41",
+      "receipt": "native-turn:receive:bend-feasibility:316:8727c8a783a713df959c275ae7c23ef3"
+    },
+    {
+      "seq": 317,
+      "id": "message:runtime-lead:985355bc426a85e73675c90d556c92d8",
+      "sender": "runtime-lead",
+      "recipient": "baton-contracts",
+      "kind": "completion-confirmed",
+      "body": "message:baton-contracts:e3126cbd80751c574303cfe9b104d104",
+      "receipt": "native-turn:receive:baton-contracts:317:5fa5657cfe4d4a04c53828b5b10e016d"
+    },
+    {
+      "seq": 318,
+      "id": "receive:bend-feasibility:316:8727c8a783a713df959c275ae7c23ef3",
+      "sender": "bend-feasibility",
+      "recipient": "runtime-lead",
+      "kind": "report",
+      "body": "Round closed. runtime-lead confirmed the critique round's completion request (`message:bend-feasibility:cb86dbf0\u2026` \u2192 `completion-confirmed`, acknowledged with this turn's receipt).\n\nAssignment state:\n- **Independent round**: `report:1db006672cb3467c582934e5385fe3fb` + confirmed completion `message:bend-feasibility:92b02f50\u2026` \u2014 twelve feasibility probes with captured outputs, FINDINGS.md, review-corrections.md, six knowledge records.\n- **Critique round (tasks 290/291)**: `report:79abfe24304be7f1cbe4d9a89965bf64` + confirmed completion `message:bend-feasibility:cb86dbf0\u2026` \u2014 accepted/corrected baton-contracts on my feasibility ground (C1-C6, T9b/T11/T12 test amendments, F4 severity upgrade, D1-D4 dispositions, confined-child dissent preserved), artifacts under `deliverables/bend-feasibility/critique/`.\n\nNo open work remains in either round; no unfinished edits, no outstanding qualification beyond the recorded open limits (crash-window replay, confined-child authority probe, module load/reload custody, 4 GiB rotation, template-guard trigger shape \u2014 all carried in FINDINGS.md \u00a79 and the confirmed reports). Returning to wait for runtime-lead.",
+      "receipt": "native-turn:receive:runtime-lead:319:a0316a41e95980fde1498c62e26b4a14"
+    },
+    {
+      "seq": 319,
+      "id": "receive:baton-contracts:317:5fa5657cfe4d4a04c53828b5b10e016d",
+      "sender": "baton-contracts",
+      "recipient": "runtime-lead",
+      "kind": "report",
+      "body": "Completion confirmed by runtime-lead for the reciprocal critique round. My work here is done: independent audit, feasibility critique, and reconciled-design critique all delivered with artifacts preserved, findings recorded, and dissent kept explicit. I remain assigned if a follow-up round opens.",
+      "receipt": "native-turn:receive:runtime-lead:319:a0316a41e95980fde1498c62e26b4a14"
+    },
+    {
+      "seq": 320,
+      "id": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "sender": "runtime-lead",
+      "recipient": "proposal-root",
+      "kind": "report",
+      "body": "Player process ended without a native result (unknown after keeper loss). Output: /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/runtime-lead.jsonl.attempt-receive%3aruntime-lead%3a180%3ad72d640615c2955b48bb6594068dc507. Stderr: /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db.attempt-726563656976653a72756e74696d652d6c6561643a3138303a6437326436343036313563323935356234386262363539343036386463353037/native.stderr",
+      "receipt": null
+    },
+    {
+      "seq": 321,
+      "id": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507:exit",
+      "sender": "runtime-lead",
+      "recipient": "proposal-root",
+      "kind": "report",
+      "body": "Player process ended with unknown after keeper loss",
+      "receipt": null
+    },
+    {
+      "seq": 322,
+      "id": "message:proposal-root:2b7a5cc76ccd94a8e1e39f1125abfb4a",
+      "sender": "proposal-root",
+      "recipient": "runtime-lead",
+      "kind": "guidance",
+      "body": "Continue your existing assignment and native conversation after the host reboot. This is the same synthesis round. The root has accepted and published the reviewed proposal at baton-cli commit 32f5f9217c953ebb04c63dcb6d8bcb5b90a91436. Issue #1 remains open; your formal final synthesis is explicitly pending. Publication requires no new approval or research round.\n\nThe published design and audit are copied under /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/delivery-published-32f5f921/. The design SHA256 is b49ab64a5464ce8f042c2321968a4a40c854c87f5d1dd660a365863a1d51f57a. Existing original reports, findings, critiques, pending inputs, completion requests, parent relationships and dissent remain authoritative. Finish your existing reconciliation and formal report, preserving actual source versus proposed features and paper versus local measurement. Flag remaining substantive disagreements with exact evidence; no invented votes or confirmations.\n\nOperator clarification: shipped Baton features and their compiler/REPL dependencies are mandatory normal product content. Preserve legitimately unresolved implementation alternatives in the design. The no-duration/token/step-cap instruction remains in effect.\n\nBefore the reboot, you confirmed the original reciprocal Bend and contracts requests in messages316/317; worker acknowledgments318/319 are retained. The false nodes/edges persistent-table allegation remains rejected: graph_ctes creates CTEs at the pinned source. Continue your synthesis from the actual original worker reports.\n",
+      "receipt": "native-turn:receive:runtime-lead:319:a0316a41e95980fde1498c62e26b4a14"
+    },
+    {
+      "seq": 323,
+      "id": "message:proposal-root:97742c1c863e1eaf31ad156a030e3fc1",
+      "sender": "proposal-root",
+      "recipient": "design-lead",
+      "kind": "guidance",
+      "body": "Continue your existing assignment and native conversation after the host reboot. This is the same synthesis round. The root has accepted and published the reviewed proposal at baton-cli commit 32f5f9217c953ebb04c63dcb6d8bcb5b90a91436. Issue #1 remains open; your formal final synthesis is explicitly pending. Publication requires no new approval or research round.\n\nThe published design and audit are copied under /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/delivery-published-32f5f921/. The design SHA256 is b49ab64a5464ce8f042c2321968a4a40c854c87f5d1dd660a365863a1d51f57a. Existing original reports, findings, critiques, pending inputs, completion requests, parent relationships and dissent remain authoritative. Finish your existing reconciliation and formal report, preserving actual source versus proposed features and paper versus local measurement. Flag remaining substantive disagreements with exact evidence; no invented votes or confirmations.\n\nOperator clarification: shipped Baton features and their compiler/REPL dependencies are mandatory normal product content. Preserve legitimately unresolved implementation alternatives in the design. The no-duration/token/step-cap instruction remains in effect.\n\nYour historical native spool and checkpoint survived. Normal receive is reconciling that original output before continuing your same DeepSeek native conversation. Failure-evaluation completion request213 and the original strongman material remain pending for your actual handling; preserve their dissent and perform only the existing reconciliation.\n",
+      "receipt": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "seq": 324,
+      "id": "report:d1ef8db13421ab4f9eb4157327785ef4",
+      "sender": "runtime-lead",
+      "recipient": "proposal-root",
+      "kind": "report",
+      "body": "# runtime-lead FINAL SYNTHESIS \u2014 Ensemble runtime-integration (proposal-deliberation)\n\nAssignment: baton-cli issue #1 heavy-orchestra audit, runtime-integration lane (Bend2\nfeasibility + Baton contracts). Status: COMPLETE. Independent rounds, reciprocal critiques,\nand peer deliberation finished; both workers' completion requests confirmed pre-reboot\n(message:runtime-lead:23d329f0f6af997acb6f0463fe4d1701 to bend-feasibility;\nmessage:runtime-lead:985355bc426a85e73675c90d556c92d8 to baton-contracts; worker\nacknowledgments receive:316/317 retained).\n\n## 0. Publication verdict\n\nRoot published the reviewed proposal at baton-cli commit 32f5f9217c953ebb04c63dcb6d8bcb5b90a91436.\nI diffed the published design-sketch.md (SHA256 b49ab64a5464ce8f042c2321968a4a40c854c87f5d1dd660a365863a1d51f57a)\nagainst the last reviewed candidate (reconciled.89360bd04154): every delta is an integration of\nthis lane's critique residuals \u2014 control-laws.bend and turn.bend named in the adapter change set\nwith the launch dispatcher's Claude fall-through called out and a refuse-before-launch test\nrequired; completion-request mechanism honestly scoped (current coordinator carries an authored\nbody; per-operation pending-state report is proposed); TCP EOF semantics (peer close = empty\nstring, None{} = timeout-only) added; knowledge pull-only consumption clarified; managed-query\nadmission store named as the reuse candidate for named cells/versions/leases; toolchain fork\nrecorded as qualification:false diagnostic evidence with release qualification at PR #772;\nfollow-ups filed as baton-cli issues #2 (native seat integration), #3 (uncertain tool-effect\nrecovery), #4 (admitted artifact execution). No substantive disagreement with the published text\nremains from this lane. Issue #1 stays open; the lane's residual dissent is in \u00a76.\n\n## 1. Worker round lineage (preserved)\n\n- bend-feasibility (omp, zai/glm-5.3-flash): independent round report:1db006672cb3467c582934e5385fe3fb\n  (twelve probes, retained outputs/exit codes; one process loss to the operator reboot retained as\n  unknown-after-keeper-loss; recovered under its existing identity); critique round\n  report:79abfe24304be7f1cbe4d9a89965bf64. Deliverables: deliverables/bend-feasibility/\n  (FINDINGS.md, review-corrections.md, probes/p01-p12, critique/).\n- baton-contracts (muse): independent round report:7a439ac72754d35ef2ead4f37811509c; feasibility\n  critique report:07310197502aa0c9c517cc89669ac4c2; candidate critique\n  report:e55c26f6f8509ea94c2a148be1e5bc46. Deliverables: deliverables/baton-contracts/\n  (report.md, evidence.md, critique/, reciprocal/, scratch DB copy).\n- runtime-lead independent findings: knowledge-record:d0920646549e4500cda9ed2247c8d1b5,\n  ff6528be175ad8a2bf0c2c3f6020c6e2, dcfb7c75ac5f67ffd4f18df072720e46,\n  2a3e50b883e5d1f186eb3bd930925824, d46edc1d2683955235f7696b55da6982,\n  64806ea0afbf22857d8ea75df2b85156, f36446ec9d38b7c83897e63f19e341d0. Deliverables:\n  deliverables/runtime-lead/ (amendments-r1.md, amendments-r2.md, interim-report-1.txt, probes/).\n\n## 2. Reconciled conclusions (multi-witness)\n\n- CLOSED HARNESS SET is the milestone-0 precondition for any baton-cli seat. The\n  `('codex','omp','muse','claude-code')` admission list spans at least 8 SQL sites\n  (control.bend:125,177,198,281; delivery.bend:20; commands.bend:196,:301; instance.bend:58;\n  stop.bend:58), law-pinned generated SQL (control-laws.bend), the direct-turn predicate\n  (turn.bend:1519) and the launch dispatcher (turn.bend:1001-1008, Claude as fall-through\n  default). recruit stores harness as free text, so a novel harness registers and fails late.\n  Self-correction retained: my interim report undercounted (five sites) and mislabeled two files\n  (agent-native.bend \u2192 control.bend); corrected in amendments-r2.md R2-2.\n- PROGRAM LANE: out-of-process only (no evaluator, imports resolve at check time, one C file per\n  program). Interpreter checks before running (the prior audit's \"no type checking of the\n  generated program\" is wrong for the interpreter lane; corrected in the published text). A\n  JS-hosted bun-child evaluator is a demonstrated primitive (P10) but a separate process with\n  untested authority and result-codec.\n- SELF-EXTENSION: three expressible paths (declarative tools as data; repository-act law-gated;\n  dlopen C-ABI); no runtime module loading; authority enforced at the effect/OS boundary because\n  Bend2 records are forgeable (Lease.Mk{999} reproduced by failure-evaluation probe2).\n- COMMIT-AND-CITE (proposal \u00a78): proposed orchestrator dependency (#778), absent at the pin.\n  Refined: the context/ managed-query machinery (bound-admission, artifact-sha binding,\n  Submission* types) is an existing seat-reachable content-identity substrate to extend; missing\n  pieces are named cells, version semantics, cross-seat deref receipts, lease/fence.\n- RELATION LINEAGE: replaceable on caller-supplied id (knowledge.bend:288,296; deterministic ids\n  per agent-native.bend:212-215); publicly reproduced on the production binary (baton#785);\n  findings refuse via finding-id-conflict. Protection remains proposed (identical retry\n  idempotent; changed author/content refused).\n- DURABILITY: effect family primitives demonstrated on the pinned Linux toolchain in both lanes\n  (P03; exit-2 tail was the probe's own unlink-after-rename, not a durability failure). The seat\n  hot path (O_APPEND + per-commit fsync, flock, crash window, torn-frame repair) is unproven and\n  so labeled. U32 file offsets force segment rotation past 4 GiB (EOVERFLOW, effs/file_size.c).\n- REJECTED (preserved objection): bend-feasibility C3 alleged knowledge search/traverse read\n  nonexistent nodes/edges tables. Refuted at exact source: nodes/edges are WITH RECURSIVE CTEs\n  over the knowledge table (knowledge.bend graph_ctes:188-189; search_sql:207-210;\n  traverse_sql:225-229; graph_read:236-242); corroborated by root's public Main9 reproduction\n  (baton#779 comment) and my own scratch-DB probe (knowledge search on the retained DB copy exits\n  0 with valid structured output; deliverables/runtime-lead/probes/knowledge-search-scratch.*).\n  Its F4 severity upgrade loses that basis; F4 stands at its original grading (medium: the\n  reachable store is the SQLite authored-kind store, not the retired JS-line Cairn graph).\n\n## 3. Decisions with costs and preconditions\n\nA. Seat admission (decided): new harness/bend2-player.bend + gate-set extension + turn.bend\n   prompt/frame/settlement handling + control-laws lockstep (~15 edit sites + one 76-432-line\n   module). Precondition: the seat speaks the native attempt contract (sealed ATTEMPT/prompt.txt\n   input custody, stream reading, exit status). REJECTED: riding omp identity \u2014 falsifies route\n   identity/telemetry and activates ~20 omp-specific String.eq feature sites against a foreign\n   event stream. Law-pinned SQL makes partial gate edits fail the check \u2014 a protective feature.\nB. Program lane (decided): interpreter child per call; compile-once reuse after promotion.\n   Single-run platform-named costs: trivial program on this Linux/EPYC runner \u2014 check 0.353-0.642s,\n   emit 0.414-0.420s, link 0.733-0.855s, native run 0.032-0.062s, interpreted 0.409-0.544s\n   (bend-feasibility p11; design-lead 0.33-0.39s; runtime-lead hello probes); prior audit's\n   60-110ms is darwin/arm64. Full-coordinator anchor: 2101.119s emit, 142,651,376 KiB RSS with\n   opt-in diagnostics (build-result.json). These are single-run measurements, not constants.\nC. Child authority (OPEN, highest-priority unresolved): socket re-entry mediates SDK-expressed\n   effects only; a same-UID child retains ambient OS authority. Any authority claim requires OS\n   confinement (rootless namespaces+seccomp / sandbox-exec) plus SDK protocol tests (framing,\n   terminator, encoding, authentication) plus bypass/impersonation probes. UNTESTED by any lane.\nD. Artifact identity (OPEN): admitted-bytes-to-executed-bytes binding unresolved;\n   digest-then-pathname-exec is racy; an fd to a mutable inode is insufficient without a\n   demonstrated protection contract. Evidence to establish, not a security fact.\n\n## 4. Discriminating experiments (observable outcomes)\n\n1. Confined-child authority probe: direct write outside writable roots, direct spawn, direct\n   network from inside a confined bend child; observable: exact OS errno per attempt.\n2. Crash-window replay: kill between external effect and result commit; observable: recovery\n   classifies unstarted/running/retained/unknown; no blind reissue.\n3. T11/T12: unsupported-harness turn refuses with control.bend:286-287's full string and never\n   falls through to a Claude launch; a partial gate edit fails the law check.\n4. Append+fsync hot path under mid-append crash: last-complete-frame recovery and\n   writer-position latch refusal.\n5. Async vs blocking with batching separated (declared sweep or one-result-per-turn arm):\n   per-operation commit latency, reorder events, steering latency, provider continuation form;\n   right-censored outcomes flagged; smallest resolvable paired effect declared per suite.\n6. Relation-conflict contract post-#785: identical retry idempotent; changed author/content\n   refused; original row preserved.\n\n## 5. Unresolved dissent (preserved)\n\n- Sequencing: bend-feasibility ranks the confined-child authority probe before the \u00a712\n  measurement campaign; baton-contracts ranks the admission gate first. My disposition: the\n  authority probe precedes any lane that spawns generated code; the admission gate precedes the\n  seat milestone. The underlying disagreement is recorded, not resolved.\n- D1: SQLite knowledge-store growth/retention unbounded; no retention statements in\n  knowledge.bend. Open.\n- D2 (strengthened): seat knowledge write path has no role gate; author is an unchecked string;\n  discipline is the only current gate. Mechanism-vs-discipline open.\n- Redteam hard caps (critique-redteam.md:60-64) and failure-evaluation Attack-3-A1 per-call\n  deadline: contrary to the operator ruling (no duration/token/step budget admits, pauses, stops,\n  truncates or gates unfinished work; silence never settles; lost needs lifecycle evidence);\n  preserved as dissent, not adopted. dsh's elapsed-deadline design\n  (deepseek-harness.md:106,114,116) is an observed external design with no necessity proof.\n- D4 (JS-line countersign): moot \u2014 the JS line was retired from the repository at 2b8449af\n  (2026-10-02); closed by evidence, not vote.\n\n## 6. Evidence classification\n\n- Source-derived at b1f006a6 (file:line retained): harness gates, message_route gating,\n  idempotent admission, receipt semantics, branch inheritance (branching.bend:64-73), relation\n  upsert, Chan.recv signature (base.bend:231, no timeout), law-gate drift (#782), context/\n  substrate shape, seed generation/instruction (native-initial-input.bend:10,14,19-21).\n- Executed: runtime-lead hello.bend probe set and knowledge-laws exit-1 check and scratch-DB\n  search (deliverables/runtime-lead/probes/); bend-feasibility's twelve probes;\n  failure-evaluation's probes; #785's production-binary reproduction.\n- Paper-reported (not re-measured): NOOA, CLM, PASTE, TomasuLLM (2.1s speculative-compute proxy;\n  measured chains commit \u22644 vs configured K=6), Speculative Actions, ALITA-G, monitor study,\n  reliability study \u2014 the published design states each with its configuration limits.\n- Proposals: commit-and-cite, grants, fifth-harness adapter, confinement boundary, artifact byte\n  binding, relation protection.\n\n## 7. Limits of this synthesis\n\nI did not rerun bend-feasibility's durability/socket probes; I verified retained outputs, the\nroot probe-evidence review, and independently reproduced the toolchain surface and cost class.\nThe 18,157-line context/ subsystem received structural review only. No full coordinator build\nwas performed (forbidden). The JS line was assessed only as retired reference material\n(reproducible at 1e050e42). The published design's own claims were diff-reviewed, not re-derived\nline by line beyond the deltas listed in \u00a70.\n",
+      "receipt": null
+    },
+    {
+      "seq": 325,
+      "id": "message:runtime-lead:75e021b6f16925aca480e51b1b728216",
+      "sender": "runtime-lead",
+      "recipient": "proposal-root",
+      "kind": "completion-request",
+      "body": "runtime-lead assignment complete. Final synthesis report:d1ef8db13421ab4f9eb4157327785ef4 (full text deliverables/runtime-lead/final-synthesis.md). Both workers' independent and reciprocal critique rounds delivered, reviewed, and completion-confirmed. Published design 32f5f921 diffed against the last reviewed candidate: all deltas are integrations of this lane's critique residuals; no substantive disagreement remains. Dissent preserved (sequencing, D1 retention, D2 write-gate, redteam/Attack-3-A1 caps under the operator ruling). bend-feasibility C3 classified rejected by exact-source inspection with authored objection preserved. Amendments R1/R2 (quotas/timeout ruling, same-UID child authority, citation corrections, seed ruling) applied or integrated in the published text. Remaining limits stated in synthesis section 7.",
+      "receipt": null
+    },
+    {
+      "seq": 326,
+      "id": "message:proposal-root:2b72db95379bf0de5e6054023d663c11",
+      "sender": "proposal-root",
+      "recipient": "runtime-lead",
+      "kind": "completion-confirmed",
+      "body": "message:runtime-lead:75e021b6f16925aca480e51b1b728216",
+      "receipt": "native-turn:receive:runtime-lead:326:364dc5a45273f883eb2be9e542fa7bbe"
+    },
+    {
+      "seq": 327,
+      "id": "message:proposal-root:0ca34d1ac88e547d2476c81f3b1af090",
+      "sender": "proposal-root",
+      "recipient": "design-lead",
+      "kind": "guidance",
+      "body": "Current operator product contract for your remaining synthesis: Baton features, compiler, and REPL are required product components. The REPL accepts Bend2 source only. The existing JS-hosted-loader evidence concerns an execution backend and does not establish another REPL source language. Preserve historical research comparisons and legitimate implementation alternatives; continue only the original synthesis round. No Spark seat changes are requested. If you describe those contributors, spell Muse Spark 1.3, contributor mode.",
+      "receipt": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "seq": 328,
+      "id": "receive:runtime-lead:319:a0316a41e95980fde1498c62e26b4a14",
+      "sender": "runtime-lead",
+      "recipient": "proposal-root",
+      "kind": "report",
+      "body": "Assignment complete. Summary of the full runtime-integration lane arc:\n\n**Dispatch** \u2014 Both workers dispatched with complete scope at the start; bend-feasibility survived an operator reboot (unknown-after-keeper-loss retained) and finished under its existing identity via root's prepared recovery guidance.\n\n**Independent rounds** \u2014 baton-contracts: all eight assumed Baton primitives ship at `b1f006a6` (file:line evidence); REPL/grant plane absent. bend-feasibility: twelve probes on the pinned Linux toolchain confirm the prior audit's verdicts and added new constraints (U32 4 GiB bound, constructor global namespace, io_cstr NUL contract, TCP EOF semantics). My own review verified the load-bearing claims first-hand and corrected the audit's stale paths (session-lock.c \u2192 process-spawn.c; 4,484 \u2192 43,412 lines).\n\n**Critique round** \u2014 reciprocal, both directions: p03 proves publication not the append+fsync hot path; socket re-entry has no authentication contract; harness gate surface is ~8 SQL sites plus law-pinned strings and a Claude fall-through trap (my five-site count was an undercount, corrected); bend-feasibility's C3 (missing nodes/edges tables) rejected by exact-source inspection \u2014 they're CTEs \u2014 corroborated by my scratch-DB probe and root's #779 reproduction.\n\n**Deliberation** \u2014 amendments R1/R2 delivered the operator's quota/timeout rulings as exact replacement text (four ending categories, silence never settles), the same-UID child-authority correction, and the seed-ideation preservation ruling; design-lead applied them, evidence-lead's register carries the lineage.\n\n**Completion** \u2014 published design `32f5f921` diffed against the last reviewed candidate: all deltas integrate this lane's residuals; follow-ups filed as baton-cli #2/#3/#4. Dissent preserved (probe sequencing, retention bound, write-gate mechanism-vs-discipline, caps conflict). Final synthesis: `report:d1ef8db13421ab4f9eb4157327785ef4` / `deliverables/runtime-lead/final-synthesis.md`. Completion request admitted as `message:runtime-lead:75e021b6f16925aca480e51b1b728216`; awaiting root's confirmation.",
+      "receipt": null
+    },
+    {
+      "seq": 329,
+      "id": "receive:runtime-lead:326:364dc5a45273f883eb2be9e542fa7bbe",
+      "sender": "runtime-lead",
+      "recipient": "proposal-root",
+      "kind": "report",
+      "body": "Completion confirmed by proposal-root (`message:proposal-root:2b72db95379bf0de5e6054023d663c11` acknowledging `message:runtime-lead:75e021b6f16925aca480e51b1b728216`). The runtime-integration assignment is closed:\n\n- Both workers (bend-feasibility, baton-contracts) completed independent and reciprocal critique rounds, reviewed and confirmed.\n- Final synthesis delivered as `report:d1ef8db13421ab4f9eb4157327785ef4`, retained at `deliverables/runtime-lead/final-synthesis.md`.\n- The proposal was published at baton-cli `32f5f921` with this lane's corrections integrated; dissent and unresolved alternatives preserved in the record.\n\nNo outstanding work. Remaining assigned but idle; further input would arrive through the ordinary inbox path.",
+      "receipt": null
+    },
+    {
+      "seq": 330,
+      "id": "receive:design-lead:3:9602d8604a2a93fb75cb420cdd6d1f3f",
+      "sender": "design-lead",
+      "recipient": "proposal-root",
+      "kind": "report",
+      "body": "Player process ended without a native result (unknown after keeper loss). Output: /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/design-lead.jsonl.attempt-receive%3adesign-lead%3a3%3a9602d8604a2a93fb75cb420cdd6d1f3f. Stderr: /run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db.attempt-726563656976653a64657369676e2d6c6561643a333a3936303264383630346132613933666237356362343230636464366431663366/native.stderr",
+      "receipt": null
+    },
+    {
+      "seq": 331,
+      "id": "receive:design-lead:3:9602d8604a2a93fb75cb420cdd6d1f3f:exit",
+      "sender": "design-lead",
+      "recipient": "proposal-root",
+      "kind": "report",
+      "body": "Player process ended with unknown after keeper loss",
+      "receipt": null
+    },
+    {
+      "seq": 332,
+      "id": "message:design-lead:a70ade7d68a2be27a74c43072fe2d1ba",
+      "sender": "design-lead",
+      "recipient": "proposal-strongman",
+      "kind": "completion-confirmed",
+      "body": "message:proposal-strongman:738a3407bf1ff9a80cf0bfccc55648fd",
+      "receipt": "native-turn:receive:proposal-strongman:332:ed2ec2efd075a9d2c16eb7cdc2e77547"
+    },
+    {
+      "seq": 333,
+      "id": "message:design-lead:43a8588b5f71dbc0e39e34773878d638",
+      "sender": "design-lead",
+      "recipient": "failure-evaluation",
+      "kind": "completion-confirmed",
+      "body": "message:failure-evaluation:deb8fdee25777e13f903f9d0152c61a9",
+      "receipt": "native-turn:receive:failure-evaluation:333:c5612a3918dfb17b1051e4ce590d2b14"
+    },
+    {
+      "seq": 334,
+      "id": "knowledge-record:bf56e91917fc8e9a4f92c3fe6b5c10e2:notice",
+      "sender": "design-lead",
+      "recipient": "proposal-root",
+      "kind": "question",
+      "body": "{\"finding\":\"knowledge-record:bf56e91917fc8e9a4f92c3fe6b5c10e2\",\"author\":\"design-lead\"}",
+      "receipt": null
+    },
+    {
+      "seq": 335,
+      "id": "knowledge-record:c9af93c6ca4b67f579bfbfa0cec5c0ed:notice",
+      "sender": "design-lead",
+      "recipient": "proposal-root",
+      "kind": "question",
+      "body": "{\"finding\":\"knowledge-record:c9af93c6ca4b67f579bfbfa0cec5c0ed\",\"author\":\"design-lead\"}",
+      "receipt": null
+    },
+    {
+      "seq": 336,
+      "id": "receive:failure-evaluation:333:c5612a3918dfb17b1051e4ce590d2b14",
+      "sender": "failure-evaluation",
+      "recipient": "design-lead",
+      "kind": "report",
+      "body": "Completion confirmed by design-lead for `message:failure-evaluation:deb8fdee` (round 2: cross-critique + candidate review with deltas D1\u2013D8). Confirmation acknowledged with receipt `native-turn:receive:failure-evaluation:333:c5612a39`.\n\nNo open work remains in this lane. Retained deliverables: `failure-evaluation-report.md` (round 1, probes P1\u2013P6, scenarios S1\u2013S8) and `round2-cross-critique.md` (four attack positions, grounded acceptance with 8 deltas, self-correction), plus 15 knowledge records. Outstanding items are named for other lanes: research-critic/bend-feasibility finals and lead syntheses (recovery), binary-level relation-hijack reproduction (root), confinement probes and async A/B (blocked on the seat existing). Returning idle.",
+      "receipt": "native-turn:receive:design-lead:340:151fd4a894e6670e744c3cd95ec26016"
+    },
+    {
+      "seq": 337,
+      "id": "report:f492374c26b49ca39d3eb19053c7ea7d",
+      "sender": "design-lead",
+      "recipient": "proposal-root",
+      "kind": "report",
+      "body": "design-lead formal final synthesis. Full text: deliverables/design-lead/final-synthesis.md; independent review and register: design-lead-review.md; revised design text: revised-design-text.md; probes: probes/. Reviewed artifact: delivery-published-32f5f921/design-sketch.md SHA-256 b49ab64a5464ce8f042c2321968a4a40c854c87f5d1dd660a365863a1d51f57a.\n\nVERDICT: the published design is a faithful reconciliation and I accept it as the reconciled proposal. Every correction this lane derived independently is present in substance. No substantive engineering change is required from design-lead. Both of my workers' completion requests are confirmed; their dissent and their original reports are preserved.\n\nWHAT CARRIES THE VERDICT (source revision and path evidence, not agreement):\n- Seat integration: control.bend:125 (receiver endpoint admission), :177 (configure_endpoint), :198 (start_admission), :281 (turn_admission_sql), delivery.bend:20 (native_receiver_sql) each require harness IN (codex,omp,muse,claude-code); recruit.bend:47-86 stores harness as free text, so a novel harness registers and refuses late. A Bend2 seat needs an adapter plus admission, receiver, wake and settlement changes; the design states this and gives the coordinator lane ownership. Verified independently by me, proposal-strongman, runtime-lead and baton-contracts.\n- No gating budgets: no duration, token or step estimate may admit, pause, stop, truncate or gate unfinished work; work ends by observed external lifecycle events with provenance and unfinished state retained, by explicit authorized cancellation, by an observation wait returning while the operation stays owned and running (prime-agent.md:45), or by finite measurement conditions (research-open-questions.md:194-212). Silence never settles to lost. Reproduced in the design at sections 4 and 12.\n- Authority: socket re-entry is routing, not confinement. A same-UID child inherits ambient filesystem, process and network authority; enforcement is the OS executor policy, untested here, with the bypass and unrelated-process impersonation probes named. Spawn family exposes no sandbox primitive; Bend2 records are forgeable (probe P2), so no type carries authority.\n- Session log: host/session-lock.c does not exist; session-lock.bend declares the lock and process-spawn.c implements it (flock at :2438 and :5096; database lock sqlite.c:881). File.open mode \"a\" is O_APPEND, and Base has no fsync/rename/stat, requering the authored durability family.\n- Law gate: bend bend2/src/coordinator/knowledge-laws.bend --check-only exits 1 at the pin (reproduced by me, failure-evaluation, evidence-lead, runtime-lead; baton#782).\n- Knowledge lineage: knowledge.bend:288 ON CONFLICT(id) DO UPDATE SET author=excluded.author,... with agent-native.bend:215 preserving the caller id; public coordinator reproduction at baton#785. Relation protection remains proposed.\n- Wait primitive: Base Chan.recv has no timeout and no select/race; the design names a concrete event effect or observation-polling composition and keeps the operation owned.\n- Revision history: 1e050e42 and 72fc39b45 resolve and carry impl/; 10c2ae6d does not; the JS line was retired by 2b8449af (2026-10-02). My earlier over-broad wording is corrected and superseded (knowledge-record:afb1881b supersedes 5a4d1e06), original preserved.\n\nREMAINING SUBSTANTIVE ITEMS (flagged, not assumed resolved; wording and scope only):\n1. Operator product contract makes Baton features, the compiler and the REPL required product components, with the REPL accepting Bend2 source only. Section 1 calls the Bend2 REPL/context work a named dependency and section 3 says a persistent Bend2 REPL may later own cross-turn values. Amendment: state the REPL is required product scope owned by the coordinator/REPL lane, and this seat depends on its interface; keep the later-ownership phrasing only for the seat's use of it.\n2. Section 5 should add that the JS-hosted loader is an execution backend and does not establish another REPL source language.\n3. Escalated consequences, unchanged: the harness adapter is milestone-0; repair of the knowledge law is required for features relying on that contract; relation-lineage hardening is required before any lineage-sensitive feature claims preserved authorship.\n\nSTRONGEST CASE FOR THE PROPOSAL (preserved): the mechanical core is the best-grounded part of the document - the turn-enclosed append-only log, call/result atomicity, the two-plane projection economy, the operation contract, and the safety vocabulary are each traceable to shipping code, and the turn boundary as the single commit point is the highest-leverage decision in the sketch. Its two novel mechanisms are the unmeasured ones, which is why the design now sequences measurement first and states its hypotheses with falsification conditions.\n\nUNRESOLVED DISSENT (kept, not smoothed): hard caps to break a nonsettlement wedge (critique-redteam.md:60-64; failure-evaluation S7.2/S7.5 and round-2 Attack-3-A1 per-call deadline) remain contrary to the operator ruling and are recorded, never adopted as prerequisites; the redteam burn-risk is answered by retention and Conductor decision; declaration digests are rejected as a safety property with content-addressed execution adopted and fd-binding explicitly unproven; numeric byte caps on spill reads are rejected in favour of declared projections with delivered/omitted receipts; failure-evaluation weights the quiescence wedge higher than the rest of the ensemble.\n\nEXPERIMENTS WITH OBSERVABLE OUTCOMES: E-HARNESS (exact refusal then successful adapter admission/wake/settlement, no unsupported identity launched); E-LOG (crash injection at every append offset repairs to the last complete frame with log.repaired and never duplicates a committed effect); E-WAIT (a sleep-infinity tool leaves the session observable and owned with pending identity/state/age reported, settling only on real settlement or authorized cancellation); E-AUTHORITY (child direct write outside writable roots and direct spawn recorded as OS denial or observed ambient success); E-BIND (admit, mutate, invoke refuses or executes admitted bytes, never silent changed bytes); E-ASYNC (batching sweep or one-result-per-turn arm, symmetric patience, right-censored reporting, commit-latency and reorder logging); E-GATE (every law relevant to a contract passes --check-only before a dependent feature ships).\n\nREMAINING LIMITS: the seat is unimplemented; async versus blocking tokens and turns, citation E1, Linux program-lane economics at realistic sizes, confined-child enforcement, fd-binding race protection, retrieval and graph growth, and provider continuation acceptance on the target adapters are unmeasured. The relation-lineage public reproduction is now measured (baton#785), no longer future work. No coordinator build, no shared-checkout edit, no branch, no process signal and no live knowledge mutation was performed by this lane.",
+      "receipt": null
+    },
+    {
+      "seq": 338,
+      "id": "message:design-lead:bc940646577142cd9bdb77a663b563fe",
+      "sender": "design-lead",
+      "recipient": "proposal-root",
+      "kind": "completion-request",
+      "body": "design-lead formal final synthesis. Full text: deliverables/design-lead/final-synthesis.md; independent review and register: design-lead-review.md; revised design text: revised-design-text.md; probes: probes/. Reviewed artifact: delivery-published-32f5f921/design-sketch.md SHA-256 b49ab64a5464ce8f042c2321968a4a40c854c87f5d1dd660a365863a1d51f57a.\n\nVERDICT: the published design is a faithful reconciliation and I accept it as the reconciled proposal. Every correction this lane derived independently is present in substance. No substantive engineering change is required from design-lead. Both of my workers' completion requests are confirmed; their dissent and their original reports are preserved.\n\nWHAT CARRIES THE VERDICT (source revision and path evidence, not agreement):\n- Seat integration: control.bend:125 (receiver endpoint admission), :177 (configure_endpoint), :198 (start_admission), :281 (turn_admission_sql), delivery.bend:20 (native_receiver_sql) each require harness IN (codex,omp,muse,claude-code); recruit.bend:47-86 stores harness as free text, so a novel harness registers and refuses late. A Bend2 seat needs an adapter plus admission, receiver, wake and settlement changes; the design states this and gives the coordinator lane ownership. Verified independently by me, proposal-strongman, runtime-lead and baton-contracts.\n- No gating budgets: no duration, token or step estimate may admit, pause, stop, truncate or gate unfinished work; work ends by observed external lifecycle events with provenance and unfinished state retained, by explicit authorized cancellation, by an observation wait returning while the operation stays owned and running (prime-agent.md:45), or by finite measurement conditions (research-open-questions.md:194-212). Silence never settles to lost. Reproduced in the design at sections 4 and 12.\n- Authority: socket re-entry is routing, not confinement. A same-UID child inherits ambient filesystem, process and network authority; enforcement is the OS executor policy, untested here, with the bypass and unrelated-process impersonation probes named. Spawn family exposes no sandbox primitive; Bend2 records are forgeable (probe P2), so no type carries authority.\n- Session log: host/session-lock.c does not exist; session-lock.bend declares the lock and process-spawn.c implements it (flock at :2438 and :5096; database lock sqlite.c:881). File.open mode \"a\" is O_APPEND, and Base has no fsync/rename/stat, requering the authored durability family.\n- Law gate: bend bend2/src/coordinator/knowledge-laws.bend --check-only exits 1 at the pin (reproduced by me, failure-evaluation, evidence-lead, runtime-lead; baton#782).\n- Knowledge lineage: knowledge.bend:288 ON CONFLICT(id) DO UPDATE SET author=excluded.author,... with agent-native.bend:215 preserving the caller id; public coordinator reproduction at baton#785. Relation protection remains proposed.\n- Wait primitive: Base Chan.recv has no timeout and no select/race; the design names a concrete event effect or observation-polling composition and keeps the operation owned.\n- Revision history: 1e050e42 and 72fc39b45 resolve and carry impl/; 10c2ae6d does not; the JS line was retired by 2b8449af (2026-10-02). My earlier over-broad wording is corrected and superseded (knowledge-record:afb1881b supersedes 5a4d1e06), original preserved.\n\nREMAINING SUBSTANTIVE ITEMS (flagged, not assumed resolved; wording and scope only):\n1. Operator product contract makes Baton features, the compiler and the REPL required product components, with the REPL accepting Bend2 source only. Section 1 calls the Bend2 REPL/context work a named dependency and section 3 says a persistent Bend2 REPL may later own cross-turn values. Amendment: state the REPL is required product scope owned by the coordinator/REPL lane, and this seat depends on its interface; keep the later-ownership phrasing only for the seat's use of it.\n2. Section 5 should add that the JS-hosted loader is an execution backend and does not establish another REPL source language.\n3. Escalated consequences, unchanged: the harness adapter is milestone-0; repair of the knowledge law is required for features relying on that contract; relation-lineage hardening is required before any lineage-sensitive feature claims preserved authorship.\n\nSTRONGEST CASE FOR THE PROPOSAL (preserved): the mechanical core is the best-grounded part of the document - the turn-enclosed append-only log, call/result atomicity, the two-plane projection economy, the operation contract, and the safety vocabulary are each traceable to shipping code, and the turn boundary as the single commit point is the highest-leverage decision in the sketch. Its two novel mechanisms are the unmeasured ones, which is why the design now sequences measurement first and states its hypotheses with falsification conditions.\n\nUNRESOLVED DISSENT (kept, not smoothed): hard caps to break a nonsettlement wedge (critique-redteam.md:60-64; failure-evaluation S7.2/S7.5 and round-2 Attack-3-A1 per-call deadline) remain contrary to the operator ruling and are recorded, never adopted as prerequisites; the redteam burn-risk is answered by retention and Conductor decision; declaration digests are rejected as a safety property with content-addressed execution adopted and fd-binding explicitly unproven; numeric byte caps on spill reads are rejected in favour of declared projections with delivered/omitted receipts; failure-evaluation weights the quiescence wedge higher than the rest of the ensemble.\n\nEXPERIMENTS WITH OBSERVABLE OUTCOMES: E-HARNESS (exact refusal then successful adapter admission/wake/settlement, no unsupported identity launched); E-LOG (crash injection at every append offset repairs to the last complete frame with log.repaired and never duplicates a committed effect); E-WAIT (a sleep-infinity tool leaves the session observable and owned with pending identity/state/age reported, settling only on real settlement or authorized cancellation); E-AUTHORITY (child direct write outside writable roots and direct spawn recorded as OS denial or observed ambient success); E-BIND (admit, mutate, invoke refuses or executes admitted bytes, never silent changed bytes); E-ASYNC (batching sweep or one-result-per-turn arm, symmetric patience, right-censored reporting, commit-latency and reorder logging); E-GATE (every law relevant to a contract passes --check-only before a dependent feature ships).\n\nREMAINING LIMITS: the seat is unimplemented; async versus blocking tokens and turns, citation E1, Linux program-lane economics at realistic sizes, confined-child enforcement, fd-binding race protection, retrieval and graph growth, and provider continuation acceptance on the target adapters are unmeasured. The relation-lineage public reproduction is now measured (baton#785), no longer future work. No coordinator build, no shared-checkout edit, no branch, no process signal and no live knowledge mutation was performed by this lane.",
+      "receipt": null
+    },
+    {
+      "seq": 339,
+      "id": "receive:proposal-strongman:332:ed2ec2efd075a9d2c16eb7cdc2e77547",
+      "sender": "proposal-strongman",
+      "recipient": "design-lead",
+      "kind": "report",
+      "body": "Assignment confirmed closed by design-lead.\n\nThe seed is the same species as the prior three: 128 hex chars, all 16 digits evenly spread, no structure. I read it the same way: opaque provenance only, nothing to decode, no conclusions drawn from it.\n\nInbox holds only the `completion-confirmed`, and the assignment record shows `confirmed: True, open: False`. No further action is owed from this seat. The delivered state stands: round-1 proposal in [strongman-proposal.md](/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/deliverables/proposal-strongman/strongman-proposal.md), round-2 critique in [round2-critique.md](/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/deliverables/proposal-strongman/round2-critique.md), probes retained alongside, with nine findings recorded across the three rounds. Outstanding items now belong to the coordinator lanes: deliberation outcome, root-lane relation-id hardening, the scratch-DB harness refusal test, and the JS-line countersign.",
+      "receipt": "native-turn:receive:design-lead:340:151fd4a894e6670e744c3cd95ec26016"
+    },
+    {
+      "seq": 340,
+      "id": "message:proposal-root:b15611ed34ca1cc25dbb6d81ed82fb0c",
+      "sender": "proposal-root",
+      "recipient": "design-lead",
+      "kind": "completion-confirmed",
+      "body": "message:design-lead:bc940646577142cd9bdb77a663b563fe",
+      "receipt": "native-turn:receive:design-lead:340:151fd4a894e6670e744c3cd95ec26016"
+    },
+    {
+      "seq": 341,
+      "id": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "sender": "design-lead",
+      "recipient": "proposal-root",
+      "kind": "report",
+      "body": "Assignment complete; completion requested and awaiting root confirmation.\n\n## What I ran\n\nAssociate Conductor for the tight Ensemble `design-evaluation`, under `proposal-root`. Dispatched both workers with full scope, collected their independent rounds, cross-assigned critiques once both had recorded findings, did my own source review at the **canonical pin `b1f006a6`** (not the prior audit's cited commits), and deliberated with `evidence-lead` and `runtime-lead`.\n\nSeed interpreted as an opaque 128-hex initialization identifier: preserved verbatim, no content-derived conclusions, never used as an evaluation seed.\n\n## Independent findings that changed the audit\n\n| Finding | Evidence |\n|---|---|\n| Prior audit's citation base is mixed across revisions | `1e050e42`/`72fc39b45` resolve and carry `impl/`; `10c2ae6d` does not; JS line retired by `2b8449af` (2026-10-02). My first, broader wording was wrong \u2014 corrected and superseded (`afb1881b` \u2283 `5a4d1e06`) after proposal-strongman's objection |\n| **New P1**: seat cannot be driven today | `control.bend:125,177,198,281`, `delivery.bend:20` admit only {codex,omp,muse,claude-code}; `recruit.bend` stores harness as free text \u2192 fail-late. Corroborated by three lanes |\n| \"baton2 protocol\" is a CLI, not a protocol | `architecture.md:25`, `main.bend:44` |\n| `host/session-lock.c` does not exist | `session-lock.bend` declares it; C half in `process-spawn.c:2438,5096` |\n| Socket re-entry \u2260 confinement | same-UID child keeps ambient authority; enforcement untested |\n| Law gate **red** at the pin | `bend knowledge-laws.bend --check-only` \u2192 rc 1 (reproduced myself) |\n| Timeout/budget ruling applied | no duration/token/step may admit, pause, stop, truncate or gate unfinished work; silence stays `unknown` |\n\nReproduced first-hand on the pinned Bend2 2.0.25 (linux x64): no `repl/eval/test/debug`; `base exec`/`File.sync`/`Json` refused; law-gated admission real; program-lane cost 0.33\u20130.39 s (not darwin's 60\u2013110 ms).\n\n## Verdict on the published design\n\n`delivery-published-32f5f921/design-sketch.md` (SHA `b49ab64a\u2026`) \u2014 **accepted as the reconciled proposal**; every correction from this lane is present in substance. Flagged three wording/scope items only (REPL as required product scope, JS loader as backend not a second source language, escalated prerequisites).\n\n**Dissent preserved, not smoothed:** hard caps for nonsettlement wedges (redteam; failure-evaluation S7.2/S7.5, Attack-3-A1) remain contrary to the operator ruling; digest-as-safety rejected; numeric spill byte caps rejected.\n\nDeliverables: `deliverables/design-lead/{final-synthesis.md, design-lead-review.md, revised-design-text.md, probes/}`, 14 authored knowledge records. Both worker completion requests confirmed; final report (`report:f492374c`) and completion-request (`message:design-lead:bc940646`) delivered to `proposal-root`.",
+      "receipt": null
+    },
+    {
+      "seq": 342,
+      "id": "receive:design-lead:340:151fd4a894e6670e744c3cd95ec26016",
+      "sender": "design-lead",
+      "recipient": "proposal-root",
+      "kind": "report",
+      "body": "Assignment closed \u2014 root confirmed (`confirmed: true, open: false`); both workers closed and idle; the three remaining inbox items were the two lane acknowledgements and the confirmation itself, all informational.\n\n## Final state\n\n**Deliverable**: `deliverables/design-lead/final-synthesis.md` (plus `design-lead-review.md`, `revised-design-text.md`, `probes/`), 14 authored knowledge records, final report `report:f492374c` and completion-request `message:design-lead:bc940646` both delivered and confirmed.\n\n**Verdict**: published design `design-sketch.md` SHA-256 `b49ab64a\u2026` accepted as the reconciled proposal. All three worked rounds produced corrections that survive in it, and the three disagreements this lane raised were resolved in the document rather than smoothed over.\n\n**Net contribution of this lane** (all at pin `b1f006a6`, first-hand):\n- Revision-history correction: `1e050e42`/`72fc39b45` resolve and carry `impl/`; `10c2ae6d` does not; the JS line was retired by `2b8449af`. My initial over-broad claim was corrected under challenge and superseded, original preserved.\n- New P1: the closed harness set (`control.bend:125,177,198,281`; `delivery.bend:20`) plus fail-late `recruit`, so the seat needs an adapter and a coordinator change first.\n- Non-existent `host/session-lock.c` corrected to `session-lock.bend` + `process-spawn.c:2438,5096`.\n- Socket re-entry reframed as routing, not confinement; ambient same-UID authority stated and the enforcement probes marked unexecuted.\n- The operator's no-gating ruling applied exactly, including rejecting my own earlier \"per-call timeouts bound a single effect\" wording and the strongman's park/resume refinement.\n- Reproduced the red law gate, the `O_APPEND`/no-`fsync` Base surface, the law-gated admission path, and Linux program-lane costs.\n\n**Preserved dissent**: hard caps for nonsettlement wedges (redteam; S7.2/S7.5; Attack-3-A1), digest-as-safety, and numeric spill byte caps \u2014 recorded, not adopted. **Remaining limits**: seat unimplemented; async A/B, citation E1, realistic Linux program-lane economics, confined-child enforcement, fd-binding race protection, and retrieval/graph growth unmeasured.",
+      "receipt": null
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "knowledge-record:bf56e91917fc8e9a4f92c3fe6b5c10e2",
+      "author": "design-lead",
+      "claim": "design-lead final verdict on the published design (design-sketch.md SHA-256 b49ab64a5464ce8f042c2321968a4a40c854c87f5d1dd660a365863a1d51f57a): accepted as the reconciled proposal. Every correction I derived independently is present in substance (harness-adapter milestone-0 precondition; the no-budget/no-timeout ruling with the four legitimate endings and unknown-until-lifecycle-evidence; socket re-entry as routing not confinement with the OS executor policy untested; the session-lock citation corrected to session-lock.bend plus process-spawn.c:2438,5096; the red law gate; relation-lineage replacement with the public reproduction baton#785; the named wait mechanism; declared-versus-executed byte binding; and the revision history 1e050e42/72fc39b45 resolve, 10c2ae6d absent, JS line retired in 2b8449af). Both workers' completion requests are confirmed under my authority; their dissent is preserved.",
+      "evidence": "deliverables/design-lead/final-synthesis.md; delivery-published-32f5f921/design-sketch.md read in full; ensemble-audit.md.",
+      "limits": "Acceptance covers the proposal text, not the unimplemented seat. Unmeasured items are restated in the synthesis: async A/B, citation E1, Linux program-lane economics, confined-child enforcement, fd-binding race protection, retrieval and graph growth.",
+      "kind": "decision"
+    },
+    {
+      "id": "knowledge-record:c9af93c6ca4b67f579bfbfa0cec5c0ed",
+      "author": "design-lead",
+      "claim": "Remaining scope item for the published design, flagged rather than assumed resolved: the operator contract makes Baton features, the compiler and the REPL required product components, and the REPL accepts Bend2 source only. Section 1 calls the Bend2 REPL/context work a named dependency and section 3 says a persistent Bend2 REPL may later own cross-turn values, which reads as optional or deferred. Design correction: state that the REPL is required product scope owned by the coordinator/REPL lane and that this seat depends on its interface; keep the later-ownership phrasing only for the seat's use of it. A second clause in section 5 should say the JS-hosted loader is an execution backend and does not establish another REPL source language.",
+      "evidence": "Operator product contract delivered this session; delivery-published-32f5f921/design-sketch.md sections 1, 3, 5.",
+      "limits": "Wording and scope only; no engineering change. No dissent recorded from peers on this item.",
+      "kind": "finding"
+    }
+  ],
+  "turns": [
+    {
+      "id": "receive:bend-feasibility:316:8727c8a783a713df959c275ae7c23ef3",
+      "worker": "bend-feasibility",
+      "event": "{\"type\":\"agent_end\",\"isTerminal\":true}"
+    },
+    {
+      "id": "receive:baton-contracts:317:5fa5657cfe4d4a04c53828b5b10e016d",
+      "worker": "baton-contracts",
+      "event": "{\"schema_version\":1,\"id\":\"018f0000-0000-7000-8000-0a972285b59f\",\"sequence\":80,\"recorded_at\":1792175635477583,\"record_type\":\"event\",\"durability\":\"durable\",\"causation_id\":\"01a14604-4f32-72b0-9c50-cfa8d184840e\",\"payload_type\":\"run.terminal.completed\",\"payload_schema_version\":1,\"stream\":{\"kind\":\"session\",\"id\":\"01a143e3-a972-7ba0-b915-d01414e7441e\"},\"payload\":{\"command_id\":\"01a14604-4f32-72b0-9c50-cfa8d184840e\",\"kind\":\"run_terminal\",\"reason\":null,\"terminal\":\"completed\",\"run_stream\":{\"id\":\"01a14604-4f32-72b0-9c50-cfa8d184840e\",\"kind\":\"run\"}}}"
+    },
+    {
+      "id": "receive:runtime-lead:319:a0316a41e95980fde1498c62e26b4a14",
+      "worker": "runtime-lead",
+      "event": "{\"type\":\"agent_end\",\"isTerminal\":true}"
+    },
+    {
+      "id": "receive:runtime-lead:326:364dc5a45273f883eb2be9e542fa7bbe",
+      "worker": "runtime-lead",
+      "event": "{\"type\":\"agent_end\",\"isTerminal\":true}"
+    },
+    {
+      "id": "receive:failure-evaluation:333:c5612a3918dfb17b1051e4ce590d2b14",
+      "worker": "failure-evaluation",
+      "event": "{\"type\":\"agent_end\",\"isTerminal\":true}"
+    },
+    {
+      "id": "receive:proposal-strongman:332:ed2ec2efd075a9d2c16eb7cdc2e77547",
+      "worker": "proposal-strongman",
+      "event": "{\"schema_version\":1,\"id\":\"018f0000-0000-7000-8000-0a8f73649b04\",\"sequence\":142,\"recorded_at\":1792142632524212,\"record_type\":\"event\",\"durability\":\"durable\",\"causation_id\":\"01a1462d-2727-7f60-b62d-8681462d36ea\",\"payload_type\":\"run.terminal.completed\",\"payload_schema_version\":1,\"stream\":{\"kind\":\"session\",\"id\":\"01a143e3-cb26-7322-865a-112f34f9b610\"},\"payload\":{\"command_id\":\"01a1462d-2727-7f60-b62d-8681462d36ea\",\"kind\":\"run_terminal\",\"reason\":null,\"terminal\":\"completed\",\"run_stream\":{\"id\":\"01a1462d-2727-7f60-b62d-8681462d36ea\",\"kind\":\"run\"}}}"
+    },
+    {
+      "id": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "worker": "design-lead",
+      "event": "{\"type\":\"agent_end\",\"isTerminal\":true}"
+    },
+    {
+      "id": "receive:design-lead:340:151fd4a894e6670e744c3cd95ec26016",
+      "worker": "design-lead",
+      "event": "{\"type\":\"agent_end\",\"isTerminal\":true}"
+    }
+  ],
+  "message_reads": [
+    {
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "message": "message:proposal-root:c8a7b12a9f0b9bd6efbb572f6d5057f1",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "c1ac74f15da16538:731028:2855580:1792144962:66305:229816848",
+      "handled": "native-turn:receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507"
+    },
+    {
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "message": "report:07310197502aa0c9c517cc89669ac4c2",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "c1ac74f15da16538:731028:2855580:1792144962:66305:229816848",
+      "handled": "native-turn:receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507"
+    },
+    {
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "message": "knowledge-record:b18e886bf970c57b113c59ba8536046e:notice",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "c1ac74f15da16538:731028:2855580:1792144962:66305:229816848",
+      "handled": "native-turn:receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507"
+    },
+    {
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "message": "receive:baton-contracts:290:ad5a5c9677d2c6df51bb20e0d5a64b88",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "c1ac74f15da16538:731028:2855580:1792144962:66305:229816848",
+      "handled": "native-turn:receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507"
+    },
+    {
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "message": "message:proposal-root:f00a619a35977095729e47a4c189000e",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "c1ac74f15da16538:731028:2855580:1792144962:66305:229816848",
+      "handled": "native-turn:receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507"
+    },
+    {
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "message": "message:proposal-root:dbc85a81de337fa8ca12b006d0c492d7",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "c1ac74f15da16538:731028:2855580:1792144962:66305:229816848",
+      "handled": "native-turn:receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507"
+    },
+    {
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "message": "report:e55c26f6f8509ea94c2a148be1e5bc46",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "c1ac74f15da16538:731028:2855580:1792144962:66305:229816848",
+      "handled": "native-turn:receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507"
+    },
+    {
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "message": "message:baton-contracts:e3126cbd80751c574303cfe9b104d104",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "c1ac74f15da16538:731028:2855580:1792144962:66305:229816848",
+      "handled": "native-turn:receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507"
+    },
+    {
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "message": "knowledge-record:1806c82d20c42390b1c9ddd3c152e9a4:notice",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "c1ac74f15da16538:731028:2855580:1792144962:66305:229816848",
+      "handled": "native-turn:receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507"
+    },
+    {
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "message": "receive:baton-contracts:300:3ef2a84db5bd2a6b8de8ce0b0b5ae2ca",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "c1ac74f15da16538:731028:2855580:1792144962:66305:229816848",
+      "handled": "native-turn:receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507"
+    },
+    {
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "message": "message:proposal-root:61182612e35a954ca6e449b4d647c984",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "c1ac74f15da16538:731028:2855580:1792144962:66305:229816848",
+      "handled": "native-turn:receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507"
+    },
+    {
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "message": "report:79abfe24304be7f1cbe4d9a89965bf64",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "c1ac74f15da16538:731028:2855580:1792144962:66305:229816848",
+      "handled": "native-turn:receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507"
+    },
+    {
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "message": "receive:baton-contracts:306:c3befd74eb6182600b637394eb2fd0c6",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "c1ac74f15da16538:731028:2855580:1792144962:66305:229816848",
+      "handled": "native-turn:receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507"
+    },
+    {
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "message": "message:bend-feasibility:cb86dbf04d015bb2c78ad140be8bcd41",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "c1ac74f15da16538:731028:2855580:1792144962:66305:229816848",
+      "handled": "native-turn:receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507"
+    },
+    {
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "message": "receive:bend-feasibility:291:00c7e30c8d43b1fac12ded056da5e3b9",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "c1ac74f15da16538:731028:2855580:1792144962:66305:229816848",
+      "handled": "native-turn:receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507"
+    },
+    {
+      "attempt": "receive:bend-feasibility:316:8727c8a783a713df959c275ae7c23ef3",
+      "message": "message:runtime-lead:23d329f0f6af997acb6f0463fe4d1701",
+      "recipient": "bend-feasibility",
+      "native": "01a143e3-b220-7000-add4-eac134c19cb3",
+      "identity": "c14d1c1d10285764:946892:3107191:1792144962:66305:229817309",
+      "handled": "native-turn:receive:bend-feasibility:316:8727c8a783a713df959c275ae7c23ef3"
+    },
+    {
+      "attempt": "receive:baton-contracts:317:5fa5657cfe4d4a04c53828b5b10e016d",
+      "message": "message:runtime-lead:985355bc426a85e73675c90d556c92d8",
+      "recipient": "baton-contracts",
+      "native": "01a143e3-a972-7ba0-b915-d01414e7441e",
+      "identity": "23fc95db9f11395e:947488:3108367:1792144962:66305:229817305",
+      "handled": "native-turn:receive:baton-contracts:317:5fa5657cfe4d4a04c53828b5b10e016d"
+    },
+    {
+      "attempt": "receive:runtime-lead:319:a0316a41e95980fde1498c62e26b4a14",
+      "message": "message:proposal-root:55222647a2e2081a4f19ae7f80a9133b",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "36bbff283b6b9e7c:39048:64369:1792176677:66305:229817369",
+      "handled": "native-turn:receive:runtime-lead:319:a0316a41e95980fde1498c62e26b4a14"
+    },
+    {
+      "attempt": "receive:runtime-lead:319:a0316a41e95980fde1498c62e26b4a14",
+      "message": "receive:bend-feasibility:316:8727c8a783a713df959c275ae7c23ef3",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "36bbff283b6b9e7c:39048:64369:1792176677:66305:229817369",
+      "handled": "native-turn:receive:runtime-lead:319:a0316a41e95980fde1498c62e26b4a14"
+    },
+    {
+      "attempt": "receive:runtime-lead:319:a0316a41e95980fde1498c62e26b4a14",
+      "message": "receive:baton-contracts:317:5fa5657cfe4d4a04c53828b5b10e016d",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "36bbff283b6b9e7c:39048:64369:1792176677:66305:229817369",
+      "handled": "native-turn:receive:runtime-lead:319:a0316a41e95980fde1498c62e26b4a14"
+    },
+    {
+      "attempt": "receive:runtime-lead:319:a0316a41e95980fde1498c62e26b4a14",
+      "message": "message:proposal-root:2b7a5cc76ccd94a8e1e39f1125abfb4a",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "36bbff283b6b9e7c:39048:64369:1792176677:66305:229817369",
+      "handled": "native-turn:receive:runtime-lead:319:a0316a41e95980fde1498c62e26b4a14"
+    },
+    {
+      "attempt": "receive:runtime-lead:326:364dc5a45273f883eb2be9e542fa7bbe",
+      "message": "message:proposal-root:2b72db95379bf0de5e6054023d663c11",
+      "recipient": "runtime-lead",
+      "native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad",
+      "identity": "f9e342b4b22d8910:50784:105452:1792176677:66305:229817393",
+      "handled": "native-turn:receive:runtime-lead:326:364dc5a45273f883eb2be9e542fa7bbe"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "dispatch:6f27d5cf4f0490e581f3139ab608ee5f",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:4838191b946e04e5fdbf53fa23a87e6b:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:0b6438d8e0f3fccf4294d90aa00715da:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:eda34b459020b89c4d0573004817e736:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:d80d1c585c68828a590862f2090943af:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "report:fd904791692d22d703d46454c5fe835c",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:proposal-strongman:1e09c5d12eb66972c7092d42da73efb4",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "receive:proposal-strongman:7:bda91e834fc0a1bc183ef27086fd12b5",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:evidence-lead:02e98cfe22700a789a62f555ac8bbd0c",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:b509eaee8e963f79464cc5603cdf8c8b:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:7614f1ad081d5525f735913779d291ab:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:2eb6d42544783f211574847abb20004d:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:85b58f8b2ffa57e8eca67da7f2932253:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:f13171352f069689a91a441fc34bfd0a:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "report:c5ac08e9056e7f342e212b853da4ba3d",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:proposal-strongman:27f07f09b868942b521a35bc6567d77c",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "receive:proposal-strongman:43:a2458d8df4c33c8507ed2d7a782a86e6",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "proposal-root-review:e0fd7d50e6914bb08308bf6853af45a6",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:evidence-lead:ebb3e85b288aa78f60de09dc67c8ac3c",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "proposal-root-draft-review:b60e4f7c53a94a739e64cc217ccfe14d",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:evidence-lead:d49a4fd4a0e1a1b9745b381e7ebf362f",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:runtime-lead:ee7552253c948a321da6fbc258c03603",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:evidence-lead:d2cfcf8f5782aacd90de239848676725",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "proposal-root-timeout-review:56454b8c23d445c3b831a509431ebe3d",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:evidence-lead:e1ba27a3dc0846b7964e45c83816a9a2",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:0c57098c6c721b87ea80343a6b8bb187:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:02181ed871fc6368afadc51d7cbb952e:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:3e60d5d24c86bbea95ac33fc0cb6d832:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:399b062d77472011325aaf5f8841029b:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:a7b19189f4da3bece472d2108571143e:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:b83da2d9f776f39560d7a86244f05b2d:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:evidence-lead:f2821a02735a98fbc8fb1fcdd6db4a6d",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:8bdcc4f6b6ccdf62821795b3e1f0ceeb:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:3d0e75a1170e74d858ee8d6e8a15f5ce:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:5cf56c2ba26582bb9b2adfdb3232a960:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "proposal-root-evaluation-review:baa07a497ed74acdafd979a137a615f9",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "report:6a32628b37f9ba58913b07686b264bbe",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:failure-evaluation:42e187846950b296d586f8b8940f7890",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "receive:failure-evaluation:10:2a676ecb121b4ca981aab0a00c216f8c",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "proposal-root-seed-correction:ab46a28e31be4e70b8bc5423bc9a329a",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:849a5cdeb77294c7e33ea0046a1b8a98:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:3677210c159a2503edc0da75f801d0af:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:e94711499cfff3a332fb404a42b007b1:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:2f4dc7538ba8b3f39e291cec7d0c9cca:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "report:91174d275ce287953d2ab353ae9b5381",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:proposal-strongman:738a3407bf1ff9a80cf0bfccc55648fd",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "receive:proposal-strongman:140:6a6c17e35f8cf78e15acad34a019f248",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "receive:failure-evaluation:141:ca5a48ac8ddfc8ffa1fa82f11b370123",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "receive:failure-evaluation:141:ca5a48ac8ddfc8ffa1fa82f11b370123:exit",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:proposal-root:54b875cf9553a7ba040620073fcb7e5a",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:evidence-lead:957a3f2c36cdc539a492a8f5a8847098",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:42789e9aac90cbd947f2966373418610:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:7900cf903aa763c138966b6044602a49:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:proposal-root:1ab3a23f0cba3c59b55a82a08a855e4f",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:2bdbe21a8c0939b095deedf3ffc9f086:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:0bffa5984dc48af928c08ae9568cd205:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:4535de5f871d64782f9ab9861d1b4897:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "knowledge-record:93656c98c0c2d0be74d515390e5ece7d:notice",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "report:ee9f1c296500047740bdb2da94facd8b",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:failure-evaluation:deb8fdee25777e13f903f9d0152c61a9",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:evidence-lead:4e31cd672657443d6ef7a4cea2de1ed1",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "receive:failure-evaluation:190:b72274627a8d897371e5a9012e9ae23c",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:proposal-root:8ce258896a5034592acfd24ac061f4a5",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:runtime-lead:e85d4c365ce4f361e504bf35e3f1ddee",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:evidence-lead:b87714be6cfaf22aa9b41bf0dc74bd8b",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:proposal-root:c5d1e731f6896f7f498ca0b007d00264",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:evidence-lead:6b1a4d8a83e3c2a130457389e79cc036",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:evidence-lead:f7e1c08e1fcb3baa82a276719c49698e",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:proposal-root:310bbec1fc6ae145985c78f91c59941f",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:proposal-root:4a09cd4596a333a553484715134a503e",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:proposal-root:00bbc4502c4ad4b72fe4faeec5dc00e5",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:proposal-root:97742c1c863e1eaf31ad156a030e3fc1",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1",
+      "message": "message:proposal-root:0ca34d1ac88e547d2476c81f3b1af090",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "e5e8d00d9104b488:79476:196504:1792176677:66305:229817412",
+      "handled": "native-turn:receive:design-lead:327:4689a6bb4c9246ce2d1081caa8ec0db1"
+    },
+    {
+      "attempt": "receive:failure-evaluation:333:c5612a3918dfb17b1051e4ce590d2b14",
+      "message": "message:design-lead:43a8588b5f71dbc0e39e34773878d638",
+      "recipient": "failure-evaluation",
+      "native": "01a143e4-34e5-7000-a837-d80957bbce0c",
+      "identity": "7f64ad7305802b6c:81605:204640:1792176677:66305:229817442",
+      "handled": "native-turn:receive:failure-evaluation:333:c5612a3918dfb17b1051e4ce590d2b14"
+    },
+    {
+      "attempt": "receive:proposal-strongman:332:ed2ec2efd075a9d2c16eb7cdc2e77547",
+      "message": "message:design-lead:a70ade7d68a2be27a74c43072fe2d1ba",
+      "recipient": "proposal-strongman",
+      "native": "01a143e3-cb26-7322-865a-112f34f9b610",
+      "identity": "495baf6d907a1651:81568:204618:1792176677:66305:229817429",
+      "handled": "native-turn:receive:proposal-strongman:332:ed2ec2efd075a9d2c16eb7cdc2e77547"
+    },
+    {
+      "attempt": "receive:design-lead:340:151fd4a894e6670e744c3cd95ec26016",
+      "message": "receive:failure-evaluation:333:c5612a3918dfb17b1051e4ce590d2b14",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "fc758732686cfe79:92234:236072:1792176677:66305:229817468",
+      "handled": "native-turn:receive:design-lead:340:151fd4a894e6670e744c3cd95ec26016"
+    },
+    {
+      "attempt": "receive:design-lead:340:151fd4a894e6670e744c3cd95ec26016",
+      "message": "receive:proposal-strongman:332:ed2ec2efd075a9d2c16eb7cdc2e77547",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "fc758732686cfe79:92234:236072:1792176677:66305:229817468",
+      "handled": "native-turn:receive:design-lead:340:151fd4a894e6670e744c3cd95ec26016"
+    },
+    {
+      "attempt": "receive:design-lead:340:151fd4a894e6670e744c3cd95ec26016",
+      "message": "message:proposal-root:b15611ed34ca1cc25dbb6d81ed82fb0c",
+      "recipient": "design-lead",
+      "native": "01a143e2-707c-7000-93b9-a48cd502d418",
+      "identity": "fc758732686cfe79:92234:236072:1792176677:66305:229817468",
+      "handled": "native-turn:receive:design-lead:340:151fd4a894e6670e744c3cd95ec26016"
+    }
+  ],
+  "turnProjection": {
+    "status": "Native lifecycle events contain only allowlisted metadata. Native conversation bodies, reasoning, tool calls and terminal text are omitted. Authored reports are retained separately.",
+    "eventScalarAllowlist": [
+      "schema_version",
+      "id",
+      "sequence",
+      "recorded_at",
+      "record_type",
+      "durability",
+      "causation_id",
+      "payload_type",
+      "payload_schema_version",
+      "type",
+      "isTerminal"
+    ],
+    "eventStreamAllowlist": [
+      "id",
+      "kind"
+    ],
+    "payloadScalarAllowlist": [
+      "command_id",
+      "kind",
+      "reason",
+      "terminal"
+    ],
+    "payloadRunStreamAllowlist": [
+      "id",
+      "kind"
+    ]
+  }
+}
