@@ -8,14 +8,17 @@ reports plus this comparison are the input to it.
 
 Method: the single-harness reports analyze shallow clones at recorded HEAD commits (Pi
 `b06c1f2c`, DeepSeek Harness `5719020`, fx `6afa7c33`, Prime Agent `3e141d10`, NOOA
-`3187c6df`); the survey covers fifteen further harnesses from primary sources; benchmark
-figures come from primary sources. Reports: [pi.md](pi.md),
-[deepseek-harness.md](deepseek-harness.md), [fx.md](fx.md), [prime-agent.md](prime-agent.md),
-[nooa.md](nooa.md), [minimal-harness-survey.md](minimal-harness-survey.md),
+`3187c6df`, Meta CLM `48319822`, Unreal Agent `a5f3fd13`, Arcee NAC `e02ab928`); the survey
+covers fifteen further harnesses from primary sources; benchmark figures come from primary
+sources. Reports: [pi.md](pi.md), [deepseek-harness.md](deepseek-harness.md), [fx.md](fx.md),
+[prime-agent.md](prime-agent.md), [nooa.md](nooa.md),
+[context-language-models.md](context-language-models.md), [unreal-agent.md](unreal-agent.md),
+[arcee-nac.md](arcee-nac.md), [minimal-harness-survey.md](minimal-harness-survey.md),
 [benchmarks.md](benchmarks.md), [no-compaction-approaches.md](no-compaction-approaches.md),
-[no-compaction-harnesses.md](no-compaction-harnesses.md).
+[no-compaction-harnesses.md](no-compaction-harnesses.md),
+[context-networking.md](context-networking.md).
 
-## The five approaches
+## The six approaches
 
 ### Pi — policy at hooks, capability in the surface
 
@@ -209,11 +212,45 @@ no-ops pending a refactor), so long-session growth rests on the overflow archive
 stdout past 50,000 characters is unrecoverably elided unless the file-backed option streams it
 to disk; REPL locals die with the method by design.
 
+### Meta Context Language Models — the context as a read-write file
+
+Concept: make the accumulated context itself the editable artifact. The history transition
+becomes `c_{t+1} = f^CLM(c_t)` — one function the model applies to its own context, subsuming
+threshold compaction, fragments, and schedules as special cases (paper §1-§2). The harness is
+a protocol: the context renders to a mirrored file with typed turn headers, the model edits it
+with ordinary bash (`sed`, `python`, `cat`), and a round-trip parser re-pins the protected
+prefix and recovers turns from surviving headers — with the disclosed loss that tool-call
+structure never survives an edit.
+
+Architecture that achieves it:
+
+- A byte-exact round trip: `/tmp/.live_ctx/LIVE_CTX_MAIN.txt` with `[[CTX_TURN i role=...]]`
+  headers; `parse_back` validates and rebuilds; edits are free-form and priced.
+- The honesty device: prefix-reuse FLOPs. Mid-context edits invalidate KV prefix caching, so
+  the paper prices the freedom — a head edit costs 7.7× an append-only turn on its
+  Qwen3.6-27B setup — teaches the cost in the system prompt, and buys most of it back with
+  Suffix Cache Reuse: a serving-layer implementation (~1,935-line SGLang monkeypatch with a
+  21.97 GiB side KV buffer, plus a vLLM KV connector) recovering 65.0-65.5% of standard FLOPs
+  at matched accuracy.
+- Position in the context-as-variable line (paper Appendix A): RLMs externalize the input and
+  keep live context read-only; CLMs make the live accumulated context read-write. Against
+  NOOA it is the architectural opposite: NOOA pays zero re-prefill by keeping the transcript
+  append-only and state in values; CLM pays re-prefill and mitigates it at the serving layer —
+  mirror-image cache arguments.
+- Release posture: harness, ICL loop, FLOPs accounting, and both SCR implementations are
+  released and testable (the shipped unit tests pass); the subagent/swarm runtime, RL
+  training, and all API-model results are paper-only.
+
+Costs and limits: tool-call structure never survives an edit; pure-compaction turns still
+count against the call budget; SCR is serving-specific (SGLang/vLLM), the FLOPs numbers drift
+slightly between paper and repo, and the enforced budget arithmetic differs from the paper's
+stated budget (26,624 vs 23,560 tokens).
+
 ### The no-compaction field
 
 Two companion reports ([no-compaction-approaches.md](no-compaction-approaches.md),
 [no-compaction-harnesses.md](no-compaction-harnesses.md)) extend the context-management
-evaluation beyond the five approaches above. The published approaches sort into four postures:
+evaluation beyond the six approaches above. The published approaches sort into four postures:
 budget the history (selective clearing — Anthropic's context-editing API clears stale tool
 uses while keeping recent ones and instructions; Mastra's sliding window with a documented
 cache cost); move the projection out (filesystem-as-context — Manus keeps state in files and
@@ -234,9 +271,31 @@ the ones that move state out of the window entirely — filesystem or paged memo
 selective clearing and sliding windows postpone the same pressure; the harnesses report does
 the mechanism-by-mechanism analysis.
 
+Two further entries sharpen the posture map. Arcee AI's NAC ([arcee-nac.md](arcee-nac.md))
+implements Random Labs' Slate architecture: a structurally tool-less orchestrator dispatches
+workers as fresh OS processes whose final response becomes a committed episode and whose
+context is discarded — workers never compact because dispatches are bounded by construction
+(state passes between dispatches by value), a move-the-projection-out/curate-standing-artifact
+hybrid — while the orchestrator and direct transcripts keep compaction at a 70% default, and
+the compaction cut-point invariant independently matches pi's (no boundary separates a tool
+call from its result). No benchmark evidence exists for it anywhere. Unreal Agent
+([unreal-agent.md](unreal-agent.md)) sits outside the postures: its compaction is conventional
+summarize-and-rebuild against provider-reported usage, and its contribution is the async
+tool-call contract (a running placeholder result replaced or supplemented on completion) and
+exactly-once crash recovery over an event-sourced runtime journal. Finally, the hypotheses
+evaluation ([context-networking.md](context-networking.md)) adds a fifth posture from the
+autoresearch field: context as search state — idea-population operators (tournament evolution
+in AI co-scientist, island evolution in FunSearch, best-first search in AI Scientist-v2)
+acting over a persistent typed store rather than a transcript. The same report evaluates the
+operator's two posed compositions: native context passing is coherent as commit-and-cite
+addressing (the baton orchestrator's REPL layer already provides the substrate) and a category
+error as live-context dereference across processes; networked infinite context is buildable
+from parts that all exist, with unboundedness accruing to the addressable store while
+effective context stays a budgeted function of commit/deref/authority boundaries.
+
 ## The space of approaches
 
-The survey situates the five in the wider field: near-zero loops (mini-SWE-agent's ~100-line
+The survey situates the six in the wider field: near-zero loops (mini-SWE-agent's ~100-line
 bash-only agent scoring >74% on SWE-bench Verified; Hugging Face Tiny Agents' while-loop over
 an MCP client; rasbt's stdlib single script) at one end; structured SDKs (OpenHands' typed-event
 software-agent-sdk) at the other; and most of the industry between (Aider, goose, opencode,
@@ -270,26 +329,24 @@ The benchmark report grounds the evaluation empirically (all figures from primar
 
 Each approach's answer to the engineering problems every harness must solve:
 
-| Problem | Pi | DeepSeek Harness | fx | Prime Agent | NOOA |
-| --- | --- | --- | --- | --- | --- |
-| Where policy lives | Hook seams; kernel ships none | Seam plugins; behavior as preset/patch data | Typed capability injection; default-deny embeds; ranked permission modes | Admission gates; refinement gates; supervisor-owned policy | Typed methods as enforced contracts; deterministic gates as ordinary code; strategies per method |
-| Session durability | Append-only entry tree, leaf pointer; single-process JSONL; pi-durable adds committed task graph + head markers | Turn-enclosed generations, lease single-writer, torn-tail repair, never renamed | Fenced fsynced log, byte-exact manifest, disposable replay cache, TLA+ checked | Append-only ledgers per concern; fork-by-prefix; descriptor adoption | Serialization at one boundary: `AgentSnapshot` v2 JSON with a type allowlist; live objects refused; optional SQLite event backend |
-| Concurrency | `Promise.all` per batch, source-order persistence; durable rounds one task at a time | One classification → three schedulers; head-of-line commit cursor | Leading-prefix classes (cap 16); first writer alone; per-call threads | Per-file mutation queues; programmatic parallelism in the kernel; process isolation per session | Model-written parallelism (`asyncio.gather` over generated cells); no harness scheduler axis in the analyzed code |
-| Context management | Compaction cut points at turn boundaries; tool results kept whole; cache warmer | Deterministic tool-bounding + LLM compaction modes; budgeted result sizes | Budgeted variable: 64 KiB results → spill handles; byte budgets for catalogs; self-calibrating estimates | Retrieval over kernel variables under caps; agentic compaction at 95%; harness-digest delivery | Pass by reference: bounded previews only, values live in the process; compaction shipped but dormant (75% summarizer, provider-rejection archive, model-callable collapse) |
-| Extension surface | jiti in-process TS extensions over one `ExtensionAPI` | Three-role seams, preset patches, npm distribution | Function-pointer deps; typed host capabilities; ACP shared by all hosts | PTC; state-machine factories; gated refinement commits | Ordinary Python declarations (methods, docstrings, annotations); strategies; model-callable harness APIs (`ContextApi`, `EventsApi`) |
-| Subagents | Ownership-indexed conversations, bottom-up abort, background boundaries | Subagent providers (spawn/fork/SDK-external) | One-level, captured non-escalating authority; children invisible to external resume | Recursive spawn (depth 2), durable message results, quiescence factories | Depth-bounded `delegate` (max 4) constructing subagents of the same class; model-written fan-out over generated subcalls |
+| Problem | Pi | DeepSeek Harness | fx | Prime Agent | NOOA | Meta CLM |
+| --- | --- | --- | --- | --- | --- | --- |
+| Where policy lives | Hook seams; kernel ships none | Seam plugins; behavior as preset/patch data | Typed capability injection; default-deny embeds; ranked permission modes | Admission gates; refinement gates; supervisor-owned policy | Typed methods as enforced contracts; deterministic gates as ordinary code; strategies per method | Budget gates (`edit_gate`, `lm_call_cap`) around one bash action space; the model edits its own context under them |
+| Session durability | Append-only entry tree, leaf pointer; single-process JSONL; pi-durable adds committed task graph + head markers | Turn-enclosed generations, lease single-writer, torn-tail repair, never renamed | Fenced fsynced log, byte-exact manifest, disposable replay cache, TLA+ checked | Append-only ledgers per concern; fork-by-prefix; descriptor adoption | Serialization at one boundary: `AgentSnapshot` v2 JSON with a type allowlist; live objects refused; optional SQLite event backend | Mirrored live-context file with `[[CTX_TURN]]` headers; parse-back re-pins the prefix and recovers turns; tool-call structure never survives an edit |
+| Concurrency | `Promise.all` per batch, source-order persistence; durable rounds one task at a time | One classification → three schedulers; head-of-line commit cursor | Leading-prefix classes (cap 16); first writer alone; per-call threads | Per-file mutation queues; programmatic parallelism in the kernel; process isolation per session | Model-written parallelism (`asyncio.gather` over generated cells); no harness scheduler axis in the analyzed code | Single bash tool; subagent runtime withheld from the release |
+| Context management | Compaction cut points at turn boundaries; tool results kept whole; cache warmer | Deterministic tool-bounding + LLM compaction modes; budgeted result sizes | Budgeted variable: 64 KiB results → spill handles; byte budgets for catalogs; self-calibrating estimates | Retrieval over kernel variables under caps; agentic compaction at 95%; harness-digest delivery | Pass by reference: bounded previews only, values live in the process; compaction shipped but dormant (75% summarizer, provider-rejection archive, model-callable collapse) | Context as a read-write file; compaction is a special case of the model's own editing; re-prefill priced (7.7× head edit) and mitigated at the serving layer (Suffix Cache Reuse, 65% FLOPs) |
+| Extension surface | jiti in-process TS extensions over one `ExtensionAPI` | Three-role seams, preset patches, npm distribution | Function-pointer deps; typed host capabilities; ACP shared by all hosts | PTC; state-machine factories; gated refinement commits | Ordinary Python declarations (methods, docstrings, annotations); strategies; model-callable harness APIs (`ContextApi`, `EventsApi`) | Harness protocol (mirror file + parser + prompts); optional ICL steering and RL layers; sha16-pinned skills |
+| Subagents | Ownership-indexed conversations, bottom-up abort, background boundaries | Subagent providers (spawn/fork/SDK-external) | One-level, captured non-escalating authority; children invisible to external resume | Recursive spawn (depth 2), durable message results, quiescence factories | Depth-bounded `delegate` (max 4) constructing subagents of the same class; model-written fan-out over generated subcalls | Withheld from the release ("experimental features not part of this release"); Software World ran in the Pi harness |
 
 Reading the table by column rather than by row shows what each approach optimizes for: Pi for
 surface minimality and a documented, resumable session; dsh for modularity and one
 reconstructable log; fx for enforced budgets and checked durability; Prime for retrieval-based
 context and auditable autonomy; NOOA for context economy by reference, with compaction kept
-off the critical path. The benchmark evidence cuts across the columns: same-model score
-spreads are large, the minimal loop is competitive, and most incremental scaffolding does not
-pay for itself — so the engineering problem each harness solves hardest is the one that
-distinguishes it.
-score spreads are large, the minimal loop is competitive, and most incremental scaffolding
-does not pay for itself — so the engineering problem each harness solves hardest is the one
-that distinguishes it.
+off the critical path; CLM for making the context itself the editable artifact, with the cost
+priced and mitigated at the serving layer. The benchmark evidence cuts across the columns:
+same-model score spreads are large, the minimal loop is competitive, and most incremental
+scaffolding does not pay for itself — so the engineering problem each harness solves hardest
+is the one that distinguishes it.
 
 ## Cross-harness highlights
 
@@ -340,6 +397,11 @@ Where independent engineering arrived at the same answer, as observation:
   LOCOMO/DMR results with different scoring), and ACE, Folding, and ReFold have no independent
   replications; compaction-free claims rest on vendor-reported numbers more often than on
   shared harnesses.
+- Context-as-editable-artifact and networking costs are stack-specific: CLM's 7.7× head-edit
+  price and its Suffix Cache Reuse mitigation are measured on one serving stack, and its
+  paper/repo numbers drift; the context-networking verdicts identify the missing primitives
+  (cross-session addressing, read grants, deref budgets, passivation consistency) but no
+  implementation measures them.
 
 Design work for baton-cli starts from these reports and this evaluation; no design decisions
 are drawn here.
