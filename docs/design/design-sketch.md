@@ -1,209 +1,202 @@
-# Design sketch: baton-cli
+# Design sketch: baton-cli as a set of core concepts
 
-Status: design-phase input. This sketch describes what a minimalist, state-of-the-art harness
-looks like if it takes the best from every sampled harness and research approach, given two
-fixed constraints: the harness is written in Bend2 and compiles native, and it is a seat driven
-by the baton orchestrator (tasking, messages, receipts, wake delivery). Every choice cites the
-reports in [docs/research/](../research/) that ground it; the traceability table at the end
-maps decisions to sources.
+Status: design-phase input. Earlier revisions of this sketch were organized by component (loop,
+tools, planes). This revision is organized by concept, because the researched harnesses are best
+understood — and best combined — at the level of the concepts driving them: each sampled harness
+is a different arrangement of the same small set of ideas, and this harness's arrangement is the
+claim being made here. Each concept states: the idea, the mechanism realizing it, the failure
+modes it makes unreachable, and what the agent itself sees of it. Sources cite
+[docs/research/](../research/).
 
-## Thesis
-
-A thin loop over three data planes, where state lives in values, the transcript is append-only,
-and everything the orchestrator touches is content-addressed. The benchmark evidence says the
-loop is the instrument and most scaffolding does not pay for itself ([benchmarks.md](../research/benchmarks.md)):
-state-of-the-art is engineering discipline in four places — durability correctness, context
-economy, async-streaming semantics, and orchestrator-native passing — not feature count.
-
-## Three data planes
+The claim in one sentence: a harness is a small set of commitments held mechanically — one log,
+two planes, turn-bounded mutation, declared contracts, one language, no rationing, honest
+failure, an orchestrator plane, and an unbounded addressable store — and the agent operates
+inside those commitments as its native interface, with no other apparatus at all.
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│ LOOP (thin; hooks are the only policy surface)              │
-│  turn = model stream + tool batch; boundaries for steering  │
-├──────────────┬──────────────────────┬───────────────────────┤
-│ SESSION LOG  │ LIVE VALUE PLANE     │ ORCHESTRATOR PLANE    │
-│ fenced       │ process heap: typed  │ cells (cell:sha256),  │
-│ append-only  │ context variables,   │ version-CAS bindings, │
-│ JSONL +      │ whole tool results,  │ repl: citations,      │
-│ byte-exact   │ Bend2 program state  │ grants, wake inbox    │
-│ manifest +   │                      │                       │
-│ replay cache │                      │                       │
-└──────────────┴──────────────────────┴───────────────────────┘
-        ▲                 │ previews only           ▲
-        └── durability    ▼                          └── commit-and-cite
-            at one boundary (snapshot with type allowlist)
+┌──────────────────────────────────────────────────────────────┐
+│ THE AGENT'S INTERFACE (what the model sees and calls)        │
+│  previews of live values · a queryable event log · tools     │
+│  whose contracts are visible · citations it can deref ·      │
+│  programs in the harness's own language · typed errors       │
+├──────────────┬───────────────────────┬───────────────────────┤
+│ SESSION LOG  │ LIVE VALUE PLANE      │ ORCHESTRATOR PLANE    │
+│ fenced       │ process heap: typed   │ cells, bindings,      │
+│ append-only  │ variables, whole      │ citations, grants,    │
+│ JSONL +      │ results, Bend2 state  │ wake inbox, knowledge │
+│ manifest     │                       │ layer                 │
+└──────────────┴───────────────────────┴───────────────────────┘
+        ▲                │ previews only           ▲
+        └── durability   ▼                           └── commit-and-cite
+            at one boundary
 ```
 
-- **Session log.** fx's engineering bar on Pi's shape: fenced, fsynced, offset-confirmed
-  appends behind a state-machine validator; byte-exact manifest with a disposable binary replay
-  cache for resume; turn-enclosed, with every exit path closing the turn with a reason and
-  crash repair and fork sharing one mechanism at different causes
-  ([fx.md](../research/fx.md) §10, [pi.md](../research/pi.md) §6,
-  [deepseek-harness.md](../research/deepseek-harness.md) §5). Fork, compaction, and orchestrator
-  delivery are prefix operations on this one log.
-- **Live value plane.** Bound the rendering, not the value
-  ([nooa.md](../research/nooa.md) §3): tool results stay whole as values in the process; the
-  model sees typed, data-defined previews; serialization happens at exactly one boundary
-  (durability, with a type allowlist and refusal of live objects). This is the no-compaction
-  architecture, and it is available precisely because the harness's second data plane is its
-  own process — which is what compiling Bend2 native provides.
-- **Orchestrator plane.** The part no sampled harness has: commit-and-cite context passing,
-  version-pinned MVCC dereferences that return the cited representation — a bounded preview
-  for large cells, paged reads beyond it — macaroon-caveat grants, and an append-only shared
-  ledger for state two seats must both see
-  ([networked-context-program.md](../research/networked-context-program.md);
-  [baton#777](https://github.com/Flip-Engineering/baton/issues/777)).
+## 1. One log; everything else is a projection
 
-## The loop
+The session is an append-only, turn-enclosed event log — fenced, fsynced, offset-confirmed
+appends behind a state-machine validator, with a byte-exact manifest and a disposable replay
+cache ([fx.md](../research/fx.md) §10). Model context, resume, fork, compaction, crash repair,
+and the orchestrator's view are all folds over this log; there is no second place where session
+state lives. Crash repair and fork are the same operation at different causes
+([deepseek-harness.md](../research/deepseek-harness.md) §5).
 
-Pi's turn semantics as the reference: one assistant response plus its complete tool batch is
-the atom of persistence and compaction; a tool result never separates from its call (enforced
-in cut points and in ordering); a truncated response fails every pending tool call with a
-re-issue instruction ([pi.md](../research/pi.md) §4, §12). Hooks (`beforeToolCall`,
-`finishTurn`, `prepareRequest`, `prepareNextTurn`) are the only policy surfaces;
-approval and context policy live there, never in features. Steering is admitted only at
-declared boundary kinds — model, cancelled, finalizing ([fx.md](../research/fx.md) §7). The
-loop rations nothing: no step counter, no run-level time allowance. Operations carry ordinary
-timeouts as part of their tool contracts — a shell command fails when its timeout expires —
-and elapsed time is telemetry, not a gate. Runaway control is the operator's stop, which is
-always effective; benchmark harnesses step-cap for measurement, and that is where step caps
-belong.
+*Excludes:* parallel state stores that can disagree with the transcript; resume bugs of the
+"reconstruct what must have happened" variety; any model-visible content that was not logged.
+*Surfaced:* the agent can query its own past — the event log is an API (`events.query`,
+typed, tagged), so its history is addressable data, not scrollback
+([nooa.md](../research/nooa.md) §2.6).
 
-## Tools
+## 2. Two planes: values live, renderings are bounded
 
-Minimal by evidence: bash, read, one robust edit (uniqueness-checked, errors fed back), and
-the inbox read — narrow utility tools measurably hurt, and the single edit operation is the
-one addition that reliably pays ([benchmarks.md](../research/benchmarks.md) SWE-agent
-ablations). Plus the Bend2 code lane: generated Bend2 programs execute directly under the same
-confinement and logging as discrete tools — dsh's PTC contract (fresh confined process,
-byte-stable SDK section, typed failure taxonomy, failed programs never replayed) with the
-harness's own compiled language as the runtime
-([deepseek-harness.md](../research/deepseek-harness.md) §4). Each tool carries its contract as
-data: concurrency safety class, idempotency/writes declarations, permission target, and result
-representation (inline preview, spill-to-handle, or paged)
-([fx.md](../research/fx.md) §3). Execution: leading-prefix groups by declared class with a
-writer fence; a `running` placeholder result committed immediately and replaced or supplemented
-on completion ([unreal-agent.md](../research/unreal-agent.md) §5); intent-before-effect
-journaling for effectful calls ([fx.md](../research/fx.md) §4); ordered commits through a
-head-of-line cursor so the log stays model-ordered. Oversized results spill to
-content-addressed handles with previews, searchable after resume — the handle serves the
-cross-process case, while the value itself may still be live in-process.
+Whole tool results live as values in the process. The transcript carries format-bounded
+previews — item count, character count, depth are properties of the rendering spec, checkable
+by reading it. When a result must cross a process boundary it changes representation: a handle
+plus a preview, paged on demand ([fx.md](../research/fx.md) §3). Serialization to the log
+happens at exactly one boundary, with a type allowlist and refusal of live objects
+([nooa.md](../research/nooa.md) §3.4). There are no quotas, no counters, no token ledgers: the
+amount of data the agent can process is bounded by the execution environment, the amount it
+sees is bounded by the representation shown, and neither is measured — measuring them would be
+fiction anyway, since token calibration requires a completed provider response and the moments
+that matter have none ([deref-and-consistency.md](../research/deref-and-consistency.md) §1).
 
-## Bounds are representations, not accounting
+*Excludes:* compaction on the critical path; quota accounting; every "context pressure"
+failure in #718. *Surfaced:* the model sees the invariant and can rely on it — "the variable
+is not truncated; index it" — with paging when a rendering is large.
 
-Nothing in the harness enforces a quota. Every model-visible surface is a representation whose
-size is bounded by its own contract: previews are bounded by the rendering format's spec (item
-count, character count, depth); event fields are bounded by the event schema; oversized tool
-results change representation — they become a handle with a preview, and paging reads the rest
-on demand; dynamic tail blocks render whatever their expression yields, and whole-block
-eviction handles the pathological case. The amount of data an agent can process is bounded by
-the execution environment, and the amount it can *see* is bounded by the representation it is
-shown — no ledger measures either.
+## 3. Turns are the only mutation points
 
-Two hard gates exist and both are named failure paths, not accounting: admission (cells are
-size-capped at the orchestrator boundary) and reaction (if the provider rejects a request, the
-overflow archive sheds old events — an exception handler, not a policy engine). Token-denominated
-ledgers would be fiction anyway: token calibration needs a completed provider response, and
-the moments where a bound would matter are exactly the moments without one
-([deref-and-consistency.md](../research/deref-and-consistency.md) §1.3 — its enforcement
-analysis is superseded on this point by the representation contract). Abuse-limiting rate
-accounting belongs to the orchestrator's operations plane, outside the harness.
+One assistant response plus its complete tool batch is the atom. Every exit path closes the
+turn with a reason; crash repair is fork with a different cause; orchestrator operations —
+deliver, cite, promote a shared binding — happen at turn boundaries
+([deepseek-harness.md](../research/deepseek-harness.md) §5.1, [pi.md](../research/pi.md) §4).
+A truncated response fails every pending tool call with a re-issue instruction; a tool result
+never separates from its call, enforced in cut points and in ordering
+([pi.md](../research/pi.md) §12).
 
-This is also what "bounded" means everywhere below: a property of a representation, checkable
-by reading its spec, never a running counter.
+*Excludes:* mid-flight state ambiguity; torn sessions; the class of failure where a delivered
+message lands inside a half-executed turn. *Surfaced:* steering arrives only at declared
+boundary kinds — model, cancelled, finalizing ([fx.md](../research/fx.md) §7) — so the agent
+experiences interruption as a clean boundary, and citations it receives always point at
+settled, committed versions.
 
-And the harness rations nothing anywhere: no step counters, no time allowances over the run.
-The only external control on how long a seat works is the operator's stop — a judgment call,
-made by something that can see the work, at the moment it matters.
+## 4. Declared contracts, honored mechanically
 
-## Context and compaction
+Tools and generated programs carry their contracts as data: concurrency safety class,
+idempotency/writes declarations, permission target, result representation (inline preview,
+spill-to-handle, or paged), timeout semantics ([fx.md](../research/fx.md) §3). The loop
+schedules from the declaration — leading-prefix concurrent groups by class with a writer fence,
+ordered commits through a head-of-line cursor ([fx.md](../research/fx.md) §4) — and effectful
+calls journal an intent before running. The prompt-facing side of a contract renders from the
+same predicate the executor enforces, so description and enforcement cannot drift
+([deepseek-harness.md](../research/deepseek-harness.md) §4). The seat↔orchestrator protocol
+itself is specified as small state machines and model-checked before implementation, with
+TLC-generated states replayed against the runtime ([fx.md](../research/fx.md) §11).
 
-Three regions, as NOOA renders them: a byte-stable static prefix, an append-only typed event
-stream with stable tags, and a dynamic tail re-evaluated each turn — live-state updates
-re-render the tail without invalidating the cached prefix. Compaction ships in triplicate and
-stays dormant by headroom: an opt-in summarizer at 75% of the window, a reactive archive on
-actual provider rejection, and model-callable collapse with originals addressable by tag
-([nooa.md](../research/nooa.md) §3.6). If compaction fires, it is lossy-verbatim reclamation:
-user intent and final answers verbatim, everything else displaced into searchable records
-([fx.md](../research/fx.md) §13). From CLM the design takes only the pricing discipline — every
-context mutation is measured and surfaced in telemetry (a head edit costing 7.7× an append is
-the honesty standard) — not the read-write-context mechanism
-([context-language-models.md](../research/context-language-models.md)).
+*Excludes:* per-tool special cases in the loop; prompt/behavior drift; approval logic baked
+into features. *Surfaced:* the model reads each tool's contract as part of the tool — the
+description it sees is generated from the same data the scheduler obeys.
 
-## Orchestrator integration
+## 5. One language, end to end
 
-The seat is a first-class session: its context variable commits as cells at turn boundaries
-under a declared snapshot schema; briefs and reports carry `repl:` citations; dereferences are
-MVCC reads — serve last-committed with the version marked in the receipt — returning the cited
-representation, a bounded preview with paged reads beyond it; cross-seat read authorization is a
-server-minted, non-transferable grant; shared state is an append-only ledger, the only sharing
-mechanism consistent with baton's recorded non-goals
-([context-networking.md](../research/context-networking.md),
-[addressing-and-authority.md](../research/addressing-and-authority.md),
-[deref-and-consistency.md](../research/deref-and-consistency.md)). The committed store doubles
-as a search-state population: idea-operators (tournament, top-k, annealing-style exploration
-  schedules) act as ranked reads over a typed, scored store — the fifth context-management posture
-([context-networking.md](../research/context-networking.md) §3.4), and the natural fit for
-baton's knowledge layer.
+The harness is Bend2 and compiles native. Generated programs are Bend2, executed natively
+under the same confinement and logging as any tool — dsh's PTC contract with no foreign
+runtime ([deepseek-harness.md](../research/deepseek-harness.md) §4). The developer's surface
+and the model's surface are the same objects: NOOA's deepest insight, that the agent
+interface can be ordinary declarations of the host language, adapted from Python classes to
+Bend2 modules ([nooa.md](../research/nooa.md) §1).
 
-## Modes and engineering discipline
+*Excludes:* the Node/Python foreign-runtime seam every PTC predecessor carries; the
+review/execute gap between harness code and model-written code. *Surfaced:* programs the
+model writes are in the language of the harness it runs in — batched operations, one streamed
+result, same logging.
 
-Modes are agent presets composing a fixed tool catalog, minimal first
-([deepseek-harness.md](../research/deepseek-harness.md) §3; the benchmark evidence favors the
-minimal loop). Engineering discipline carried wholesale: CI gates on binary size and
-trivial-command wall clock; formal-first contract specification — small state-machine models of
-the seat↔orchestrator protocol in the spirit of fx's `DurableSession.tla`,
-`DurableSteer.tla`, and `AgentRouting.tla`, with TLC-generated states replayed against the
-runtime before and after implementation ([fx.md](../research/fx.md) §1, §11);
-fail-closed, honestly reported boundaries — closed outcome unions, full/partial enforcement
-tables, latched failure states, never a silent fallback
+## 6. Ration nothing
+
+No step counter, no run-level time allowance, no quota narration — ever. Termination is one of
+three things: the task completes, the model yields, or the operator stops. Operations carry
+ordinary timeouts as tool contracts (a shell command fails when its timeout expires), and
+elapsed time is telemetry. Benchmark harnesses step-cap for measurement; that is where step
+caps belong, in instruments ([benchmarks.md](../research/benchmarks.md)).
+
+*Excludes:* mid-task kills by arbitrary scalar — the same class of damage as #718, inflicted
+deliberately; the harness second-guessing the trajectory. *Surfaced:* the agent never sees a
+limit warning, a countdown, or a remaining-budget; it works until done or stopped.
+
+## 7. Fail closed, speak exactly
+
+Every boundary normalizes the unknown into a closed outcome union and reports what actually
+happened: approvals fail closed with `unavailable`; sandbox enforcement reports full or
+partial with named reasons; failed programs resolve as typed result fields and never replay;
+a latched writer stops making effects rather than guessing
 ([deepseek-harness.md](../research/deepseek-harness.md) §6, [fx.md](../research/fx.md) §10).
 
-## Deliberately lacking
+*Excludes:* silent fallbacks; guessed states; the wedge where a consumer mistakes an
+uncertain condition for a settled one. *Surfaced:* errors arrive as typed, addressable facts
+the model can reason about, retry deliberately, or escalate — not as prose it must interpret.
 
-- No plugin marketplace: preset composition over a fixed catalog (dsh's Cordis machinery costs
-  more than a minimal harness recovers).
-- No full-screen TUI: the event stream is the interface; human views derive from it (fx's
-  process-boundary protocols as the pattern; its scrollback investment is a human-viewer
-  cost).
-- No self-modifying harness state in v1: Prime's refinement is the highest-risk pattern in the
-  set (its own documented exploit), behind reviewed versioned commits as a later milestone.
-- No narrow utility tools beyond the evidence-backed set.
-- No compaction on the critical path.
+## 8. The orchestrator is a plane, not a puppeteer
 
-## Open bets, to be measured
+The seat's context variable commits as cells at turn boundaries under a declared snapshot
+schema; briefs and reports carry `repl:` citations; dereferences are version-pinned MVCC
+reads returning the cited representation; cross-seat read authorization is a server-minted,
+non-transferable grant; shared state is an append-only ledger. Live-context dereference
+across processes is out, by recorded design decisions everywhere
+([context-networking.md](../research/context-networking.md) §2, §4;
+[networked-context-program.md](../research/networked-context-program.md);
+[baton#777](https://github.com/Flip-Engineering/baton/issues/777)).
 
-1. Async-streaming tool execution has no published A/B against blocking execution; the harness
-   instruments this from the first milestone (same model, pinned versions, logged limits).
-2. The Bend2 code lane (PTC in the harness's own compiled language) is unproven: the minimal
-   experiment is one program surface with confinement, byte-stable SDK rendering, and a typed
-   failure taxonomy, measured against discrete tool calls.
-3. The orchestrator-plane experiments E1–E3 (commit-and-cite, one navigation path, the
-   measurement campaign) are defined in
+*Excludes:* transcript-inlining delivery floods (#718, #720); the cross-process live-deref
+category error; context state duplicated between seat and orchestrator. *Surfaced:* citations
+are first-class in the agent's language — citing and dereferencing committed context is as
+ordinary as calling a function, and what arrives is always a value with a
+reference-shaped address.
+
+## 9. The store is unbounded; the window is navigation
+
+Append-only ledgers everywhere — the seat's own log, orchestrator cells, the knowledge layer —
+make the addressable context unbounded while each participant's effective context is what it
+navigates to: its local working set plus the committed versions it cites and derefs under
+declared representation bounds. The committed store doubles as a search-state population:
+idea-operators (tournament, top-k, exploration schedules) act as ranked reads over a typed,
+scored store — the fifth context-management posture
+([context-networking.md](../research/context-networking.md) §3.4,
+[no-compaction-approaches.md](../research/no-compaction-approaches.md)).
+
+*Excludes:* compaction pressure as a design driver; the lossy boundary moves from the context
+window to commit/deref/authority time, where it is explicit and chosen. *Surfaced:* the
+agent navigates its own and peers' committed context through the same variable grammar it
+uses for everything else — the weak form of networked infinite context, buildable from parts
+that all exist.
+
+## What the composition forbids
+
+Taken together the concepts leave no room for: a plugin marketplace (presets compose a fixed
+catalog — [deepseek-harness.md](../research/deepseek-harness.md) §3, §7), a full-screen TUI
+(the event stream is the interface; human views derive from it), narrow utility tools (the
+ablations penalize them — [benchmarks.md](../research/benchmarks.md)), self-modifying harness
+state in v1 (Prime's refinement behind reviewed commits is a later milestone —
+[prime-agent.md](../research/prime-agent.md) §3), or compaction on the critical path.
+
+## The bets
+
+Three claims in this sketch are design positions, not established results, and each names its
+own measurement:
+
+1. Async-streaming tool execution outperforms blocking execution on real workloads — no
+   published A/B exists; instrument it from the first milestone.
+2. The Bend2 code lane is better than discrete tool calls for batched operations — measure
+   against discrete calls with the PTC contract above.
+3. Commit-and-cite beats transcript inlining on token cost and cache behavior for
+   orchestrator-mediated work — the E1–E3 ladder in
    [networked-context-program.md](../research/networked-context-program.md).
 
-## Traceability
+## How the concepts compose
 
-| Decision | Grounded in |
-| --- | --- |
-| Fenced append-only log; turn enclosure; crash repair = fork | fx.md §10; pi.md §6; deepseek-harness.md §5; unreal-agent.md §6 |
-| Turn semantics (length fails pending calls; result cohesion) | pi.md §4, §12 |
-| Hooks as the only policy surface | pi.md §8, §11 |
-| Minimal tool set; one edit investment | benchmarks.md; minimal-harness-survey.md |
-| Contracts-as-data per tool | fx.md §3; deepseek-harness.md §1.1 |
-| Async streaming: prefix classes, ordered commits, placeholder→final | fx.md §4; unreal-agent.md §5; deepseek-harness.md §1.1 |
-| Intent-before-effect; idempotency classes | fx.md §4; pi.md §9 (pi-durable); unreal-agent.md §5 |
-| Bounded rendering; values live in-process | nooa.md §3; prime-agent.md §1 (contrast) |
-| Three-region transcript; cache stability | nooa.md §3.1; deepseek-harness.md §6; no-compaction-approaches.md §1 (Manus) |
-| Spill handles for cross-process results | fx.md §3, §10 |
-| Compaction dormant; lossy-verbatim if fired | nooa.md §3.6; fx.md §13; no-compaction-approaches.md §2 |
-| Pricing discipline for context mutations | context-language-models.md |
-| Bend2 code lane (PTC in own language) | deepseek-harness.md §4; prime-agent.md §2; nooa.md §2 (CodeAct) |
-| Orchestrator plane: commit-and-cite, MVCC derefs, grants, shared ledger | context-networking.md; addressing-and-authority.md; deref-and-consistency.md; networked-context-program.md; baton#777 |
-| Presets, not microkernel; minimal first | deepseek-harness.md §3, §7; benchmarks.md |
-| CI size/latency gates; formal-first protocol specs | fx.md §1, §11 |
-| Bounds as representations, not accounting | nooa.md §3.2; fx.md §3; deref-and-consistency.md §1 (superseded on enforcement) |
-| Fail-closed honest reporting | deepseek-harness.md §6; fx.md §10 |
-| Search-state posture over the knowledge store | context-networking.md §3.4 |
-| Refinement deferred behind reviewed commits | prime-agent.md §3; networked-context-program.md |
+- 1 + 2 is the no-compaction architecture: the log never needs shrinking because bulk never
+  enters it.
+- 3 + 8 is orchestrator passing: turn-bounded commits on both sides make citations settle.
+- 5 + 2 is the native code lane: generated programs read whole values by reference and render
+  one bounded result.
+- 9 + the search-state posture is the knowledge layer: a population with operators, not a
+  transcript with a summary.
+- 6 is what makes the rest coherent: no concept above needs a counter, and none has one.
