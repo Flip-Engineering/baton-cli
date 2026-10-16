@@ -64,7 +64,7 @@ re-issue instruction ([pi.md](../research/pi.md) §4, §12). Hooks (`beforeToolC
 `finishTurn`, `prepareRequest`, `prepareNextTurn`) are the only policy surfaces; approval,
 limits, and context policy live there, never in features. Steering is admitted only at
 declared boundary kinds — model, cancelled, finalizing ([fx.md](../research/fx.md) §7). Step
-counts and wall-clock timeouts are declared, logged harness parameters
+budgets and wall-clock timeouts are declared, logged harness parameters
 ([benchmarks.md](../research/benchmarks.md)).
 
 ## Tools
@@ -109,6 +109,11 @@ accounting belongs to the orchestrator's operations plane, outside the harness.
 
 This is also what "bounded" means everywhere below: a property of a representation, checkable
 by reading its spec, never a running counter.
+
+
+Task-level budgets — step counts, wall-clock timeouts — are ordinary declared parameters and
+stay. The refusal is narrower: accounting on the context path, where the honest unit does not
+exist at the moment a bound would fire.
 
 ## Context and compaction
 
