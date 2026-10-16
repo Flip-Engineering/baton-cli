@@ -265,3 +265,24 @@ for a permanently-append-only graph and for the seat's log; whether the knowledg
 served from cache; the commit cadence's interaction with receiver cache stability; the deref
 representation bound for a first cross-seat read; whether a cross-scope dereference needs a defined
 snapshot; and the Bend2 law-file drift recorded as unverified in the knowledge audit.
+
+## Disposition
+
+Operator decisions on this round, recorded 2026-10-16:
+
+- **Target: baton2**, including the Bend2 REPL layer being added to it
+  (`docs/capabilities/coordination-repl.md`, `docs/33-shared-objects-repl-layer.md` in the baton2
+  tree). The seat targets baton2; the JavaScript line stands as reference evidence for the layer's
+  semantics. The integration audit's "pick one line" finding is resolved by this decision.
+- **Phasing does not reduce scope.** The proposal is a design, not a build plan, so the cut items in
+  [critique-redteam.md](critique-redteam.md) §"What I would cut outright" and the
+  [steelman.md](steelman.md) §2.2 list are recorded as sequencing, not as design reductions. §15 of
+  the sketch sequences work and removes no mechanism.
+- **Amendment status** in [design-sketch.md](design-sketch.md): amendments that correct mechanisms are
+  applied (program lane, self-extension, fork, grants, catalog change discipline, compaction
+  trigger, knowledge participation, citations, instrumentation, discipline); amendments 1-2 are
+  resolved by the target decision above; amendment 22 is reframed as phasing; seat-side commit
+  admission and the branch-record basis digest remain open with named owners, since both are
+  orchestrator-side changes.
+- **Disk**: the superseded codex session-log backups (about 5.5 GB) were deleted during this round,
+  retaining the pre-surgery rollout copy as the historical record.
