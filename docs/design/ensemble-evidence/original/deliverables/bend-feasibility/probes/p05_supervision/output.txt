@@ -1,0 +1,18 @@
+== --check-only
+All terms check, but 3 defs rely on unsafe or foreign code:
+- next_line
+- drain
+- main
+exit=0
+== emit + link
+All terms check, but 3 defs rely on unsafe or foreign code:
+- next_line
+- drain
+- main
+== native run (cwd=work)
+line 0: one
+line 1: two
+exit: exit 0
+child stderr file: oops
+
+exit=0

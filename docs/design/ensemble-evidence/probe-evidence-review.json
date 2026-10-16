@@ -1,0 +1,118 @@
+{
+  "reviewedOn": "2026-10-16",
+  "root": "../../proposal-live/files/deliverables",
+  "method": "Read retained original outputs; no probe or compiler was rerun locally.",
+  "records": [
+    {
+      "file": "bend-feasibility/probes/p01_base_surface/output.txt",
+      "classification": "signature inventory",
+      "observation": "File.size is present. The captured Base inventory does not list fsync, rename, stat, mkdir, exec, Regex, JSON, HTTP, or TLS.",
+      "limit": "The inventory is limited to the inspected Base files; authored host effects are separate."
+    },
+    {
+      "file": "bend-feasibility/probes/p02_shape_rules/output.txt",
+      "classification": "specific checker refusals and successes",
+      "observation": "Computed local scrutinee and match/do examples are refused; duplicate closure use is refused. Dispatcher and wait-loop examples pass their captured checks/runs.",
+      "limit": "These specific examples constrain the tested representations, not all possible dispatch or loop designs."
+    },
+    {
+      "file": "bend-feasibility/probes/p03_durability/output.txt",
+      "classification": "partial execution; final failure",
+      "observation": "Captured checking, C emission, and linking succeed. Output records write/fsync/rename and a committed 9-byte file, then ends with exit 2 and No such file or directory.",
+      "limit": "Does not establish a successful end-to-end durability, directory-sync, crash, or recovery contract."
+    },
+    {
+      "file": "bend-feasibility/probes/p05_supervision/output.txt",
+      "classification": "small process-capture success",
+      "observation": "Captured checker and native runs return 0 and collect two child outputs, stderr, and status.",
+      "limit": "Does not establish restart custody, process identity binding, or all supervisor error paths."
+    },
+    {
+      "file": "bend-feasibility/probes/p06_http_tcp/output.txt",
+      "classification": "checker refusal",
+      "observation": "A mismatched IO bind type causes checker exit 1.",
+      "limit": "No executed HTTP/TCP success is established by this probe."
+    },
+    {
+      "file": "bend-feasibility/probes/p07_chan_pool/output.txt",
+      "classification": "small channel success",
+      "observation": "Captured check, interpreted run, and native run return 0, with output from concurrent workers.",
+      "limit": "Output interleaving does not establish all scheduler or nondeterminism claims."
+    },
+    {
+      "file": "bend-feasibility/probes/p08_dlopen/output.txt",
+      "classification": "native invocation success",
+      "observation": "Captured native dynamic-library invocation prints 42 and returns 0.",
+      "limit": "No checker verdict, authority confinement, unload/reload, or production ABI contract established."
+    },
+    {
+      "file": "bend-feasibility/probes/p09_law_gate/output.txt",
+      "classification": "intended assertions not reached",
+      "observation": "The law example fails earlier affine duplication; the reflexivity attempt prints the same failure with wrapper exit 0; the forge example binds a constructor incorrectly and returns 1.",
+      "limit": "Does not establish intended open-law or imported-constructor claims. Separate valid probes support those narrower findings."
+    },
+    {
+      "file": "bend-feasibility/probes/p10_js_loader/output.txt",
+      "classification": "intended assertion not reached",
+      "observation": "An earlier duplicated double argument causes an affine checker refusal.",
+      "limit": "Does not demonstrate a functioning dynamic loader or rule out all loader representations."
+    },
+    {
+      "file": "bend-feasibility/probes/p12_template_guard/output.txt",
+      "classification": "diagnostic and wrapper-status mismatch",
+      "observation": "The checker reports a decreasing-self-call error while the captured wrapper reports exit 0.",
+      "limit": "Use the diagnostic as an observed refusal; wrapper status is not a passing compiler verdict."
+    },
+    {
+      "file": "failure-evaluation/probes/probe1-lawgate-drift.txt",
+      "classification": "first compiler refusal plus source findings",
+      "observation": "knowledge-laws checking fails at its first schema mismatch. Additional helper and arity drift are source inspection findings.",
+      "limit": "No later checker verdict was reached for the additional source findings."
+    },
+    {
+      "file": "failure-evaluation/probes/probe2-forge/run.txt",
+      "classification": "valid imported-constructor example",
+      "observation": "The imported Lease.Mk{999} example checks and runs, printing 999 with exit 0.",
+      "limit": "Establishes data construction, not production authorization bypass in an implemented seat."
+    },
+    {
+      "file": "failure-evaluation/probes/probe3-affine/run.txt",
+      "classification": "specific checker refusal",
+      "observation": "The duplicated affine value example is refused with exit 1.",
+      "limit": "Other representations require separate checks."
+    },
+    {
+      "file": "failure-evaluation/probes/probe4-match-do/run.txt",
+      "classification": "specific checker refusal",
+      "observation": "The match/do example is refused with exit 1.",
+      "limit": "A different dispatch representation is not adjudicated."
+    },
+    {
+      "file": "failure-evaluation/probes/probe5-deadwait/run.txt",
+      "classification": "blocking observation",
+      "observation": "The checker passes; an externally wrapped wait returns 124 after three seconds.",
+      "limit": "Supports the observed blocking signature only. The external diagnostic limit is not adopted as a runtime work budget."
+    },
+    {
+      "file": "failure-evaluation/probes/probe6-relation-hijack/run.txt",
+      "classification": "isolated transcribed SQL reproduction",
+      "observation": "The SQL transcription changes relation authorship and removes the relation from the original scoped view.",
+      "limit": "This is not a reproduction through the public coordinator binary."
+    },
+    {
+      "file": "proposal-strongman/probes/lawgate.txt",
+      "classification": "separate law-gate evidence",
+      "observation": "The retained independent law-gate output reports one unfinished TODO, states that the proof is incomplete, and returns rc=1.",
+      "limit": "Keep its actual commands and diagnostic verdict separate from the invalid P09 attempt."
+    }
+  ],
+  "missingOutputs": [
+    "bend-feasibility/probes/p04_unix_socket has a retained run script but no captured output.txt",
+    "bend-feasibility/probes/p11_costs has a retained run script but no captured output.txt"
+  ],
+  "pendingFinalReports": [
+    "bend-feasibility",
+    "research-critic"
+  ],
+  "sourceClaimPolicy": "A run-script file alone does not establish execution. An earlier checker failure does not establish later intended assertions. Wrapper exit and compiler diagnostic are recorded separately."
+}

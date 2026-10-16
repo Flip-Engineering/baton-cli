@@ -1,0 +1,177 @@
+{
+  "checkedOn": "2026-10-16",
+  "method": "Primary paper HTML/PDF and author or project documentation inspected through web tools. Claims refer to named versions; paper-reported measurements do not establish Baton acceptance.",
+  "sources": [
+    {
+      "id": "NOOA",
+      "urls": [
+        "https://arxiv.org/html/2607.20709v1"
+      ],
+      "locations": [
+        "4.2",
+        "Table 3"
+      ],
+      "verified": "GPT-5.5 xhigh: 82.2% SWE-bench Verified, about 28 calls and 1.1M tokens; OpenCode 78.6%, similar calls and 1.3M tokens; PI 78.2%, 66 calls and 2.2M tokens.",
+      "limits": "Named paper configurations; Python reference and its object identities do not establish a Bend2 seat."
+    },
+    {
+      "id": "CLM",
+      "urls": [
+        "https://arxiv.org/html/2609.37725v1"
+      ],
+      "locations": [
+        "Figure 27",
+        "Figure 28"
+      ],
+      "verified": "The append-only baseline stopped improving within roughly two hours. KVStore 38.3 to 74.2 used a Qwen3.6-27B agent and Claude Fable 5.1 proposer.",
+      "limits": "Stopped improving does not establish termination; separate context-management configurations and task conditions."
+    },
+    {
+      "id": "PASTE",
+      "urls": [
+        "https://arxiv.org/html/2603.18897v1",
+        "https://arxiv.org/html/2603.18897v2",
+        "https://arxiv.org/html/2603.18897v3"
+      ],
+      "locations": [
+        "v1 abstract and 7.2",
+        "v2/v3 abstract and 6.2",
+        "v3 6.3"
+      ],
+      "verified": "v1 reports up to 48.5% lower average completion time. Both v2 and v3 report up to 43.5%; version-exclusive attribution to v2 is unsupported.",
+      "limits": "Serving-layer baselines; individual 1.71x and 1.83x tool-throughput reports are rounded in the abstract. No Baton model-driven async result."
+    },
+    {
+      "id": "Fork-and-Flush",
+      "urls": [
+        "https://arxiv.org/html/2610.07447v1"
+      ],
+      "locations": [
+        "method and experiments"
+      ],
+      "verified": "Workspace inheritance with fresh chat; finite-horizon comparison reports normalized 66 versus 44.4 at matched compute across thirteen tasks.",
+      "limits": "The paper does not define Baton's complete task/configuration/knowledge inheritance contract. Experimental horizons add no runtime control to this proposal."
+    },
+    {
+      "id": "TomasuLLM",
+      "urls": [
+        "https://arxiv.org/html/2609.38201v2"
+      ],
+      "locations": [
+        "5.4",
+        "implementation parameters"
+      ],
+      "verified": "Main-model tokens are 8.3M versus 8.2M with 1.6M additional drafter tokens. Drafter GPU time is 1480 seconds against 1640 baseline GPU seconds; CPU rises 2760 to 4310 seconds. Configured depth is six; observed committed depth up to four is a distinct quantity.",
+      "limits": "Single-session latency trades added compute. Sample, compatibility exclusions, and separate baseline implementations constrain transfer."
+    },
+    {
+      "id": "Unfireable Safety Kernel",
+      "urls": [
+        "https://arxiv.org/html/2606.26057v1"
+      ],
+      "locations": [
+        "3",
+        "6.4",
+        "8.3"
+      ],
+      "verified": "The model identifies four individually insufficient necessary properties. Four Kani harnesses check a named pure decision function; signing, Merkle evidence, and policy integration are tested separately.",
+      "limits": "This does not prove complete seat enforcement, OS confinement, or Baton's admission path."
+    },
+    {
+      "id": "ALITA-G",
+      "urls": [
+        "https://arxiv.org/html/2510.23601v1"
+      ],
+      "locations": [
+        "3.3",
+        "Table 1",
+        "5.2"
+      ],
+      "verified": "The method preserves MCP implementation diversity. The 3x configuration reports GAIA validation pass@1 of 83.03 with mean tokens 10394 versus 12305 for the original Alita comparison.",
+      "limits": "Validation-set harvesting and evaluation conditions; no held-out generalization or mandatory deduplication claim."
+    },
+    {
+      "id": "Monitor",
+      "urls": [
+        "https://arxiv.org/html/2605.12366v1"
+      ],
+      "locations": [
+        "3.3"
+      ],
+      "verified": "Incremental monitoring uses session prefixes ending at a tool call; long benign prefixes can degrade detection.",
+      "limits": "This supplies no fixed reviewer-window guarantee; omitted context and distributed attacks need separate evaluation."
+    },
+    {
+      "id": "Handover",
+      "urls": [
+        "https://arxiv.org/html/2608.14528v1"
+      ],
+      "locations": [
+        "conditional sufficiency analysis"
+      ],
+      "verified": "Bayesian predictive sufficiency motivates task-appropriate summaries under the named conditional assumptions.",
+      "limits": "Not a guarantee for arbitrary adaptive trajectories and not authority to discard complete observations."
+    },
+    {
+      "id": "Agentrot",
+      "urls": [
+        "https://arxiv.org/abs/2609.01660v1",
+        "https://arxiv.org/pdf/2609.01660v1"
+      ],
+      "locations": [
+        "PDF 2",
+        "PDF 3.2",
+        "PDF 4.4",
+        "PDF 4.5"
+      ],
+      "verified": "The compressed regime also removes prior agent-generated reasoning. Reported decay slopes -0.44 and -0.69 are per horizon doubling.",
+      "limits": "HTML unavailable; detailed claims checked in PDF. Context compression alone cannot be isolated as the cause, and slopes are not per-step failure probabilities."
+    },
+    {
+      "id": "Speculative Actions",
+      "urls": [
+        "https://arxiv.org/html/2510.04371v1"
+      ],
+      "locations": [
+        "3.1"
+      ],
+      "verified": "The largest reported latency gain is chess: 19.8% across five thirty-step runs with three predictions, using GPT-5 high effort actor and low effort speculator.",
+      "limits": "Named study task and configurations; no seat token or turn saving established."
+    },
+    {
+      "id": "Harbor",
+      "urls": [
+        "https://arxiv.org/html/2604.20938v1"
+      ],
+      "locations": [
+        "VII",
+        "execution counters"
+      ],
+      "verified": "Enabled entries can have zero execution or memory-retrieval counters. Smoke runs that do not reach a trigger are classified separately.",
+      "limits": "An enabled zero counter is not by itself a failed invariant; actual settled required consumption needs its own trace."
+    },
+    {
+      "id": "Macaroons",
+      "urls": [
+        "https://research.google/pubs/macaroons-cookies-with-contextual-caveats-for-decentralized-authorization-in-the-cloud/"
+      ],
+      "locations": [
+        "author publication page"
+      ],
+      "verified": "The 2014 NDSS work describes request attenuation using contextual caveats and chained MACs.",
+      "limits": "New independent primary catalog reference; no original critic URL was retained, and the publication does not implement Baton grants."
+    },
+    {
+      "id": "seL4",
+      "urls": [
+        "https://sel4.systems/Info/Docs/seL4-manual-9.0.1.pdf"
+      ],
+      "locations": [
+        "3.1.5",
+        "3.2"
+      ],
+      "verified": "Manual version 9.0.1 describes capability derivation and revoking derived capabilities while retaining the invoked parent capability under the documented conditions.",
+      "limits": "Explicit historical manual version, used as a design comparison. No claim about a current deployed kernel or Baton grant enforcement."
+    }
+  ]
+}

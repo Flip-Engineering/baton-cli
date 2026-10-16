@@ -1,0 +1,12 @@
+$ /run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/toolchain-home/bin/bend main.bend --check-only
+Error:
+- expected : x
+- observed : x (consumed more than once)
+Context:
+- f : @_:U32 -> U32
+Location: apply2
+6 | # A stored tool function addressed twice: the affine table constraint.
+7>| def apply2(f: U32 -> U32, x: U32) -> U32:
+8 |   U32.add(f(x), f(x))
+bend 2.0.37 is available: run bend update
+EXIT:1

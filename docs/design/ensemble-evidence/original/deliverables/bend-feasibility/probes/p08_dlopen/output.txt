@@ -1,0 +1,8 @@
+== build extension library (separate artifact, no checker verdict)
+== emit + link seat
+All terms check, but 2 defs rely on unsafe or foreign code:
+- Host.ext_call
+- main
+== native run
+extension answered 42
+exit=0

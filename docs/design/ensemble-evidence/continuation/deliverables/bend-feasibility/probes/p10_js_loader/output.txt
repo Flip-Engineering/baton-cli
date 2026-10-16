@@ -1,0 +1,7 @@
+default-export type: object
+default-export keys: decide, double, greet
+double(21) = 42
+hello, bend
+decide(7) = {"$":"Some","value":7}
+decide(0) = {"$":"None"}
+exit=0

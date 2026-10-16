@@ -1,0 +1,128 @@
+[
+  {
+    "path": "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/build-result.json",
+    "bytes": 4998,
+    "sha256": "a7aeefc1bcc53488c2b7d49ea85456c88eccb67324e7e3ff7933460529dd8cdb"
+  },
+  {
+    "path": "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/toolchain-home/fork-manifest.json",
+    "bytes": 86269,
+    "sha256": "944bca43bf17e2a41a1313e29c92505b35826e96dc05542b25c2a355e157aead",
+    "selectedFields": {
+      "schema": "baton-bend-776-smol-diagnostics-v1",
+      "upstream_version": "2.0.25",
+      "official_release_artifact": false,
+      "source_lineage": "Existing Baton #741 pure literal and positive-constant memoization fork; opt-in backend diagnostics",
+      "bun_version": "1.3.14",
+      "bun_revision": "0d9b296af33f2b851fcbf4df3e9ec89751734ba4",
+      "runtime_arguments": [
+        "--smol"
+      ],
+      "qualification": false,
+      "backend": {
+        "path": "/run/baton2-native-homelab/retained/baton-compiler-776-packaged-smol-20261016/bend-2.0.25-baton776-smol-diagnostics/bend2/comp.ts",
+        "size_bytes": 196139,
+        "sha256": "1956f2e238e4d0cda91cd694c82d05ea06d5edd6b4eed12604c730012a69610a",
+        "mode": "0o600"
+      }
+    }
+  },
+  {
+    "path": "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/toolchain-home/bend2/main.ts",
+    "bytes": 24396,
+    "sha256": "92dcdb49e82fd59443e3aea10784f7dcf03a93f5a21920666543098b657b6b1e",
+    "snippets": {
+      "cli": [
+        "    }",
+        "    if (checkup) {",
+        "      return await cli_checkup(file);",
+        "    }",
+        "    if (only) {",
+        "      return cli_report(...await book_read(file), 1);",
+        "    }",
+        "    const seen = new Map<string, string | null>();",
+        "    const [book, n0] = await book_read(file, undefined, seen);",
+        "    if (outs.length !== 0 || book_main(book) !== null) {",
+        "      cli_report(book, n0, 2);",
+        "    }",
+        "    if (outs.length === 0) {",
+        "      process.exitCode = book_run(book, n0, argv);",
+        "      return;",
+        "    }",
+        "    const ins = new Set([...seen.keys(), ...Object.values(book.tlds).flatMap((t) =>",
+        "      t.$ === \"Def\" && t.i !== undefined ? t.i.map(path_real) : [])]);"
+      ],
+      "loader": [
+        "#!/usr/bin/env bun",
+        "// Run, this file is the CLI. Imported, it is the loader that makes `import",
+        "// Game from \"./x.bend\"` work: a bun plugin (preload it in bunfig.toml, list",
+        "// it under [serve.static] plugins, or hand it to Bun.build) and a node hook",
+        "// (node --import). A .bend module exports every filled, non-base, non-IO",
+        "// def, wrapped so a JS caller passes the live arguments, in one call or",
+        "// curried, and gets a plain value back: a constructor is {$: \"Name\", field:",
+        "// value, ...}, a closure is a function, Nat is BigInt, Bool, String and U32",
+        "// are native. A page bundles through Bun.build with the loader on, since",
+        "// the bun build CLI takes no plugins."
+      ]
+    }
+  },
+  {
+    "path": "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/toolchain-home/bend2/base.bend",
+    "bytes": 66363,
+    "sha256": "e5639663177f2de93ef34867c029698aa4e68a98d46629f0b15452b67b99d798",
+    "snippets": {
+      "file_read_at": [
+        "  import \"./effs/file_read.c\"",
+        "  import \"./effs/file_read.js\"",
+        "",
+        "def File.read_at(file: File, offset: U32, max: U32) ->",
+        "  IO(File & Result<&1, &1, U32 & String, List<&2, U32>>):",
+        "  import \"./effs/file_read.c\"",
+        "  import \"./effs/file_read.js\"",
+        ""
+      ]
+    }
+  },
+  {
+    "path": "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/toolchain-home/bend2/effs/file_size.c",
+    "bytes": 771,
+    "sha256": "09906f3839f0f0fba1eea944c948e35f8e03627dc2b78e8debb43e0556f5d5d8",
+    "body": "// File\n// ====\n\n#include <sys/stat.h>\n\n// The size in bytes, as the host reports it; a file past 4 GiB fails\n// with EOVERFLOW.\nstatic void file_size_call(IoWork* w) {\n  struct stat st;\n  int n = fstat((int)w->hand, &st);\n  io_sys_end(w, n);\n  if (n == 0) {\n    w->code = st.st_size > (off_t)UINT32_MAX ? EOVERFLOW : 0;\n    w->word = (u32)st.st_size;\n  }\n}\n\nstatic Term file_size_pack(Env e, IoWork* w) {\n  Term r = w->code ? io_fail(e, w->code, NULL) : io_done(e, w->word);\n  return io_tup(e, io_hand(w->hand), r);\n}\n\nTerm file_size_run(Env e, Term* f, IoWork* w) {\n  w->hand = (intptr_t)io_hand_v(f[0]);\n  return io_work(w, file_size_call, file_size_pack);\n}\n\nstatic void __attribute__((constructor)) file_size_use(void) {\n  io_eff(CID_FILE_SIZE, file_size_run, 0);\n}\n"
+  },
+  {
+    "path": "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/toolchain-home/bend2/comp.ts",
+    "bytes": 196139,
+    "sha256": "1956f2e238e4d0cda91cd694c82d05ea06d5edd6b4eed12604c730012a69610a",
+    "snippets": {
+      "io_cstr": [
+        "",
+        "OUTLINE char* io_cstr(Env e, Term s, u64* len) {",
+        "  u64   cap = 64;",
+        "  u64   n   = 0;",
+        "  char* buf = io_mem(malloc(cap));",
+        "  while (term_aux(s) == CID_SCON) {",
+        "    Term fb[2];",
+        "    spare_free(e, cls_fit(2), ctr_take(e, s, 2, fb));",
+        "    if (n + 5 > cap) {",
+        "      cap *= 2;",
+        "      buf = io_mem(realloc(buf, cap));",
+        "    }",
+        "    n += io_utf8(buf + n, fb[0]);",
+        "    s = fb[1];",
+        "  }",
+        "  buf[n] = 0;",
+        "  *len = n;",
+        "  return buf;",
+        "}",
+        "",
+        "OUTLINE void io_errs(Env e, Term s) {",
+        "  u64   n    = 0;",
+        "  char* text = io_cstr(e, s, &n);",
+        "  io_sync();",
+        "  io_out(stderr, text, n);",
+        "  io_out(stderr, \"\\n\", 1);",
+        "  free(text);"
+      ]
+    }
+  }
+]

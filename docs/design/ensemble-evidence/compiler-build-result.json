@@ -1,0 +1,139 @@
+{
+  "main_build_completed": true,
+  "qualification": false,
+  "records": [
+    {
+      "argv": [
+        "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/toolchain-home/bin/bend",
+        "bend2/src/coordinator/main.bend",
+        "-o",
+        ".scratch/bend2/baton2.c"
+      ],
+      "cwd": "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/source",
+      "pid": 2561163,
+      "birth": "26809961",
+      "started": "2026-10-16T07:42:28.023129+00:00",
+      "original_wait": true,
+      "runtime_environment": {
+        "BEND_NO_TELEMETRY": "1",
+        "BUN_JSC_maxPerThreadStackUsage": "67108864",
+        "CC": "/usr/bin/clang-19",
+        "BEND_COMPILER_DIAGNOSTICS": "1"
+      },
+      "stack_limit": [
+        -1,
+        -1
+      ],
+      "returncode": 0,
+      "wait_status": 0,
+      "elapsed_seconds": 2101.1190640139976,
+      "user_seconds": 2074.052451,
+      "system_seconds": 611.709063,
+      "max_rss_kib": 142651376,
+      "ended": "2026-10-16T08:17:29.142217+00:00",
+      "stdout": {
+        "path": "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/c-generation/stdout",
+        "size_bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/c-generation/stderr",
+        "size_bytes": 46952404,
+        "sha256": "7483dea4edf74ef9809fd241736621f3e07abb865586d86a216d5d8e1981fbe8"
+      }
+    },
+    {
+      "argv": [
+        "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/ccache/ccache-private",
+        "/usr/bin/clang-19",
+        "-O1",
+        "-pthread",
+        "-Dmain=baton2_runtime_main",
+        "-c",
+        ".scratch/bend2/baton2.c",
+        "-o",
+        ".scratch/bend2/baton2.o"
+      ],
+      "cwd": "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/source",
+      "pid": 3911179,
+      "birth": "27020078",
+      "started": "2026-10-16T08:17:29.195143+00:00",
+      "original_wait": true,
+      "runtime_environment": {
+        "BEND_NO_TELEMETRY": "1",
+        "BUN_JSC_maxPerThreadStackUsage": "67108864",
+        "CC": "/usr/bin/clang-19",
+        "BEND_COMPILER_DIAGNOSTICS": "1"
+      },
+      "stack_limit": [
+        -1,
+        -1
+      ],
+      "returncode": 0,
+      "wait_status": 0,
+      "elapsed_seconds": 691.8545306810411,
+      "user_seconds": 670.753517,
+      "system_seconds": 20.510013999999998,
+      "max_rss_kib": 8684724,
+      "ended": "2026-10-16T08:29:01.049710+00:00",
+      "stdout": {
+        "path": "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/main-object/stdout",
+        "size_bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/main-object/stderr",
+        "size_bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/clang-19",
+        "-O1",
+        "-pthread",
+        "bend2/src/host/native-entry.c",
+        ".scratch/bend2/baton2.o",
+        "-lsqlite3",
+        "-lm",
+        "-o",
+        ".scratch/bend2/baton2"
+      ],
+      "cwd": "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/source",
+      "pid": 184682,
+      "birth": "27089264",
+      "started": "2026-10-16T08:29:01.050850+00:00",
+      "original_wait": true,
+      "runtime_environment": {
+        "BEND_NO_TELEMETRY": "1",
+        "BUN_JSC_maxPerThreadStackUsage": "67108864",
+        "CC": "/usr/bin/clang-19",
+        "BEND_COMPILER_DIAGNOSTICS": "1"
+      },
+      "stack_limit": [
+        -1,
+        -1
+      ],
+      "returncode": 0,
+      "wait_status": 0,
+      "elapsed_seconds": 0.3936461400007829,
+      "user_seconds": 0.201903,
+      "system_seconds": 0.188543,
+      "max_rss_kib": 105088,
+      "ended": "2026-10-16T08:29:01.444522+00:00",
+      "stdout": {
+        "path": "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/native-link/stdout",
+        "size_bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/native-link/stderr",
+        "size_bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "source_commit": "b1f006a6308bbb00e29a24322e4f7d5164774470",
+  "source_tree": "5a0979213cbb300d7e558a89bcfb7e0e957219f0",
+  "ended": "2026-10-16T08:29:01.600383+00:00"
+}

@@ -1,0 +1,4 @@
+check-only: 0.324 s elapsed
+rc=0
+run: 0.350 s elapsed
+rc=0

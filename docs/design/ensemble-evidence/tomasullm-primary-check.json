@@ -1,0 +1,12 @@
+{
+  "checkedUtc": "2026-10-16T18:24:14.408869+00:00",
+  "url": "https://arxiv.org/html/2609.38201v2",
+  "version": "v2",
+  "section": "5.4 and Appendix A.9",
+  "verifiedClaims": [
+    "Section 5.4 reports a coarse proxy of about 2.1 speculative compute seconds for each wall-clock second saved.",
+    "Additional drafter resources and single-session latency do not establish lower total compute or seat-specific token costs.",
+    "Configured maximum chain depth is six. Measured chains commit at most four candidates. Figure 14 depth sensitivity is a replay estimate anchored on the measured configuration."
+  ],
+  "application": "Evidence-lead R1 accepted with qualified adjacent cost evidence. Transfer to the proposed seat remains unmeasured."
+}

@@ -1,492 +1,583 @@
 # Design sketch: baton-cli
 
-Status: design proposal. No implementation exists. This revision incorporates the findings of the
-seven-agent adversarial review consolidated in [audit-findings.md](audit-findings.md); the audit
-documents carry the full citations, and this document states the resulting design. Scope is not
-reduced by build phasing: the phasing notes in §15 sequence work, they do not remove mechanisms.
+Status: proposed seat design. The seat is unimplemented. The research corpus and earlier
+[audit-findings.md](audit-findings.md) describe the designs and source revisions they examined.
+This sketch distinguishes current source contracts, proposed interfaces, diagnostic observations,
+and paper-reported results. Implementation dependencies preserve the full design scope.
 
-The target is the **baton2** orchestrator (the Bend2 line), including the REPL layer being added to
-it (`docs/capabilities/coordination-repl.md`, `docs/33-shared-objects-repl-layer.md` in the baton2
-tree). The JavaScript baton line exists and carries a landed version of the same layer; the seat
-targets baton2 and treats the JS line as reference evidence for the layer's semantics.
+The target is **Baton**, using its native Bend2 coordinator. Current-source statements here refer
+to `b1f006a6308bbb00e29a24322e4f7d5164774470` and its recorded Baton fork of Bend 2.0.25. Release
+installation and live acceptance require their own evidence. Historical JavaScript mechanisms are
+reference material at `1e050e420a99d775d3d2f943453c23535a701fd9`; that revision's `impl/` tree was
+removed from the native line in `2b8449af`. The separate Bend2 REPL/context work supplies a named
+dependency for the proposed commit-and-cite interface.
 
-## 1. What it is
+## 1. Seat and coordinator
 
-One native Bend2 binary that runs one seat: it takes tasking and delivers reports over the baton2
-coordinator surface, runs a model turn loop against a small tool set, appends everything to a
-session log, and hands context to other seats by citation through the orchestrator's REPL layer.
+The proposed seat is a native Bend2 binary. It receives complete tasking, runs model turns and
+tools, appends session history, reports through Baton, and exchanges versioned context through the
+interface in §8. Baton stores complete task and guidance text in its database.
 
-Size, stated against the measured reference rather than aspirationally: the baton2 Bend2
-coordinator is 4,484 lines of Bend2 plus 714 lines of authored C for a comparable scope
-(coordination, durable state, worker lifecycle, Git, CLI) ([feasibility-bend2.md](feasibility-bend2.md)
-§"Proposed amendments" item 10). The four tools, the log, and the loop fit in that range; the
-durable session log, the provider client, the out-of-process program lane, and the extension paths
-put the floor near it. C is part of this harness: Base ships no process spawn, no fsync, rename,
-stat or mkdir, no TLS, no HTTP, and no JSON at the pin, and baton2 already ships C bindings for the
-process and JSON halves.
+At the reviewed source, the native receiver accepts `baton2 DATABASE receive SESSION HARNESS MODEL
+EFFORT CWD LOG MESSAGE_ID` through stored endpoint argv. Admission and settlement recognize Codex,
+OMP, Muse, and Claude Code. Integrating a Bend2 seat requires a correctly identified adapter plus
+the corresponding admission, receiver, wake, and settlement changes. The coordinator lane owns
+that integration, including per-harness prompt delivery, frame classification, and settlement
+(`bend2/src/coordinator/control.bend`, `control-laws.bend`, `delivery.bend`, `turn.bend`, `message-status.bend`,
+and `bend2/src/harness/*-player.bend`). Existing endpoint details are internal adapter contracts. The change also covers configuration,
+blocked-state and delivery-sweep predicates, direct-turn support, and the launch dispatcher. The
+reviewed dispatcher's final branch launches Claude Code; a Bend2 adapter needs an explicit branch
+and a test that unsupported identities refuse before launch. The affected law expectations require
+matching changes.
 
-## 2. The session log
+Agent-facing commands use concise action verbs with inferred session and action context: `inbox`,
+`read`, `report`, `ask`, `send`, `guide`, and `finish`. Complete owned reads receive automatic
+handling on the corresponding successful native settlement. Baton preserves the first handling
+receipt. Task completion is a request followed by Conductor confirmation. The coordinator resolves
+message and action identities; agents provide task text and decisions through these commands.
+Dispatch admission validates immediate parent–child routes in either direction, Conductor-to-
+descendant routes, explicit tight Ensemble peers, and operator–top-level-Conductor routes before
+storing input or waking its recipient (`bend2/src/coordinator/commands.bend`, `message_route`).
 
-Append-only JSONL, one file per seat, turns bracketed. The item vocabulary follows Unreal Agent: a
-versioned header, then `fork`, `input`, `turn`, `model_response`, `tool_call_status`, and operation
-records with contiguous sequence numbers validated on append and load
-([unreal-agent.md](../research/unreal-agent.md) §6). Tool-call status is persisted atomically with
-the operations it waits for, which closes the window between a successful translation and a
-recorded dispatch.
+Every agent initialization receives the coordinator's generated random string and fixed
+instruction. The instruction requests brief ideation on the string's abstract qualities and use
+of those qualities in interpreting the task, together with its explicit requirements and evidence.
+This applies to all initialized agent sessions. At the reviewed source,
+`lower(hex(randomblob(64)))` produces a 128-character hexadecimal string. Baton retains the seed,
+instruction, and actual guidance under the native execution identity; associated retries reuse
+their recorded seed (`bend2/src/coordinator/native-initial-input.bend`). Interpretive stances remain
+permitted. Performance and sampling reproducibility require separate measurement.
 
-Durability is a named effect family, because Base provides no fsync, rename, stat, or locking
-([feasibility-bend2.md](feasibility-bend2.md) item 4):
+The source-size figures in [feasibility-bend2.md](feasibility-bend2.md) describe its foreign KIT
+snapshot. Source scope, artifact sizes, startup cost, and required C effects will be measured for
+the actual seat. The reviewed toolchain requires authored host effects for process management,
+durability, TLS, HTTP, and JSON; existing Baton effects are reuse candidates with contracts to check.
 
-- Commit an appended record with `O_APPEND` plus `fsync(file)`.
-- `fsync(directory)` at file creation, replacement, and rotation.
-- Temp file plus `rename` for rotation and compaction only, not for every commit.
-- A `flock` single-writer lock, with a writer that finds the log no longer ends where it committed
-  latching a failure state rather than guessing ([fx.md](../research/fx.md) §10).
-- Frames past a few hundred kilobytes cross as `List<U32>` bytes through the byte-read and
-  byte-write calls; `String` is a linked list of characters.
+## 2. Session log and recovery
 
-Invariants, each verified in more than one analyzed harness ([audit-evidence.md](audit-evidence.md)
-grading table rows 1-16):
+The proposed log is append-only JSONL with a versioned header and contiguous sequence numbers.
+Records include inputs, turns, model responses, tool-call status, operation intents, observations,
+and branch lineage. Append and load both validate framing and sequence. A committed tool status
+records the operations it awaits ([unreal-agent.md](../research/unreal-agent.md) §6).
 
-- Every turn closes with a reason on every exit path, including crash repair; an aborted stream
-  settles as an interrupted message ([deepseek-harness.md](../research/deepseek-harness.md) §1.1).
-- A tool result never separates from its call, in cut points and in ordering
-  ([pi.md](../research/pi.md) §7; [arcee-nac.md](../research/arcee-nac.md) §4).
-- Output truncated by the model's own token limit fails every pending tool call with a re-issue
-  instruction ([pi.md](../research/pi.md) §4).
-- Effectful calls journal an intent before running ([fx.md](../research/fx.md) §4).
-- Inputs are idempotent by a caller-supplied id and are persisted before processing
-  ([unreal-agent.md](../research/unreal-agent.md) §3).
-- Crash repair and fork are one operation at different causes
-  ([deepseek-harness.md](../research/deepseek-harness.md) §5).
+The durability effect family provides:
 
-Crash windows are specified rather than implied: the durable barrier before each effect, the
-recovery answer for a possibly-run effect (`interrupted`, or rerun where the tool declares itself
-replay-safe), torn-tail truncation to the last complete frame, and child-process reaping after a
-crash ([fx.md](../research/fx.md) §4, §10; [unreal-agent.md](../research/unreal-agent.md) §6;
-[prime-agent.md](../research/prime-agent.md) §9). A fork never inherits in-flight calls without
-results; Unreal Agent ships that defect as a live `FIXME` and it is the failure that poisons a
-branch permanently ([unreal-agent.md](../research/unreal-agent.md) §12).
+- `O_APPEND` writes and `fsync(file)` at each declared durable commit.
+- Directory sync after creation, replacement, and rotation.
+- Temp-file replacement for rotation and derived context projections.
+- A single-writer lock and a typed refusal when the committed writer position has changed.
+- Byte-oriented reads and writes for large frames, using the pinned effect ABI.
 
-**Compaction is a safety stage with a defined trigger**, not a dormant path. The trigger is
-proactive at 75% of the window plus a reactive archive when the provider rejects a request
-([nooa.md](../research/nooa.md) §3.6); the event region is expected to stay small because tool
-bodies spill to handles and standing state lives in the dynamic tail, and it is not bounded by
-construction. Every compaction is an appended turn carrying a provenance digest over the compacted
-prefix, a retained tail, and carry-forward of every pending call with its latest stub
-([arcee-nac.md](../research/arcee-nac.md) §4; [unreal-agent.md](../research/unreal-agent.md) §7).
-No-compaction is a measurement arm of the seat, not an invariant it depends on.
+The feasibility continuation demonstrates write, file sync, rename, directory sync, and stat
+through authored C effects on the pinned Linux toolchain in native and interpreted runs. Its P03
+probe ends with exit 2 when it unlinks the already-renamed temporary path; it retains the committed
+file and the actual status. P03 exercises whole-file publication. Append-mode writes with per-commit
+file sync, the single-writer lock, and the seat's crash-window durability and recovery contract
+remain to be implemented and tested. Base signatures and reused effects need their own contract
+checks ([feasibility-bend2.md](feasibility-bend2.md) item 4;
+[fx.md](../research/fx.md) §10). `String` uses linked characters at the reviewed toolchain, so frame
+representation is an implementation and allocation choice. Base read offsets and sizes use U32;
+the C `File.size` effect returns `EOVERFLOW` above `UINT32_MAX`. A log using these interfaces needs
+segment rotation or an authored wider-offset effect. These representation limits create no work
+or runtime budget.
 
-## 3. Context: two planes
+Log and operation invariants are specified separately:
 
-The process holds whole values. The transcript carries renderings whose size is a property of the
-rendering format, and every rendering has a handle to the whole value behind it
-([nooa.md](../research/nooa.md) §3.2). Output past its bound spills to a content-addressed file
-under the session directory and the model receives preview plus path
-([fx.md](../research/fx.md) §3); Unreal's capture files and NAC's `output_id` paging are the two
-other recorded variants of the same idea. Serialization to durable form happens at exactly one
-boundary, and in Bend2 that boundary is the effect call — values cross as strings, byte lists, or
-integers, and a decoded frame is a hand-built tree
-([feasibility-bend2.md](feasibility-bend2.md) item 9). Truncation is typed and never silent
-([context-networking.md](../research/context-networking.md) §3.2).
+- Each turn records its actual completion or interruption reason. Operation state survives a turn
+  ending while work continues.
+- Each tool result retains its call identity and provider-required ordering across replay and
+  context projection ([pi.md](../research/pi.md) §7; [arcee-nac.md](../research/arcee-nac.md) §4).
+- An incomplete model-emitted call records its parse or provider failure. Calls already admitted
+  retain their observed state and ownership. A truncated response never authorizes blind reissue.
+- Each effectful call commits an intent before execution. The operation retains the tool's
+  idempotency class and the actual attempt identity ([fx.md](../research/fx.md) §4).
+- Inputs are persisted before dispatch and deduplicated under coordinator- or provider-resolved
+  identities. Native tasking retains the complete text.
+- Crash repair resumes the original execution lineage. A branch records a new lineage and an
+  explicit inherited snapshot (§7). The two paths may reuse log validation routines.
 
-Cross-turn residency is stated honestly: what persists across turns is the standing workset and the
-spill handles; within-turn bulk lives in program scope; NOOA's cross-turn in-process statefulness
-is out of scope because tools and generated programs run under OS confinement, which NOOA's own
-limitations section names as trading reference semantics away
-([steelman.md](steelman.md) §1 item on residency; [nooa.md](../research/nooa.md) §3.6).
+Recovery distinguishes an unstarted intent, an observed running operation, a retained result, and
+an effect whose outcome is unknown. An intent record alone cannot establish whether an external
+effect ran. Recovery queries the original process or provider where possible and retains exact
+uncertainty otherwise. Re-execution requires the tool's actual idempotency mechanism or an
+authorized decision with duplicate-effect implications recorded. Replay must exercise the crash
+window between an external effect and the result commit.
 
-The transcript is three regions: a byte-stable static prefix (framework prompt, tool schemas, seat
-charter), an append-only tagged event stream, and a dynamic tail re-evaluated each turn over live
-state — the workset, the bound address of the session, and any knowledge slice the orchestrator
-attached ([nooa.md](../research/nooa.md) §3.1). The tool catalog is assembled once at seat start and
-changes only at turn boundaries, emitted as a `developer/message` delta with a change reason in the
-request header, so the prefix invalidation is priced and visible
-([deepseek-harness.md](../research/deepseek-harness.md) §10). Decode-time masking of a fixed catalog
-is the recorded alternative, and it is vendor-reported and provider-dependent
-([no-compaction-approaches.md](../research/no-compaction-approaches.md) §1).
+A torn final frame is preserved as diagnostic evidence, repaired to the last complete frame, and
+reported by a typed repair event. A writer-position violation retains the original log and refuses
+further conflicting writes. Recovery reattaches to observable owned children and reaps confirmed
+exited children. Observer restart, silence, and connection loss provide no authority to terminate
+unfinished work ([fx.md](../research/fx.md) §4, §10;
+[prime-agent.md](../research/prime-agent.md) §9).
 
-The measured state of the evidence, in full: NOOA reports 82.2% on SWE-bench Verified at
-approximately 28 model calls and 1.1M tokens per task, against OpenCode's 78.6% at a similar call
-count and roughly 1.3M tokens and PI's 78.2% at 66 calls and 2.2M — all paper-reported, with no
-corpus reproduction ([nooa.md](../research/nooa.md) §3.5; [audit-evidence.md](audit-evidence.md)
-§"Vendor numbers"). No corpus measurement covers a long-horizon orchestrator seat. Two later
-results bear on the posture: in twelve-hour runs the context-managing methods kept improving while
-an append-only baseline stopped inside two hours, and that evidence belongs to writable-context and
-summarization postures ([context-language-models.md](../research/context-language-models.md) §5,
-paper-only); and long-horizon decay tracks per-step reliability more than context shape, with
-bounding the window *steepening* decay (logit slope −0.69 against −0.44, p=3e-6, n=10,664)
-([research-open-questions.md](research-open-questions.md) §2, arXiv:2609.01660). The second finding
-is why §9 gates completion on the verification recipe rather than on transcript state.
+Context compaction appends a derived projection with its source digest, retained tail, pending
+operations, and workset version. Complete original records and spill contents remain recoverable.
+The implementation chooses a trigger from the provider's actual context capacity, request shape,
+and measured headroom. Provider context refusals retain their exact outcomes and recovery state.
+NOOA's reported 75% trigger is a source-specific policy ([nooa.md](../research/nooa.md) §3.6).
+Append-only context, projection bounding, and writable context are experimental configurations (§12).
 
-## 4. The loop is async-first
+## 3. Context representations
 
-A turn may end with work in flight. Pending calls are durable operation records — versioned,
-serializable, stable ids, at-most-once semantics ([unreal-agent.md](../research/unreal-agent.md)
-§4) — and the transcript holds a fixed stub for each. Completion replaces the stub inside the
-uncommitted staging window or appends a second item for the same call id; replacement is the
-preferred path where the provider accepts it, and provider acceptance is a milestone-2 entry check
-because it is recorded as failing on some non-OpenAI providers
-([unreal-agent.md](../research/unreal-agent.md) §12, §13).
+The runtime holds complete values and renders declared projections for the model. Each projection
+identifies its complete retained value and records any omitted bytes. Large values spill under the
+session directory with content identity and paging support
+([nooa.md](../research/nooa.md) §3.2; [fx.md](../research/fx.md) §3).
 
-The pending-operation state machine is part of the design, not left to the implementation:
-states (`pending | running | waiting | completing | terminal`), per-seat and per-operation caps,
-deadlines with typed expiry outcomes, a heartbeat rendered as an ordinary user message at a stated
-cadence, cancellation semantics including what the transcript records, lost-result semantics for an
-operation whose process died, process reaping, and a quiescence definition — completion is the
-absence of in-flight entries and unevaluated settles
-([deepseek-harness.md](../research/deepseek-harness.md) §4;
-[unreal-agent.md](../research/unreal-agent.md) §5; [prime-agent.md](../research/prime-agent.md)
-§4, §11.1).
+Serialization follows the actual host-effect boundary: strings, byte lists, and integers at the
+pinned ABI, with decoding into explicit data structures
+([feasibility-bend2.md](feasibility-bend2.md) item 9). A durable value's encoding is versioned and
+round-trip checked. Projection limits describe delivered context; complete values remain readable. Local spill reads
+declare their byte projection and retain a complete value handle, page position, and delivered- and
+omitted-byte receipts. Provenance records the source class, including peer input, tool output, and
+model-authored content.
 
-Results commit in batches at turn boundaries: arrived operations and inputs are drained together
-under an idle cap with a short grace window so nearly simultaneous completions share one turn, and
-commits stay model-ordered through a head-of-line cursor while completion order varies
-([unreal-agent.md](../research/unreal-agent.md) §3;
-[deepseek-harness.md](../research/deepseek-harness.md) §1.1). The model's join primitive is a
-handle: end the turn and the seat sleeps until something lands, then read the tail or the full
-output ([prime-agent.md](../research/prime-agent.md) §3). Steering, wakes, stops, and settings
-arrive as control inputs in the same single-writer inbox, committed on arrival and delivered at the
-next boundary; a steering message does not queue behind a tool call
-([unreal-agent.md](../research/unreal-agent.md) §3;
-[deepseek-harness.md](../research/deepseek-harness.md) §1.1), with NAC's batch-granularity steering
-delay recorded as the boundary of that property ([arcee-nac.md](../research/arcee-nac.md) §2, §10).
-Effects keep writer fences: reads overlap freely, the first writer runs alone
-([fx.md](../research/fx.md) §4).
+The initial seat preserves a typed workset, operation records, and spill references across turns.
+Generated-program values live in that program's process. A persistent Bend2 REPL may later own
+cross-turn values through an explicit storage and recovery contract (§8). In-process object
+identity, durable serialization, and process confinement are separate properties. The initial
+program lane specifies durable serialization and an executor policy independently; each needs its
+own implementation evidence.
 
-A harness-driven speculative mode is part of the design surface: a predicted next call runs in a
-copy-on-write sandbox and commits in trajectory order after validation, giving the model-driven and
-harness-driven postures a switch to be measured against each other
-([research-open-questions.md](research-open-questions.md) §5, citing PASTE arXiv:2603.18897,
-TomasuLLM arXiv:2609.38201, Speculative Actions arXiv:2510.04371). Harbor's shipped PASTE flag,
-which never fired once in a twelve-of-eighty-nine-to-seventeen-of-eighty-nine regression, is the
-recorded caution that a switch without counters is invisible
-([research-open-questions.md](research-open-questions.md) §5, arXiv:2604.20938 §V).
+Requests have a stable framework prefix and tool schemas, a tagged event projection, and a dynamic
+tail containing the current workset, session address, pending work, and attached knowledge.
+Catalog changes occur at turn boundaries and record their reasons and observed cache effects
+([deepseek-harness.md](../research/deepseek-harness.md) §10). Provider-specific schema masking is a
+separate comparison ([no-compaction-approaches.md](../research/no-compaction-approaches.md) §1).
 
-## 5. Tools and the program lane
+[NOOA v1](https://arxiv.org/html/2607.20709v1) reports GPT-5.5 xhigh on SWE-bench Verified: 82.2%
+at about 28 calls and 1.1M tokens per task, OpenCode 78.6% at a similar call count and about 1.3M
+tokens, and PI 78.2% at 66 calls and 2.2M tokens. These paper-reported configurations provide
+comparators for the experiment; the proposed seat has no corresponding measurement.
 
-`bash`, `read`, `edit`, and the orchestrator inbox, plus an out-of-process program lane.
+[Context Language Models v1](https://arxiv.org/html/2609.37725v1), Figure 27, reports continuing
+improvement over twelve hours for context-managing methods; the append-only baseline stopped
+improving within roughly two hours. That result covers writable-context and summarization
+configurations. [The reliability study v1](https://arxiv.org/pdf/2609.01660v1) reports cumulative
+step failures and worse decay under a compressed-context regime that also deletes prior reasoning.
+Its reported decay slopes are per horizon doubling. The proposed tests measure context effects
+and outcome reliability under their own task and model conditions.
 
-Each tool carries its contract as data: name and schema, concurrency class, idempotency and writes
-declarations, permission target, result representation, timeout semantics
-([fx.md](../research/fx.md) §3). Permission enforcement is executable, not metadata: an OS sandbox
-profile, an approval arbiter with a closed outcome set, an authority snapshot captured per turn, the
-effect-intent journal, write fences, and nested-call handling
-([fx.md](../research/fx.md) §4, §5; [arcee-nac.md](../research/arcee-nac.md) §7). Approvals are
-invocation-only and do not create reusable grants
-([arcee-nac.md](../research/arcee-nac.md) §7).
+## 4. Async operations
 
-The edit tool carries the machinery the ablations price: unique match or refuse, the diff shown
-before applying, the preimage captured so undo restores exact bytes
-([fx.md](../research/fx.md) §5), and Anthropic's interface discipline — absolute paths, formats
-close to text the model has seen, no line-count arithmetic in the format
-([minimal-harness-survey.md](../research/minimal-harness-survey.md) Anthropic section).
+A turn may return while its operations continue. Each durable operation records its internal
+identity, version, owner, native process or provider identity, intent, observed state, partial
+output, and complete result reference. Dispatch deduplication and tool-specific idempotency are
+separate contracts. Actual external-effect guarantees depend on the executor and recovery evidence.
 
-**The program lane runs out of process**, because Bend2 has no evaluator to call
-([feasibility-bend2.md](feasibility-bend2.md) §"Use 3"): the program and its SDK module are written
-into a directory under the session directory; `bend <program> <args>` runs the interpreter lane as a
-child through the process effect family with stdout and stderr captured into the log; nested tool
-calls re-enter the seat over a Base TCP loopback socket carrying the JSON frame codec, so every
-effect passes the guarded pipeline and the child holds no authority the seat did not grant
-([feasibility-bend2.md](feasibility-bend2.md) item 1). The lane's real constants are part of its
-specification: 60-110 ms of process per call, one SDK round trip per nested call, and no type
-checking of the generated program (item 7); compiling a program once and reusing the binary is the
-measured alternative (3.0 s to C plus 4.2 s to link at the reference's size).
+The transcript carries a status projection for each pending call. Within an unsubmitted staging
+window the seat may update that projection. Once submitted, the provider adapter emits accepted
+continuation items with the original call identity. Replacement and repeated-item forms require
+provider-specific acceptance checks ([unreal-agent.md](../research/unreal-agent.md) §12–§13).
 
-The lane's stated uses include targeted test selection as a first-class case: selecting, generating,
-and running a targeted subset is what the recorded twenty-minute-full-suite failure at
-twelve-hour scale needs ([research-open-questions.md](research-open-questions.md) §9).
+Observation and lifecycle remain distinct. A wait may return while the underlying operation stays
+owned and running. Provider or OS refusals, disconnects, process exits, and externally enforced
+limits retain exact errors and provenance. Their lifecycle implications depend on actual protocol
+and settlement evidence. Silence or a disconnected observer alone leaves the outcome unknown.
+Explicit cancellation comes from an actor authorized for the affected work. The proposed seat's
+completion report includes pending operation identities, observed states, ages, and retained result
+references. At the reviewed coordinator, a completion request carries its authored body; native
+reconciliation separately projects pending counts and the oldest pending message identity. The
+seat's per-operation pending-state report requires an implemented mechanism. Ages inform the
+Conductor's decision.
 
-Nothing further is added to the shipped tool set until a measured gap argues for it
-([benchmarks.md](../research/benchmarks.md) synthesis; narrow tools measure negative). The seat
-extends itself through the paths in §6.
+Baton requires no duration, token, or step estimate and enforces no such budget on admission,
+continuation, pause, truncation, stop, or unfinished work. Tasking may carry recorded measurement
+parameters. Heartbeats and age observations report state. A never-settled operation remains
+visible to its owner and Conductor until actual settlement or authorized cancellation resolves it.
 
-## 6. Self-extension
+The implementation names its wake and wait mechanism. The tested Base `Chan.recv` signature has
+no timeout, and the reviewed inventory exposes no built-in select or race. The probe establishes
+that signature and its observed blocking behavior. A concrete event effect or observation-polling
+composition must be specified and tested. The TCP probe receives peer close as an empty string;
+`None{}` represents timeout. A socket observation loop needs an explicit EOF transition. A bounded
+observation wait preserves the operation.
+Arriving results persist immediately under their operation identity. The head-of-line cursor
+orders provider-visible items; durable observations and result handles remain available while an
+earlier call is pending. Adapter checks establish which observations the model can receive during
+that wait. A provider requiring all call results before continuation has a recorded blocking
+restriction. The cursor has no elapsed-time closure rule.
 
-A seat adds capability through three paths that Bend2 can express, since it has no runtime module
-loader ([feasibility-bend2.md](feasibility-bend2.md) item 2):
+Steering, wakes, stops, and settings enter the single-writer input path and are delivered at their
+valid control boundaries. Record the actual control latency for each adapter. Reads may overlap;
+mutations run under their selected physical write guards. These controls and result handles retain
+their complete provenance ([prime-agent.md](../research/prime-agent.md) §3, §9;
+[unreal-agent.md](../research/unreal-agent.md) §3, §5).
 
-1. **Declarative tools admitted as data at run time** — name, argument schema, argv template,
-   permission target, writes declaration, module digest — executed by a compile-time-checked
-   dispatcher `def`, because a table of tool closures cannot be invoked repeatedly and the
-   dispatcher must take its subject as a parameter.
-2. **Bend2 tools admitted as a repository act**, gated out of process by `bend --check-only`, with
-   the tool's contract written as a `law` that must be proved.
-3. **C-ABI modules** loaded through `dlopen`, for effects the language cannot express.
+The design also includes harness-driven speculation: predicted calls execute in isolated working
+state, and externally visible effects require validation and their actual commit mechanism.
+Compare this with blocking and model-driven async execution. [PASTE v1](https://arxiv.org/html/2603.18897v1)
+reports up to 48.5% lower average completion time; [v2](https://arxiv.org/html/2603.18897v2) and
+[v3](https://arxiv.org/html/2603.18897v3) report up to 43.5%. These are serving-layer results with named
+baselines. [TomasuLLM v2](https://arxiv.org/html/2609.38201v2) reports lower single-session latency
+with additional drafter tokens and compute. Section 5.4 reports a coarse cost proxy of about 2.1
+seconds of speculative compute per wall-clock second saved. This measured additional cost is an
+adverse prior for the proposed seat; its transfer to this design remains unmeasured. The paper's
+configured maximum chain depth is six, its measured chains commit at most four candidates, and its
+separate depth sweep estimates speedup by replay. [Speculative Actions v1](https://arxiv.org/html/2510.04371v1)
+reports its largest latency improvement in chess. The seat's token and turn costs remain unmeasured.
 
-Authority is enforced at the runtime boundary, not by types: a user-declared record is forgeable, so
-the checker cannot carry capability authority ([feasibility-bend2.md](feasibility-bend2.md) item 3,
-item 9). The design therefore states the authority properties it is measured against — process
-separation, a structurally-only pre-action path, fail-closed at both levels, and externalized signed
-evidence ([research-open-questions.md](research-open-questions.md) §1, arXiv:2606.26057):
+Mechanism telemetry records both admission and consumption. [Harbor v1](https://arxiv.org/html/2604.20938v1)
+reports enabled mechanisms with zero execution counters and distinguishes smoke runs too short to
+reach a mechanism's trigger. Section 12 makes that distinction explicit in this proposal's experiments.
 
-- Admission runs orchestrator-side where the grant plane allows it, and where it does not, the
-  in-seat path is declared a residual risk with its mitigations named: attenuation-only authority,
-  and admission evidence (module digest, admitting principal, approval hash) recorded and signed so
-  it is verifiable outside the seat.
-- An admitted extension never widens authority; escalation is refused rather than clamped.
-- The description the model reads is generated from the same data the executor enforces, so
-  description and behavior cannot drift ([deepseek-harness.md](../research/deepseek-harness.md) §4).
-- Admission is a logged event, so a resumed seat knows its capability set and nothing about
-  capability is ambient.
+## 5. Tools and generated programs
 
-Admitted extension descriptions are bounded like any other rendering, with fx's catalog figures as
-the starting point: the description block is capped at 2% of the window and 1,024 bytes per
-description, entries past the cap are refused at admission, and dropped entries are noticed
-([fx.md](../research/fx.md) §14).
+The initial tools are `bash`, `read`, `edit`, and the coordinator inbox, plus a generated-program
+execution path. Tools declare their schema, concurrency class, idempotency mechanism, writes,
+permission target, result representation, observation semantics, and cancellation behavior
+([fx.md](../research/fx.md) §3).
 
-Self-extension is context economy as much as capability: a minimal surface forces composition, and
-repeated composition is what should be compiled. The measured precedent is ALITA-G, where a
-harvest–parameterize–deduplicate–select pipeline over successful trajectories reached 83.03% pass@1
-on GAIA with roughly 15% token reduction, and CLM's skill evolution, where an evolved procedure took
-a held-out task from 38.3 to 74.2 at lower compute behind a Pareto gate
-([research-open-questions.md](research-open-questions.md) §3; [context-language-models.md](../research/context-language-models.md) §5).
+Actual enforcement consists of the selected OS executor policy, authorized approval outcomes,
+effect-intent journal, captured authority, and write guards. Existing session authorization applies
+to subsequent actions within its scope. Nested SDK calls preserve their parent and pass through
+the same applicable checks. Each result states the enforcement and authority actually used
+([fx.md](../research/fx.md) §4–§5; [arcee-nac.md](../research/arcee-nac.md) §7).
 
-Promotion follows the destination's existing rule rather than a new one: knowledge records promote
-through the orchestrator's admit gate (§8), and capability moves between branches as an orchestrator
-artifact adopted by a new admission event on the adopting branch, never as a log merge.
+The edit tool accepts an exact unique match or reports ambiguity, captures the preimage, and
+records the resulting diff. Undo uses the retained original bytes. Its interface uses absolute
+paths and familiar text formats ([fx.md](../research/fx.md) §5;
+[minimal-harness-survey.md](../research/minimal-harness-survey.md), Anthropic section).
+
+The initial generated-program path runs Bend2 out of process. The seat writes the program and a
+versioned SDK under its session directory, starts `bend <program> <args>` through authored process
+effects, and captures complete stdout, stderr, and status. SDK calls use a local codec endpoint and
+retain parent attribution. The reviewed upstream CLI supplies no embedded evaluator contract;
+the separate Baton Bend2 REPL work is an explicit dependency for any later persistent evaluator
+([feasibility-bend2.md](feasibility-bend2.md), Use 3).
+
+A same-UID child inherits ambient filesystem, process, and network authority available to that
+user. Routing SDK calls through a socket mediates those calls. Confinement requires actual OS
+mechanisms around direct child effects. No confined Bend2-child probe was executed in this review.
+The proposed tests exercise direct writes, process launches, and network access against the
+executor's declared authority and retain the OS outcomes. They include a child attempting a direct
+write to the session log and an unrelated same-UID process attempting an SDK request. The protocol
+must demonstrate its caller identity and replay behavior. Exact process credentials and a nonce are
+options to evaluate. Captured process output and sanctioned SDK calls retain attribution; direct
+ambient effects require their own observation evidence. SDK framing, terminator handling, result
+encoding, and authentication require explicit protocol tests.
+
+The original 60–110 ms invocation and 3.0 s C-generation plus 4.2 s linking figures are Darwin
+observations for named programs. Distinct Linux trivial-program probes reported 0.33–0.39 s;
+runtime-lead observed 0.544 s interpretation and 0.642 s checking in separate runs. The deployment
+comparison measures actual program sizes, SDK round trips, interpreted
+execution, compile-once reuse, and concurrent load. The feasibility worker's P11 diagnostic reports
+0.353 s checking, 0.420 s C emission, 0.855 s linking, 0.032 s native startup and execution, and
+0.409 s interpretation for its trivial dispatcher. The retained full-coordinator build at the
+reviewed source records 2101.119 s C emission and 142,651,376 KiB maximum RSS, with opt-in compiler
+diagnostics enabled. These single-run observations establish their own source, configuration, and
+host costs; a promoted program needs its own size and reuse measurement.
+
+The interpreter checks before running and reports reliance on unsafe or foreign definitions.
+Admission records the applicable checker result, including `--check-only` where that is the chosen
+gate. The JS-hosted loader also checks and can call exported non-IO Bend2 definitions, returning
+JS-projected values. P10 demonstrates that interface in a Bun host; a typed seat result-codec
+contract remains untested. Relative to the native seat, the host is a separate process whose
+authority, startup cost, and SDK interaction still need evaluation.
+
+Targeted test selection is one use of this path: generate or select relevant tests, execute them,
+and retain the selection basis and coverage limits ([research-open-questions.md](research-open-questions.md)
+§9). Additional tools require a task-supported gap and comparative evidence. Section 6 defines the
+extension paths.
+
+## 6. Extension admission
+
+The design includes three extension paths:
+
+1. Declarative tools admitted as data: name, schema, argv template, permission target, writes,
+   declaration digest, and artifact identity. A statically checked dispatcher executes the
+   declaration using the pinned compiler's parameter-subject convention. Constructor names share
+   a global namespace at the reviewed compiler; declarations admitted as data avoid adding new
+   constructors to that namespace.
+2. Bend2 tools admitted through repository changes, with `bend --check-only` and the relevant
+   contract laws checked under the pinned toolchain. The path requires passing laws for the contract it uses;
+   features relying on the knowledge contract require the corresponding repaired law evidence.
+3. Trusted native C-ABI modules loaded through `dlopen` for authored effects. Such code runs with
+   the loader process's authority. It needs a separate process boundary to receive confinement
+   beyond that process's own restrictions.
+
+The particular affine-reuse probe refused a duplicated argument. That result constrains the
+tested dispatcher example; other representations require their own source and compiler evidence
+([feasibility-bend2.md](feasibility-bend2.md) item 2).
+
+The model proposes an extension. An authorized orchestrator admission records the principal,
+existing authority or approval, declaration digest, artifact identity, and applicable execution
+policy. A user-constructed record establishes data shape; authority provenance requires an actual
+admission and enforcement path. An in-process admission alternative must name the actor controlling
+its policy and its remaining ambient authority.
+
+Executed bytes must match admitted bytes. The proposed executor uses protected content-addressed
+storage or verifies bytes at the execution boundary with a demonstrated race-free binding to the
+executed object. An fd-based design must protect the checked object against concurrent mutation
+and demonstrate the actual execution path, including interpreter behavior. A digest check followed
+by a pathname execution still needs race protection. A content-derived path or declaration digest
+alone leaves that binding unresolved.
+Authored C effects also need the actual string ABI: `io_cstr` appends a NUL while its returned
+length excludes that terminator. Effect tests include multi-string packing and the exact bytes
+passed across the boundary. Artifact changes require the corresponding authorized admission. The displayed contract is derived
+from the actual executor data and version; changes remain auditable across recovery.
+
+[Unfireable Safety Kernel v1](https://arxiv.org/html/2606.26057v1) describes process separation,
+pre-action enforcement, fail-closed decisions, and external evidence as individually insufficient
+necessary properties within its model. Its machine-checked result covers a particular pure
+decision function; signing and evidence integration are tested separately. This seat requires its
+own enforcement evidence.
+
+Descriptions have declared renderings and handles to complete contracts. Rendering records omitted
+bytes while keeping full schemas readable. These context bounds preserve admitted work and
+capability records.
+
+Repeated compositions are candidates for measured reuse. [ALITA-G v1](https://arxiv.org/html/2510.23601v1)
+preserves implementation diversity and reports 83.03% GAIA validation pass@1 for its 3×
+configuration with roughly 15.5% fewer tokens than its original Alita baseline. Its harvesting and
+evaluation conditions limit transfer. [Context Language Models v1](https://arxiv.org/html/2609.37725v1)
+reports KVStore 38.3→74.2 with a Qwen3.6-27B agent and Claude Fable 5.1 proposer. These are
+paper-reported outcomes; candidate promotion here needs local comparative evidence.
+
+Current knowledge promotion uses destination-owner pull through Baton's scoped SQLite API.
+Cross-branch capability adoption is a separate authorized admission. Original attempts, receipts,
+and unselected artifacts keep their lineage.
 
 ## 7. Fork, branch, and ensemble
 
-The design uses baton2's three mechanisms as they exist
-([integration-baton.md](integration-baton.md) §3): provider-session fork with a turn cursor, branch
-start with a workspace snapshot and a fresh conversation, and resume of the same conversation.
-Fork-and-Flush (arXiv:2610.07447) is the branching method baton2 implements, and its inheritance is
-workspace plus complete task inputs plus selected findings plus native configuration with **no log
-prefix** (`bend2/src/coordinator/branching-model.bend:13`).
+The reviewed coordinator distinguishes provider-specific conversation fork, a workspace branch
+with a fresh conversation, and continuation of an existing native conversation. Adapter support
+and inheritance differ by mechanism ([integration-baton.md](integration-baton.md) §3).
 
-On top of that, this design **proposes an extension to the branch record** — an orchestrator-side
-change, stated as such: each branch records a basis digest comprising the harness core version, the
-admitted extension set with per-module digests, the tool schema hash, and the model. Loading a
-branch compares the basis and **refuses on mismatch** rather than running in a degraded mode.
-Today's nearest existing field is the route version tuple carrying a vendor CLI version
-([integration-baton.md](integration-baton.md) item 6); the extension-set and schema-hash components
-are new, and the mechanism that would produce them does not exist yet.
+For branching ensembles, the source records a settled workspace snapshot, complete task inputs,
+selected knowledge, native configuration, and evaluator provenance. `branching-model.bend` defines
+the record; `branching.bend` constructs the input and knowledge snapshots. Candidates receive fresh
+native conversations over separate workspace copies. Evaluation records scores and acceptance;
+selection retains its reason and candidate evidence, then continues the selected conversation.
+Loose or tight coordination defines how candidates exchange guidance during the round
+(`docs/bend2/branching-ensembles.md` at the source pin).
 
-Three consequences for ensemble work:
+[Fork-and-Flush v1](https://arxiv.org/html/2610.07447v1) supplies research precedent for workspace
+inheritance with fresh chat. Its finite-horizon experiments are evidence about those runs. Baton
+retains the snapshot, native tasking, and selection contracts above. Experimental horizons add no
+runtime duration, token, or step control to this design.
 
-- Trajectories carry their capability set, in the spirit of CLM's harness fingerprint in usage
-  records, so cross-branch comparison does not confound capability with strategy
-  ([context-language-models.md](../research/context-language-models.md) §3).
-- Hand-off artifacts follow the three-part record rule: decisions and constraints stored exactly;
-  repeated evidence carried as task-justified statistics; raw observations retained only where their
-  effect is not reconstructible from the statistics
-  ([research-open-questions.md](research-open-questions.md) §7, arXiv:2608.14528).
-- Workspace checkpoints are designed with bounded storage and restore tests, so a branch's files and
-  its log agree ([minimal-harness-survey.md](../research/minimal-harness-survey.md) Gemini CLI
-  section; [arcee-nac.md](../research/arcee-nac.md) §10).
+This design proposes an additional branch basis: seat version, model configuration, admitted
+extension artifacts and digests, and schema version. At new branch admission, incompatible basis
+data produces a typed refusal and retains the original snapshot. A versioned migration requires
+an explicit compatible contract. Existing owned work remains governed by its recorded execution.
+The current route version tuple is separate from this proposed extension-set basis.
 
-## 8. The orchestrator plane
+A snapshot is taken at a boundary with its included effects settled. Pending work stays with its
+original owner; any required cancellation is explicit and authorized. Each branch records the
+capabilities that affect interpretation of its score. Checkpoints have restore tests establishing
+agreement between files, inputs, and log provenance.
 
-The seat's hand-off artifacts — a plan, an inventory, an index, a decision record, shaped by the
-three-part record rule — commit as cells into its `worker:<seat>` layer, and briefs and reports
-carry citations (`repl:<scope>:<name>@<version>`).
+Handoff projections carry exact decisions and constraints, task-justified summaries or statistics,
+and source references. Complete original observations remain retained independently of that
+projection. [The handover analysis v1](https://arxiv.org/html/2608.14528v1) motivates this structure
+under conditional statistical assumptions; arbitrary adaptive agent trajectories need their own
+validation. Storage and archival policy preserve the ability to resolve cited evidence.
 
-Implementation status is stated for each half, because the halves differ
-([integration-baton.md](integration-baton.md) §4, §5):
+## 8. Versioned context and knowledge
 
-- **Reading is landed on both lines.** `repl.cite` is one version-pinned read returning one binding
-  row; the bounded, landed alternative is a cited object rendered into the brief with untrusted
-  framing.
-- **Writing is not reachable by a seat today.** Manifests and bindings are kernel/embedded
-  surfaces on the JS line; the Bend2 line is adding the layer. The seat-side commit path is
-  therefore a **named requirement of the Bend2 REPL layer**, tracked with an owner, not an
-  assumption: seat context commits as cells at turn boundaries under a declared snapshot schema,
-  with the snapshot content convention (what a committed context artifact contains) and the commit
-  cadence as open design items.
+The proposed cross-seat artifacts include plans, inventories, indexes, and decisions under declared
+versioned schemas. Reports cite exact committed versions. At the reviewed Bend source, a seat REPL
+cell, binding, commit, and dereference-grant interface remains unimplemented. The separate Bend2
+REPL and context work owns that substrate. Historical JavaScript contracts and JSON-array cells in
+the native managed-query codec are separately identified mechanisms. The managed-query admission
+store already retains immutable bootstrap content, artifact digests, and ownership witnesses. Reuse
+requires checking that contract against the proposed named cells, versions, leases, and read receipts.
 
-Dereferencing follows the prior-art record: a version-pinned read that returns the cited
-representation, bounded with paged reads beyond it, marking the version in its receipt so a read
-issued while the owner is inside a turn is served from the last committed version
-([deref-and-consistency.md](../research/deref-and-consistency.md) §2). The grant model is stated in
-two layers: the first cross-seat experiment uses one orchestrator-minted read grant scoped to one
-citation and one reader, and the full model — attenuation-only derivation with a recorded lineage,
-subtree revocation, request-time caveats evaluated at deref time, persistability declared per grant,
-and revocation that cuts future reads without retro-invalidating a resolved citation — is the design
-target over the grant mechanism that exists (`claimGrant {boardRunId, board}`)
-([addressing-and-authority.md](../research/addressing-and-authority.md) §1, §6;
-[integration-baton.md](integration-baton.md) item 7). Shared state is an append-only ledger; live
-shared mutable context stays closed ([deref-and-consistency.md](../research/deref-and-consistency.md)
-§3). Peer content is untrusted input with provenance, sanitized, and cannot carry a self-cited
-authority claim.
+A proposed read identifies one immutable version, supports a declared preview and complete paged
+reads, frames peer content as untrusted data, and records provenance, delivered bytes, and version.
+This requires its own read evidence. Native message handling receipts describe their actual owned
+reads and successful settlement; cross-seat context reads have a distinct contract.
 
-**Knowledge is the standing store, and it already exists.** Baton runs two: the orchestrator's Cairn
-graph — 19 node types, 14 edge types, four groundings, repository-scoped over the append-only
-coordination ledger, records minted by orchestrator derivation from settled outcomes and admitted
-through one admit gate under a run lease — and a seat-authored SQLite store in the Bend2 line with
-four scopes ([integration-knowledge.md](integration-knowledge.md) §1-§2). The seat holds no write
-authority over Cairn, reaches it through one bounded, provenance-framed read, and emits evidence
-rather than claims: the read rides the dynamic tail rather than the tool catalog, its write path is
-the ordinary settlement report, and emission happens at settlement, never per turn, because per-turn
-seat writes would multiply fence bumps and collapse the candidate/admit separation (§3-§7). Five
-pollution obligations are part of the contract: never write `Contradicts` or `Supersedes`, never
-write a claim without a prior-sequence or artifact evidence reference, never write per turn, never
-mark recalled content as instruction, and never treat the workset as a knowledge input
-([integration-knowledge.md](integration-knowledge.md) items 1, 5, 7).
+A proposed context commit records the complete artifact, schema, owner, and version at an explicit
+boundary. The implementation must specify atomicity, snapshot content, authority, cadence, and
+recovery. The first experiment can use an orchestrator-issued permission for one reader and cited
+version. Grant lineage, attenuation, caveats, revocation, persistence, and OS enforcement remain
+named design requirements. The historical `claimGrant {boardRunId, board}` record supplies reference
+material about its own version. The [seL4 manual 9.0.1](https://sel4.systems/Info/Docs/seL4-manual-9.0.1.pdf)
+sections 3.1.5 and 3.2 provide a comparison for derivation lineage and revocation of derived
+capabilities. [Macaroons (NDSS 2014)](https://research.google/pubs/macaroons-cookies-with-contextual-caveats-for-decentralized-authorization-in-the-cloud/)
+provide a credential-attenuation and contextual-caveat comparison. These mechanisms establish
+requirements to evaluate for Baton grants; the proposed Baton interface requires its own evidence.
 
-## 9. Standing state in the seat
+The current standing knowledge store is Baton's authored SQLite store. Its scoped CLI, MCP, and
+browser readers and destination-owner promotion have source consumers at the reviewed pin.
+Knowledge consumption through those readers requires an explicit pull. The native task prompt
+includes knowledge instructions; automatic knowledge-briefing composition remains proposed.
+Historical Cairn kinds, grounding rules, candidate admission, and read-path findings apply to
+their own source revision ([integration-knowledge.md](integration-knowledge.md)).
 
-Words the model needs to keep in view across turns live on one typed surface: a workset with a goal,
-ordered items carrying scope, acceptance, and dependencies, a status, and a verification recipe
-([arcee-nac.md](../research/arcee-nac.md) §5), rendered into the dynamic tail each turn. Markdown
-notes files are prohibited by the same rule NAC's orchestrator prompt states, and Anthropic's
-initializer agent chose JSON for the same reason
-([no-compaction-approaches.md](../research/no-compaction-approaches.md) §2).
+The reviewed relation upsert permits lineage replacement on a caller-supplied relation ID;
+`agent-native.bend` preserves that ID. The failure evaluator reproduced the SQL behavior in
+isolated SQLite. [Baton issue 785](https://github.com/Flip-Engineering/baton/issues/785) separately
+records a production-binary public coordinator reproduction at the reviewed source: a sibling
+replaces the original relation and becomes its author, while changed finding content refuses with
+`finding-id-conflict`. That issue retains its own command and artifact provenance. Relation
+protection remains proposed; candidate conflict contracts preserve identical retries and refuse
+changed authorship or content, with ownership and namespace alternatives evaluated explicitly. Lineage-sensitive features require the actual immutable or ownership-checked
+contract before claiming preserved authorship. Original records and failure evidence are retained.
 
-Two invariants attach to it. The workset commits at the same turn boundary that any bounding or
-compaction event consumes, so the durable write precedes the loss event rather than depending on a
-prompt nudge ([steelman.md](steelman.md) item 7;
-[no-compaction-harnesses.md](../research/no-compaction-harnesses.md) §9). And **completing the
-verification recipe is a required step before a completion receipt may be emitted**, with the
-recipe's execution recorded in the log — the cheapest response to the finding that per-step
-reliability, not context shape, drives long-horizon collapse
-([research-open-questions.md](research-open-questions.md) §2, arXiv:2609.01660, arXiv:2609.04298
-§3.4).
+The proposed seat emits settlement reports with evidence references and reads recalled content as
+data. Its workset records task progress. Knowledge admission separately determines whether a
+claim and relation have adequate evidence and authority. The proposal's restriction on a seat
+authoring `Contradicts` or `Supersedes` is an admission-policy choice requiring its own mechanism;
+the current API already accepts authored knowledge. Growth, archive, retrieval, and provenance
+policies need evaluation against the actual target store.
 
-## 10. Safety and reversibility
+## 9. Standing workset
 
-Two explicit layers: a sandbox mode controlling what the seat can technically do, enforced by the
-operating system with network off by default and repository metadata read-only inside writable
-roots, and an approval policy controlling when it must ask
-([minimal-harness-survey.md](../research/minimal-harness-survey.md) Codex CLI section). Every
-boundary fails closed with a closed outcome union and reports what happened: full or partial
-enforcement, named denial reasons, `unavailable` for an answerer that throws
-([deepseek-harness.md](../research/deepseek-harness.md) §6). Undo is content-backed: preimages per
-mutation, checkpoint-before-mutate for multi-file work, and `unavailable` reported rather than
-guessed when a preimage is missing ([fx.md](../research/fx.md) §5).
+A typed workset carries the goal, scoped items, acceptance conditions, dependencies, status, and
+verification recipe. Its declared projection appears in the dynamic tail each turn
+([arcee-nac.md](../research/arcee-nac.md) §5). Baton owns complete task text and control identity;
+the workset and spill records use program-managed storage.
 
-**No reviewer reads a whole transcript.** Safety reviews, approval decisions, extension admission,
-and orchestrator inspection operate over bounded windows with provenance pointers or over checkpoint
-digests, because monitor miss rates on dangerous actions rise by 2× to 30× past 800K tokens
-([research-open-questions.md](research-open-questions.md) §3, arXiv:2605.12366). This is a
-consequence of long-lived, append-only logs and belongs with the safety design rather than with the
-instrumentation.
+Workset updates validate schema and preserve the provenance and source class of their content,
+including peer messages, tool outputs, and model authorship. A context
+projection names the durable workset version it consumed and preserves all pending control and
+operation references. Compaction retains the complete original evidence (§2).
 
-## 11. Deliberate omissions
+Before requesting task completion, the seat records the verification recipe's actual execution,
+results, and material limitations. The Conductor evaluates that evidence and confirms completion
+under the task's acceptance conditions. Automatic handling of successfully consumed native messages
+is a separate coordinator responsibility (§1). Failed verification retains the work and findings
+for correction or an authorized scope decision.
 
-- No plugin registry or distribution channel; extension happens through §6's three paths, locally or
-  orchestrator-mediated ([deepseek-harness.md](../research/deepseek-harness.md) §8).
-- No full-screen interface; the event log is the interface
-  ([fx.md](../research/fx.md) §7, §15).
-- No harness-local knowledge or memory store: Cairn is the standing store, the seat's SQLite store
-  belongs to the Bend2 line's own seats, and this harness holds neither (§8;
-  [integration-knowledge.md](integration-knowledge.md) §5).
-- No subagent spawning, factories, or model-side decomposition; a seat that needs help asks its
-  conductor ([prime-agent.md](../research/prime-agent.md) §11.2).
-- No ambient caps: task-scoped step, token, and time parameters arrive with the tasking, are
-  recorded in the session, and are enforced uniformly; per-call timeouts are properties of individual
-  tools ([benchmarks.md](../research/benchmarks.md) concept 5;
-  [audit-evidence.md](audit-evidence.md) §5 item 5).
-- No stateless execution per action; the async contract requires a live, streaming shell, which in
-  Bend2 is a C effect family holding child handles in a table with an event-loop-safe read rather
-  than a typed session object ([feasibility-bend2.md](feasibility-bend2.md) item 8;
-  [minimal-harness-survey.md](../research/minimal-harness-survey.md) "What does not transfer").
+## 10. Authority, review, and undo
 
-## 12. Instrumentation
+The executor uses an explicit authority profile defining filesystem, process, and network access.
+Its approval policy determines which actions require a new authorized decision; prior session
+authorization remains applicable. The implementation identifies the exact OS mechanisms and their
+tested coverage. Each boundary reports denial, unavailable enforcement, or the enforcement actually
+provided. An unavailable required boundary refuses the affected new action while preserving owned
+work and evidence ([deepseek-harness.md](../research/deepseek-harness.md) §6).
 
-Three questions remain unmeasured, and the harness carries the switches to answer them: async
-against blocking tool execution (the token half unmeasured; the wall-clock half has adjacent
-evidence), the program lane against discrete calls, and citation hand-off against inline transfer.
-The switches are the context postures themselves — append-only, projection-bounded, writable-mirror
-— plus the speculative mode of §4
-([research-open-questions.md](research-open-questions.md) §5, §8;
-[minimal-harness-survey.md](../research/minimal-harness-survey.md) Open Interpreter section).
+Undo restores captured preimages. Multi-file changes use a checkpoint with an executable restore
+contract. Missing original bytes produce an explicit unavailable result
+([fx.md](../research/fx.md) §5). Same-UID ambient authority and native-module execution retain the
+limits stated in §5–§6.
 
-Default emissions: ATIF-style trajectory items including the capability set; per-deref receipts with
-cited version, resolved cell id, digest match, bytes delivered, shed markers, and latency; for every
-knowledge record consumed, the node id, grounding, validity version served, and the read record id;
-provider-counted and estimated tokens kept separate; parse-failure events
-([deref-and-consistency.md](../research/deref-and-consistency.md) §4.4;
-[integration-knowledge.md](integration-knowledge.md) item 3;
-[benchmarks.md](../research/benchmarks.md) Aider section).
+Review projections identify their complete retained transcript. [The monitor study v1](https://arxiv.org/html/2605.12366v1)
+tests incremental monitoring of transcript prefixes ending at tool calls and reports failures
+under long benign prefixes. A chosen fixed-size reviewer window needs its own measurement of
+misses, false positives, distributed attacks, and omitted context. Complete evidence remains
+available for source review and replay.
 
-**Divergence counters** are part of the instrumentation design: every switchable mechanism logs a
-write-side and a consumer-side counter, and a write without a consumer is reported as an invariant
-violation, which is how a comparable harness caught two integration bugs invisible to manual
-inspection — and how a shipped switch that never fired was discovered
-([research-open-questions.md](research-open-questions.md) §6, arXiv:2604.20938 §V).
+## 11. Runtime interfaces and ownership
 
-## 13. Engineering discipline
+- Extension execution uses the three paths in §6, with their actual admission and authority.
+- The primary interface is the CLI and structured event log, with complete readable artifacts.
+- The Conductor owns delegation and integrates requests for additional seats. The seat reports
+  needed help through the coordinator.
+- Standing knowledge uses the scoped coordinator API. Proposed admission and grant interfaces
+  are owned in §8.
+- A live process supervisor holds actual child handles and provides streaming observation through
+  authored effects. Its process table, restart binding, and result custody implement the operation
+  contract (§4; [feasibility-bend2.md](feasibility-bend2.md) item 8).
+- Native control, actual outcomes, and authorized decisions govern unfinished work as specified in
+  §4. Experimental measurement conditions remain attached to their reports.
 
-Primary discipline: codec fixtures, log replay, crash injection, and permission-denial fixtures,
-following Unreal Agent's ratio of tests to source
-([unreal-agent.md](../research/unreal-agent.md) §6). The protocol state machine is specified and
-property-tested, and model-checked with witness configurations that must violate each named
-invariant once the machine exists to check
-([fx.md](../research/fx.md) §11). Toolchain gates replace the binary-size gates the review rejected
-as inherited from a user-facing binary: the pinned toolchain version checked before a build, a
-rebuild obligation for every C effect on every toolchain update because the effect ABI carries no
-promise, clang-only C output, and the fail-stop conditions that are not `Result` values (allocation
-failure, an unbalanced array tree, channel deadlock), which the supervisor must cover because the
-run loop has no catch ([feasibility-bend2.md](feasibility-bend2.md) item 6).
+## 12. Experiments and instrumentation
 
-The loop-shape constraint is a design input, not an implementation detail: every loop in the seat is
-one self-recursive `def` carrying a state sum type, with nested matches inside the arms, `@unsafe`
-where an arm keeps waiting without shrinking an argument, one name per binding, and handles threaded
-through the loop's state, because two defs cannot call each other and a `match` cannot head a `do`
-block ([feasibility-bend2.md](feasibility-bend2.md) item 3).
+Experiments compare blocking, model-driven async, and harness-driven speculation; generated
+programs and discrete calls; and citation handoff and inline transfer. Context configurations
+include append-only input, bounded projections, and writable context. Each comparison holds named
+inputs and source versions fixed or explicitly records the difference.
 
-## 14. Bets
+Trajectory records include capabilities, operation lifecycle, and actual outcomes. Context read
+evidence includes the cited version, digest, bytes delivered, omitted-byte markers, and latency.
+Consumed knowledge retains its source record, version, evidence, and read identity. Parsing errors
+and provider refusals retain complete provenance. Provider-counted and estimated usage are reported
+separately ([deref-and-consistency.md](../research/deref-and-consistency.md) §4.4;
+[benchmarks.md](../research/benchmarks.md), Aider section).
 
-Each states its falsification condition.
+Reports state source, toolchain, provider/model/effort, allocation, trial count, pairing, uncertainty,
+actual tokens, wall time, and compute where observable. Each comparison states the smallest paired
+effect its suite can resolve at the reported power and statistical assumptions. Initialization seeds retain the required
+instruction (§1); recording a seed alone establishes no provider-sampling determinism. Finite
+measurement conditions describe observed runs and create no runtime task budget. Observation
+boundaries preserve live owned work. Reports identify right-censored outcomes and apply the same
+observation conditions to each comparison arm.
 
-1. **Async-first tool execution beats blocking execution.** The wall-clock half has adjacent
-   evidence; the token-and-turn half does not
-   ([research-open-questions.md](research-open-questions.md) §1, §6). Falsified if turns and tokens
-   do not fall on a fixed task set.
-2. **The program lane beats discrete calls for batch and targeted-test work.** Settled against the
-   lane's real costs (60-110 ms of process per call, one round trip per nested call, no type
-   checking) and against the alternative of compiling once and reusing the binary
-   ([feasibility-bend2.md](feasibility-bend2.md) item 7). Falsified if the compiled-once path
-   matches it.
-3. **Citation hand-off beats inline transfer** on token cost and cache stability, with
-   replay-exactness holding across seat restarts
-   ([context-networking.md](../research/context-networking.md) §5.1). Falsified if commits must be
-   frequent to stay useful, or if deref costs make receivers re-derive anyway.
-4. **Deliberate commits beat per-turn commits** on receiver cache stability, since every rebind
-   bumps the scope fence and invalidates fence-keyed projections
-   ([context-networking.md](../research/context-networking.md) §6). Falsified if hand-off value
-   decays faster than cache cost accrues.
-5. **A graph read ranked by a score that outcomes move beats a fixed-weight ranked read** at the
-   same read volume, which is the search-state posture over the knowledge layer. Falsified if the
-   fixed-weight read matches it, which is today's state because the weights are constants
-   ([integration-knowledge.md](integration-knowledge.md) item 8).
+The async comparison separates result batching from asynchrony with a declared batching sweep or
+one-result-per-turn replay arm. It reports per-operation commit latency, reordering, and steering
+and control latency. Each arm records the provider's accepted continuation form and any blocking
+restriction.
 
-## 15. Phasing
+Each switchable mechanism records admission, activation, and consumption. An inactive path is
+reported as unexercised. For an operation whose declared contract requires eventual consumption,
+an actual settled attempt with a missing consumer is a failure requiring investigation. In-flight
+work keeps its pending status. This permits integration diagnosis without treating every zero
+counter or elapsed wait as a failure ([Harbor v1](https://arxiv.org/html/2604.20938v1)).
 
-Phasing sequences work; it does not remove mechanisms. Two ordering corrections come from the
-review: the cheapest measurements move into early exits, and the orchestrator experiments come after
-what they need.
+## 13. Validation and toolchain
 
-1. Log, loop, four tools, and a headless seat completing a baton2 task; durability effect family;
-   codec fixtures, fuzz, crash injection, permission-denial fixtures. Exit criteria include the
-   provider-contract check (replacement versus second-item results on the target providers) and the
-   projection-bounding measurement against transcript growth.
-2. The async operation layer with the pending-operation state machine, quiescence, and loss
-   handling. Exit criterion: the async-versus-blocking A/B.
-3. The out-of-process program lane with targeted-test selection; the first compile-after-five
-   promotion through an evaluation gate.
-4. The orchestrator half: cite and deref receipt with a bounded render; then seat-side commit
-   admission once the Bend2 REPL layer carries it; then the two-seat commit-and-cite experiment and
-   the measurement campaign.
+Validation covers codecs, replay, crash injection, authority denial, undo, and operation continuity
+([unreal-agent.md](../research/unreal-agent.md) §6). The state-machine specification names each
+invariant and an example that violates it. Property checks and model checking apply to the
+implemented machine with their actual assumptions and explored state space
+([fx.md](../research/fx.md) §11).
 
-Self-extension, branch capability promotion, and the ensemble machinery are designed here in full
-and sequenced as their dependencies land.
+Builds record the exact compiler and authored C effects. The recorded baton741–baton776 compiler
+fork and its full-coordinator build carry `qualification: false`; they are diagnostic evidence.
+Release qualification remains separate work tracked in [Baton PR 772](https://github.com/Flip-Engineering/baton/pull/772). Toolchain changes require recompilation
+and ABI validation for those effects. Clang output and fail-stop behavior require supervisor
+tests: allocation failure, malformed array structure, and blocked channels have different outcomes
+from returned `Result` failures ([feasibility-bend2.md](feasibility-bend2.md) item 6).
 
-## 16. Open questions
+Compiler guidance comes from the actual pin. The reviewed JSON header requires matching a
+parameter or constructor field, dependency declarations before callers with self-recursive loops,
+and Data-only constructor fields. Modality and affine duplication follow the relevant compiler
+rules. The observed `knowledge-laws.bend` check failed at its first compiler error. Additional
+missing helpers and arity drift were source findings. Repair and execution of that law remain
+named target work; a failing unrelated law is not an automatic prerequisite for every seat feature.
 
-- The Bend2 REPL layer's landing surface: what a seat-side commit call will accept, and whether the
-  snapshot content convention belongs to the layer or to the harness.
-- Where extension admission runs: orchestrator-side, or in-seat with signed evidence as the
-  compensating control.
-- Whether the knowledge read is evented or served from cache, who authors a seat-side record and
-  with what evidence, and the growth boundary for a graph the design intends to be permanent.
-- Whether the Bend2 law-file drift recorded in the knowledge audit (schema law, promotion arity,
-  missing evidence predicate) compiles.
-- Commit cadence for hand-off artifacts, and its interaction with receiver cache stability.
-- The deref representation bound for a first cross-seat read, given that no corpus system bounds a
-  cross-session read ([deref-and-consistency.md](../research/deref-and-consistency.md) §5).
-- Whether a cross-scope dereference needs a defined snapshot, or every networked read names exactly
-  one binding version ([addressing-and-authority.md](../research/addressing-and-authority.md) §6).
-- Whether generated programs should be type-checked at admission (`bend --check-only` on the
-  generated program), given that the interpreter lane does not check them.
+## 14. Hypotheses
+
+Comparisons state quality and uncertainty alongside resource effects. Each component claim is
+evaluated independently.
+
+| Hypothesis | Comparison and falsification |
+| --- | --- |
+| Async execution lowers latency and may reduce turns or tokens. | Compare blocking and async on the same tasks and quality criteria. Each claimed resource improvement fails when the comparison does not support it. |
+| Generated programs improve batch and targeted-test execution. | Compare discrete calls, repeated interpretation, and compile-once reuse across chain lengths, fan-out, model capability, and atomic calls. Reject an advantage unsupported at matched quality and actual cost. |
+| Citation handoff lowers transfer cost while preserving exact recovery. | Compare inline transfer and receiver re-derivation with versioned reads, including commit cadence and cache effects. Reject the claimed advantage if stale or costly handoff removes the benefit or recovery changes the cited value. |
+| Deliberate context commits improve receiver cache stability. | Compare commit cadences and the validity of the information delivered. Reject the claim if measured cache effects and handoff usefulness fail to support it. |
+| Outcome-updated graph ranking improves retrieval. | Compare fixed-weight and outcome-updated ranking on the actual target graph at equal read volume and declared retrieval quality. Reject the claim if the fixed-weight comparison matches it within the measured uncertainty. |
+
+Candidate/admission graph semantics, outcome-updated ranking, and cross-seat grant behavior remain
+implementation dependencies. Historical Cairn weights describe its own revision. Context and
+reliability experiments retain separate controls ([research-open-questions.md](research-open-questions.md)).
+
+## 15. Implementation dependencies
+
+Independent lanes can proceed concurrently. Integration depends on the contracts each lane uses;
+the complete scope includes extensions, branch capability adoption, ensembles, and commit-and-cite.
+
+| Lane | Required dependencies | Evidence produced |
+| --- | --- | --- |
+| Native seat and durable log | Correct harness identity; receiver and settlement integration; log and host-effect contracts. | Headless task completion; codec, crash, restore, and native input-handling results. |
+| Provider and context behavior | Actual target adapter, provider acceptance, durable values and projections. | Replacement/continuation compatibility; context growth, projection, and cache measurements. |
+| Async operations | Durable intent, native identity, observation, cancellation authority, and result custody. | Blocking/async comparison; live-work continuity and uncertain-effect recovery cases. |
+| Generated programs and extensions | Process executor, SDK attribution, actual authority policy, and artifact identity. | Discrete/interpreted/compiled comparisons; direct-child authority and admitted-byte tests; promotion evidence. |
+| Branch integration | Settled snapshot, complete inherited tasking, evaluator provenance, and basis contract. | Fresh-conversation inheritance, selection, continuation, restore, and capability-adoption evidence. |
+| Versioned context and knowledge | Actual Bend2 REPL/context interface, exact-version reads, own read evidence, and required lineage contract. | Initial two-seat citation read; seat commit admission; commit-and-cite and retrieval comparisons. |
+
+These are dependency and acceptance statements. Diagnostic observations and proposed experiments
+remain separately reported until executed. Follow-up issues track [native seat integration](https://github.com/Flip-Engineering/baton-cli/issues/2),
+[uncertain tool-effect recovery](https://github.com/Flip-Engineering/baton-cli/issues/3), and
+[admitted artifact execution](https://github.com/Flip-Engineering/baton-cli/issues/4).
+
+## 16. Open engineering decisions
+
+- The Bend2 adapter and its exact receiver, control, and settlement integration.
+- Provider result-continuation forms, wake implementation, and evidence for recovering external
+  effects with uncertain outcomes.
+- Context projection triggers, complete-log storage and archive policy, and restore guarantees.
+- The persistent Bend2 REPL's value, commit, snapshot, and read-permission contracts.
+- Extension admission placement, trusted native-module authority, and atomic binding of admitted
+  bytes to executed bytes.
+- Repair of the publicly reproduced relation lineage replacement, plus the intended
+  knowledge-law contract and its actual compiler result.
+- Knowledge provenance admission, evented or cached reads, graph growth, and retrieval evaluation.
+- Context commit cadence, exact-version read representation, snapshot consistency, and revocation.
+- Generated-program checking at admission and its measured cost relative to reuse.

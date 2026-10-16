@@ -1,0 +1,50 @@
+== --check-only
+All terms check, but 7 defs rely on unsafe or foreign code:
+- Host.sync
+- Host.sync_dir
+- Host.rename
+- Host.unlink
+- Host.stat_size
+- Host.mkdir
+- main
+exit=0
+== emit C
+All terms check, but 7 defs rely on unsafe or foreign code:
+- Host.sync
+- Host.sync_dir
+- Host.rename
+- Host.unlink
+- Host.stat_size
+- Host.mkdir
+- main
+exit=0
+== clang link
+exit=0
+== native run (cwd=work)
+step: open done
+step: write+fsync done
+step: rename done
+committed store/log.jsonl
+size 9
+No such file or directory
+exit=2
+== final file content:
+hello-log
+== tmp path after rename (expect absent):
+log.jsonl
+== interpreted run
+All terms check, but 7 defs rely on unsafe or foreign code:
+- Host.sync
+- Host.sync_dir
+- Host.rename
+- Host.unlink
+- Host.stat_size
+- Host.mkdir
+- main
+step: open done
+step: write+fsync done
+step: rename done
+committed store/log.jsonl
+size 9
+No such file or directory
+exit=2

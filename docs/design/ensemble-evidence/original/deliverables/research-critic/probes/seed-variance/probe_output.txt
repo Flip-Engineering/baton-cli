@@ -1,0 +1,40 @@
+=== Probe 1: Minimum detectable effect (paired, alpha=.05, power=.80) ===
+Input: Harbor-Index 1.0 (arXiv:2609.04298): 82 tasks, 29 benchmarks,
+best configuration 28.0% pass, 3 trials each. ASSUMPTION: binary task
+scores, cross-arm question correlation 0.5 (Miller's worked example).
+  arm                                         MDE
+  Harbor-Index 82 tasks, 1 trial               13.9 pp
+  Harbor-Index 82 tasks, 3 trials (paper protocol)   11.3 pp
+  500-task suite, 3 trials                      4.6 pp
+  Miller's worked example n for 3pp             4.0 pp
+
+=== Probe 2: tasks needed to resolve named design deltas (paired, 1 trial) ===
+  delta= 3.0 pp -> n paired tasks =    1758
+  delta= 7.5 pp -> n paired tasks =     281
+  delta=10.0 pp -> n paired tasks =     158
+
+=== Probe 3: geometric-decay consistency of arXiv:2609.01660 numbers ===
+Claimed: success(k)=p^k; projected reliability 0.42 at GAIA-length
+horizons, 0.24 at hundred-step horizons; bounding steepened decay
+(logit slope -0.69 vs -0.44, p=3e-6).
+  implied per-step reliability p = target^(1/k):
+  k= 10: p=0.9169   (0.24@100 implies p=0.9858)
+  k= 15: p=0.9438   (0.24@100 implies p=0.9858)
+  k= 20: p=0.9576   (0.24@100 implies p=0.9858)
+  k= 25: p=0.9659   (0.24@100 implies p=0.9858)
+  k= 30: p=0.9715   (0.24@100 implies p=0.9858)
+  logit slopes implied by constant p (slope=log(p) per step):
+  p=0.980 -> slope -0.020/step; success@16=0.724, @100=0.133
+  p=0.985 -> slope -0.015/step; success@16=0.785, @100=0.221
+  p=0.990 -> slope -0.010/step; success@16=0.851, @100=0.366
+  p=0.640 -> slope -0.446/step; success@16=0.001, @100=0.000
+  p=0.500 -> slope -0.693/step; success@16=0.000, @100=0.000
+  reported logit slopes -0.44/-0.69 -> per-step odds multipliers e^-0.44=0.644, e^-0.69=0.502
+  NOTE: a pure geometric law has slope log(p); slope -0.44 implies p=0.644 whose success@100=0.0000, not 0.24;
+  a saturated-below-1 or step-dependent parameterization must therefore
+  be doing work. Flagged for full-text check (see scout report).
+
+=== Probe 4: single-run SE at eval scale (what a leader gap means) ===
+  n=   82, pass=0.28: SE = 4.96 pp; 95% CI halfwidth = 9.72 pp
+  n= 6627, pass=0.28: SE = 0.55 pp; 95% CI halfwidth = 1.08 pp
+  n=   82, pass=0.50: SE = 5.52 pp; 95% CI halfwidth = 10.82 pp

@@ -1,0 +1,237 @@
+{
+  "observedUtc": "2026-10-16T18:40:12.145009+00:00",
+  "boot": "56db05bc-8b37-4764-87ae-62fccadc1de0",
+  "uid": 986,
+  "sourcePin": "b1f006a6308bbb00e29a24322e4f7d5164774470",
+  "processes": [
+    {
+      "pid": 730944,
+      "uid": 986,
+      "comm": "baton",
+      "state": "S",
+      "ppid": 730931,
+      "birth": "2855411",
+      "utime": 0,
+      "stime": 1,
+      "rssKiB": 10128,
+      "io": "rchar: 92093\nwchar: 290\nsyscr: 50\nsyscw: 8\nread_bytes: 0\nwrite_bytes: 0\ncancelled_write_bytes: 0\n"
+    },
+    {
+      "pid": 730960,
+      "uid": 986,
+      "comm": "baton",
+      "state": "R",
+      "ppid": 730944,
+      "birth": "2855413",
+      "utime": 199619,
+      "stime": 13336,
+      "rssKiB": 51010292,
+      "io": "rchar: 6555459641\nwchar: 2598366092\nsyscr: 2722150\nsyscw: 304649\nread_bytes: 168779776\nwrite_bytes: 2659086336\ncancelled_write_bytes: 0\n"
+    },
+    {
+      "pid": 730966,
+      "uid": 986,
+      "comm": "baton",
+      "state": "S",
+      "ppid": 1,
+      "birth": "2855416",
+      "utime": 51,
+      "stime": 625,
+      "rssKiB": 8492,
+      "io": "rchar: 6386588534\nwchar: 1451468123\nsyscr: 2595846\nsyscw: 1146559\nread_bytes: 1189806080\nwrite_bytes: 1313525760\ncancelled_write_bytes: 8372224\n"
+    },
+    {
+      "pid": 731028,
+      "uid": 986,
+      "comm": "omp",
+      "state": "S",
+      "ppid": 730966,
+      "birth": "2855580",
+      "utime": 5791,
+      "stime": 3064,
+      "rssKiB": 231088,
+      "io": "rchar: 40385351\nwchar: 229596698\nsyscr: 73003\nsyscw: 30181\nread_bytes: 15519744\nwrite_bytes: 230203392\ncancelled_write_bytes: 0\n"
+    },
+    {
+      "pid": 901849,
+      "uid": 986,
+      "comm": "baton",
+      "state": "S",
+      "ppid": 730966,
+      "birth": "3016303",
+      "utime": 11157,
+      "stime": 1136,
+      "rssKiB": 1073504,
+      "io": "rchar: 1607276820\nwchar: 93718925\nsyscr: 606817\nsyscw: 66965\nread_bytes: 847872\nwrite_bytes: 105287680\ncancelled_write_bytes: 0\n"
+    }
+  ],
+  "attempts": {
+    "runtime-lead": {
+      "attempt": "receive:runtime-lead:180:d72d640615c2955b48bb6594068dc507",
+      "directory": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db.attempt-726563656976653a72756e74696d652d6c6561643a3138303a6437326436343036313563323935356234386262363539343036386463353037",
+      "files": {
+        "native.birth": {
+          "bytes": 24,
+          "mtime": 1792173518.2229009,
+          "hex": "94270b00000000009c922b000000000042f6d16a00000000"
+        },
+        "manifest": {
+          "bytes": 36364,
+          "mtime": 1792173518.2099006
+        },
+        "prompt.txt": {
+          "bytes": 32226,
+          "mtime": 1792173518.2079005
+        },
+        "lifecycle": {
+          "bytes": 136,
+          "mtime": 1792173518.2179008
+        },
+        "observer.log": {
+          "bytes": 28,
+          "mtime": 1792175124.8937464,
+          "body": "database schema has changed\n"
+        },
+        "native.stderr": {
+          "bytes": 0,
+          "mtime": 1792173518.2199008
+        },
+        "observer-error": {
+          "bytes": 50,
+          "mtime": 1792175125.4497602,
+          "body": "pid 753930 exited before attach: wait status 4352\n"
+        },
+        "checkpoint": {
+          "bytes": 7490,
+          "mtime": 1792176012.1384568
+        },
+        "native.pid": {
+          "bytes": 7,
+          "mtime": 1792173518.2209008,
+          "body": "731028\n"
+        },
+        "stdout": {
+          "bytes": 225937046,
+          "mtime": 1792176011.874449
+        },
+        "admission": {
+          "bytes": 280,
+          "mtime": 1792173518.2109005
+        },
+        "input-delivered": {
+          "bytes": 56,
+          "mtime": 1792173518.223901
+        },
+        "launch": {
+          "bytes": 7,
+          "mtime": 1792173518.218901
+        }
+      }
+    },
+    "design-lead": {
+      "attempt": "receive:design-lead:3:9602d8604a2a93fb75cb420cdd6d1f3f",
+      "directory": "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db.attempt-726563656976653a64657369676e2d6c6561643a333a3936303264383630346132613933666237356362343230636464366431663366",
+      "files": {
+        "native.birth": {
+          "bytes": 24,
+          "mtime": 1792140273.7712827,
+          "hex": "49370e0000000000c7c59e010000000020becd6a00000000"
+        },
+        "manifest": {
+          "bytes": 14118,
+          "mtime": 1792140273.7612824
+        },
+        "prompt.txt": {
+          "bytes": 11321,
+          "mtime": 1792140273.7592824
+        },
+        "lifecycle": {
+          "bytes": 136,
+          "mtime": 1792140273.7672825
+        },
+        "observer.log": {
+          "bytes": 112,
+          "mtime": 1792140391.3064308,
+          "body": "database schema has changed\ndatabase schema has changed\ndatabase schema has changed\ndatabase schema has changed\n"
+        },
+        "native.stderr": {
+          "bytes": 0,
+          "mtime": 1792140273.7692826
+        },
+        "observer-error": {
+          "bytes": 202,
+          "mtime": 1792140391.3174312,
+          "body": "pid 994387 exited before attach: wait status 4352\npid 997635 exited before attach: wait status 4352\npid 1001491 exited before attach: wait status 4352\npid 1005249 exited before attach: wait status 4352\n"
+        },
+        "checkpoint": {
+          "bytes": 82144,
+          "mtime": 1792176012.1004558
+        },
+        "native.pid": {
+          "bytes": 7,
+          "mtime": 1792140273.7702825,
+          "body": "931657\n"
+        },
+        "stdout": {
+          "bytes": 967455208,
+          "mtime": 1792143847.3648674
+        },
+        "admission": {
+          "bytes": 274,
+          "mtime": 1792140273.7622824
+        },
+        "input-delivered": {
+          "bytes": 56,
+          "mtime": 1792140273.7722826
+        },
+        "launch": {
+          "bytes": 7,
+          "mtime": 1792140273.7682827
+        }
+      }
+    }
+  },
+  "interpretation": "Retained byte counts, identity records and resource use are observations. Historical observer errors and stream size alone do not establish a current blocker or replay-algorithm cause.",
+  "processScope": {
+    "roots": [
+      730944,
+      730966,
+      731028
+    ],
+    "selection": "Only the recorded design receive, runtime observation parent and native, and their observed descendants. The complete unfiltered source snapshot remains in local recovery custody.",
+    "designReceiveLaunch": {
+      "actor": "design-lead",
+      "argv": [
+        "/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton",
+        "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db",
+        "as",
+        "proposal-root",
+        "receive",
+        "--session",
+        "design-lead"
+      ],
+      "pid": 730944,
+      "birth": "2855411",
+      "boot_id": "56db05bc-8b37-4764-87ae-62fccadc1de0",
+      "started": "2026-10-16T17:58:36.530214+00:00",
+      "original_native": "01a143e2-707c-7000-93b9-a48cd502d418"
+    },
+    "runtimeReceiveLaunch": {
+      "actor": "runtime-lead",
+      "argv": [
+        "/run/baton2-native-homelab/home/.local/share/baton2/releases/2.0.0-e6a56295f0f407ee6993d9d99ba158696d28f7be/bin/baton",
+        "/run/baton2-native-homelab/retained/baton-cli-orchestra-20261016/orchestra.db",
+        "as",
+        "proposal-root",
+        "receive",
+        "--session",
+        "runtime-lead"
+      ],
+      "pid": 730943,
+      "birth": "2855411",
+      "boot_id": "56db05bc-8b37-4764-87ae-62fccadc1de0",
+      "started": "2026-10-16T17:58:36.528595+00:00",
+      "original_native": "01a143e2-6ffc-7000-8bd1-f85cf7a147ad"
+    }
+  }
+}

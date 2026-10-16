@@ -1,0 +1,1435 @@
+{
+  "preparedUtc": "2026-10-16T18:41:41.831119+00:00",
+  "status": "Evidence packet accompanying the root-reviewed proposal revision; runtime/design formal final syntheses and native continuation remain pending recovery.",
+  "auditBaseline": "5941316491eb01d8794abddc5dcf1798801c4aaf",
+  "sourcePin": "b1f006a6308bbb00e29a24322e4f7d5164774470",
+  "revisionBase": "26beba64b0d10336ff7783dcee58e78e5bb13c56",
+  "originalCandidatePatchSha256": "ac6544057a272e6799ff416601b962ef7fe9cb26836a71924ef2eb89969ae4b2",
+  "files": [
+    {
+      "path": "original/deliverables/baton-contracts/evidence.md",
+      "bytes": 8154,
+      "sha256": "c0b8bb9bf275390a59dc7209f38c6f79850288c188149d848db0e4a04a0ee54b",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/baton-contracts/evidence.md",
+        "status": "Original pre-continuation body; later reports and rulings may supersede positions."
+      }
+    },
+    {
+      "path": "original/deliverables/baton-contracts/report.md",
+      "bytes": 12412,
+      "sha256": "27feaad7483a988a59bd4e2df8c39db121768034c64b71d22222f0e1b3702c77",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/baton-contracts/report.md",
+        "status": "Original pre-continuation body; later reports and rulings may supersede positions."
+      }
+    },
+    {
+      "path": "original/deliverables/citation-auditor/claim-register.md",
+      "bytes": 30345,
+      "sha256": "456e630777f00a3eb74d4eb39d4f692193fcb3157d31834062b53f7eaef617ee",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/citation-auditor/claim-register.md",
+        "status": "Original pre-continuation body; later reports and rulings may supersede positions."
+      }
+    },
+    {
+      "path": "original/deliverables/design-lead/design-lead-review.md",
+      "bytes": 25314,
+      "sha256": "2e162fe08a83762173565dce160bb19a8f95fef699593ae8bb4b46b664b9cf12",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/design-lead/design-lead-review.md",
+        "status": "Original pre-continuation body; later reports and rulings may supersede positions."
+      }
+    },
+    {
+      "path": "original/deliverables/design-lead/revised-design-text.md",
+      "bytes": 19101,
+      "sha256": "016d82b0f723c2374b7f12a47f75028f96421b5b644246c46185f3db6edce7a0",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/design-lead/revised-design-text.md",
+        "status": "Original pre-continuation body; later reports and rulings may supersede positions."
+      }
+    },
+    {
+      "path": "original/deliverables/evidence-lead/claim-register-v0.md",
+      "bytes": 16991,
+      "sha256": "457043759064b88bc7fa6a544c3263325f406dce58a141543e6bdd30f9af9d0d",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/evidence-lead/claim-register-v0.md",
+        "status": "Original pre-continuation body; later reports and rulings may supersede positions."
+      }
+    },
+    {
+      "path": "original/deliverables/evidence-lead/experiments-v0.md",
+      "bytes": 2353,
+      "sha256": "0e6dd1d243ba56bcb024c84766a6fb487764a2fca503f1e60f7f48c083576829",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/evidence-lead/experiments-v0.md",
+        "status": "Original pre-continuation body; later reports and rulings may supersede positions."
+      }
+    },
+    {
+      "path": "original/deliverables/evidence-lead/interim-note.md",
+      "bytes": 2949,
+      "sha256": "dc5fb0ae45e71dd1f48b9c49b1a965333cc9c816ca09cbbd1a5840972c6349a4",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/evidence-lead/interim-note.md",
+        "status": "Original pre-continuation body; later reports and rulings may supersede positions."
+      }
+    },
+    {
+      "path": "original/deliverables/evidence-lead/reply-design-lead-r1.md",
+      "bytes": 5248,
+      "sha256": "446876e42c410bc8a81cda90066a14865426cdc44ebda0acef99364aef89a462",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/evidence-lead/reply-design-lead-r1.md",
+        "status": "Original pre-continuation body; later reports and rulings may supersede positions."
+      }
+    },
+    {
+      "path": "original/deliverables/failure-evaluation/failure-evaluation-report.md",
+      "bytes": 28345,
+      "sha256": "a805a5a20335b00da5ced3cff50141d777cbf6ad4e78cf0173b602d4dacb02d2",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/failure-evaluation/failure-evaluation-report.md",
+        "status": "Original pre-continuation body; later reports and rulings may supersede positions."
+      }
+    },
+    {
+      "path": "original/deliverables/proposal-strongman/round2-critique.md",
+      "bytes": 5461,
+      "sha256": "65582d795e1eb554874fc62d465d34ab7d2e4605c750277576ba5375b35760cd",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/proposal-strongman/round2-critique.md",
+        "status": "Original pre-continuation body; later reports and rulings may supersede positions."
+      }
+    },
+    {
+      "path": "original/deliverables/proposal-strongman/strongman-proposal.md",
+      "bytes": 14321,
+      "sha256": "468943256690abe5db0b314634c8523e37082c9ad98098f42843e6f40ad21b73",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/proposal-strongman/strongman-proposal.md",
+        "status": "Original pre-continuation body; later reports and rulings may supersede positions."
+      }
+    },
+    {
+      "path": "original/deliverables/runtime-lead/amendments-r1.md",
+      "bytes": 7527,
+      "sha256": "8d43a53437f7e5567da9f610624d9880498b0972f46f62fc7ef83cb4688ad093",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/runtime-lead/amendments-r1.md",
+        "status": "Original pre-continuation body; later reports and rulings may supersede positions."
+      }
+    },
+    {
+      "path": "original/deliverables/runtime-lead/amendments-r2.md",
+      "bytes": 5776,
+      "sha256": "57ed9dfa2a07a02adc5dd0de89b1653ef0af545f50fc4f08ecaba57182ac1576",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/runtime-lead/amendments-r2.md",
+        "status": "Original pre-continuation body; later reports and rulings may supersede positions."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p01_base_surface/output.txt",
+      "bytes": 5301,
+      "sha256": "1b706024cc1bc7c49fa382256ae328c60951b64b7846612fdf84278758b62e99",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p01_base_surface/output.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p01_base_surface/run.sh",
+      "bytes": 884,
+      "sha256": "2c966c647a7d42effdb523513a6179ecd9e4e40f052ae4f6546aae3b299c26f5",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p01_base_surface/run.sh",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p02_shape_rules/closure_twice.bend",
+      "bytes": 271,
+      "sha256": "8dd4696bdd91b8923a9651ceffe4eeac9d6410e0ee5bfab837a57234c7e4bfe8",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p02_shape_rules/closure_twice.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p02_shape_rules/computed_scrutinee.bend",
+      "bytes": 218,
+      "sha256": "d4c5d21e6ae0fcc4e575accff924b49722b873e5867b996b669fe11de532c82a",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p02_shape_rules/computed_scrutinee.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p02_shape_rules/dispatcher.bend",
+      "bytes": 547,
+      "sha256": "55166bf42cea1f4d60d4b5ad09a1fe745dc17126395f060525ef5d6bb2783562",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p02_shape_rules/dispatcher.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p02_shape_rules/match_in_do.bend",
+      "bytes": 242,
+      "sha256": "ce20954a7c3fc8d010deeaff1af2a61f90739f8b6b34f78fab38fea89ef18819",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p02_shape_rules/match_in_do.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p02_shape_rules/output.txt",
+      "bytes": 1082,
+      "sha256": "cae8adbd07d92011ceac92f239d3ec52e4ef97d73ecfa1db757726b4a79c681f",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p02_shape_rules/output.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p02_shape_rules/run.sh",
+      "bytes": 616,
+      "sha256": "772b0b97a7d0e64118250b98c097c52d3eaf65611f71472f684bf1a037f3c1ee",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p02_shape_rules/run.sh",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p02_shape_rules/waitloop.bend",
+      "bytes": 560,
+      "sha256": "2e7910cea146a39c7fe6e5c8bafad6e3ce4ce28ec2819dda3d36220002d0f59b",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p02_shape_rules/waitloop.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p03_durability/dur.bend",
+      "bytes": 2011,
+      "sha256": "b69dad9323d0e2753749c9a94260c96a6114f1e7634bb45b85136eaa4c11775c",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p03_durability/dur.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p03_durability/dur.c",
+      "bytes": 4189,
+      "sha256": "56ee9485cc57db752b5a32b57f9728a6beab0094620fe4efcdca1e6e8394de12",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p03_durability/dur.c",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p03_durability/dur.js",
+      "bytes": 1227,
+      "sha256": "611984d81a9345b58cb478bf4b1d4253af124e3f1f86a2eaa31d3dc604442be5",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p03_durability/dur.js",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p03_durability/output.txt",
+      "bytes": 895,
+      "sha256": "0c0dc64708f4c44e51a3adce288b9a487b0529fa375d3baffa50e09b17f390f3",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p03_durability/output.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p03_durability/run.sh",
+      "bytes": 811,
+      "sha256": "e44014a369ce402cdb5fd87c2607fa3f2ab8c57dfe933345f17f1556af252305",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p03_durability/run.sh",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p04_unix_socket/run.sh",
+      "bytes": 754,
+      "sha256": "3234ebea5ff6ab9633755e54407be1090bc2aa0e6631875ada1d512d1a776a01",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p04_unix_socket/run.sh",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p04_unix_socket/sock.bend",
+      "bytes": 496,
+      "sha256": "ffbfdf04f0738b213d9e6e13f93f851f74a415475b26d64e9a941abe9ac81a3c",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p04_unix_socket/sock.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p04_unix_socket/sock.c",
+      "bytes": 2245,
+      "sha256": "e054da4bafbd36ce298a50ddcb33788f5b0b278715eba67df40e3d1562a6623e",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p04_unix_socket/sock.c",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p04_unix_socket/sock.js",
+      "bytes": 477,
+      "sha256": "136b1a88bef2949fca3fca75823b0ab79a020f13d88c8cae99e6ce1421161acf",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p04_unix_socket/sock.js",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p05_supervision/driver.bend",
+      "bytes": 1991,
+      "sha256": "1bae222701044ed75cebcac5bea3972138a5abd57c533d48032155a6af025a34",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p05_supervision/driver.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p05_supervision/output.txt",
+      "bytes": 306,
+      "sha256": "5d288db943533a277bb9e4e09c69a7def97d81c7708c234527a955ccf9071c81",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p05_supervision/output.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p05_supervision/process-spawn.c",
+      "bytes": 8904,
+      "sha256": "b131432317100cea578088bd8524f9839549518f3b005cc39d468d54e427f0fa",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p05_supervision/process-spawn.c",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p05_supervision/process.bend",
+      "bytes": 1125,
+      "sha256": "3506ed80ed85ccc7c45e0ab3126210b2433f3c2f850b18de4af3b9c2b7243139",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p05_supervision/process.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p05_supervision/run.sh",
+      "bytes": 688,
+      "sha256": "46e539386d88bea9f3b923678c60dfacf407a9e7d8b22e0be682e02f1514b254",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p05_supervision/run.sh",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p06_http_tcp/http.bend",
+      "bytes": 1829,
+      "sha256": "9726cb0f4d50b8683b48707ff3a153ec013ca8f5bcf7de825de8679cf77771d5",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p06_http_tcp/http.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p06_http_tcp/output.txt",
+      "bytes": 909,
+      "sha256": "a30d7307624cd1924f0112a728d0ea987dc01d3156d688040dd2b28385e8d013",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p06_http_tcp/output.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p06_http_tcp/run.sh",
+      "bytes": 648,
+      "sha256": "5ee8402b428bc02917e83863f4ea4481a49454867141083feedef85e1b3bbff8",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p06_http_tcp/run.sh",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p07_chan_pool/output.txt",
+      "bytes": 446,
+      "sha256": "b3adb166a7f2090bd18943390db16d1b1c5504e513b3eed8ff881c57cf3ba5ba",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p07_chan_pool/output.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p07_chan_pool/pool.bend",
+      "bytes": 1682,
+      "sha256": "aaecbb02751fa4a8d70427b79b3772cf8712a3bef97a8f5eea0f1553050ccaf5",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p07_chan_pool/pool.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p07_chan_pool/run.sh",
+      "bytes": 467,
+      "sha256": "2abd0717b38ba7890bffad744921fb3cc649d5a11029487cf59b7ddee42835f0",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p07_chan_pool/run.sh",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p08_dlopen/dl.c",
+      "bytes": 1478,
+      "sha256": "8284e5961453c311c7ea2e9e025c7e03ddc29aeed5d055bc9706181aea2d7860",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p08_dlopen/dl.c",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p08_dlopen/dl.js",
+      "bytes": 201,
+      "sha256": "1c2e62bcfdd4a172a9247b4bc80f35ab94c4d1bf42b2a1064a01b02487e3be99",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p08_dlopen/dl.js",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p08_dlopen/dlopen.bend",
+      "bytes": 589,
+      "sha256": "02463d782d12774ac069d7a13e0668890e1100b555ce940a5d0dcae1f746007d",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p08_dlopen/dlopen.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p08_dlopen/ext.c",
+      "bytes": 257,
+      "sha256": "1abd138a04a4bc598ddf7814124e7bff4a22595886e97a72fc684c2799d142a7",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p08_dlopen/ext.c",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p08_dlopen/output.txt",
+      "bytes": 213,
+      "sha256": "b9bb992b0bdb1367d64f8114efa7b0e38d04367086ec9799f4854c1abfb03ed9",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p08_dlopen/output.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p08_dlopen/run.sh",
+      "bytes": 621,
+      "sha256": "86f2dc96d1b53d3acd74fcaf0d4885c0bfb15b30d267f9ceb13a3c9f92e7f253",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p08_dlopen/run.sh",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p09_law_gate/forge.bend",
+      "bytes": 508,
+      "sha256": "f4e733fd920b99cfe666e33f7a1dc286fd37562b210df1f0b1c7b9654c45c19f",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p09_law_gate/forge.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p09_law_gate/hostprog.bend",
+      "bytes": 117,
+      "sha256": "02b18745527db88d7e52240637e0565cb4a276f6f1e70c6eb0afac40f074464e",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p09_law_gate/hostprog.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p09_law_gate/output.txt",
+      "bytes": 1038,
+      "sha256": "a767820c40478feb4f7c29b5a79829bf907662f917382954dc2e51023e7d3942",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p09_law_gate/output.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p09_law_gate/proof.bend",
+      "bytes": 210,
+      "sha256": "f788472ccb306554798d6680680f79722aef6a9af4b9183d34ea067584ade784",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p09_law_gate/proof.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p09_law_gate/run.sh",
+      "bytes": 703,
+      "sha256": "a10a588f157d96ecd37bc3bcd5e7ea6705e29491effe331d0ffdfe9ee47ee7e6",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p09_law_gate/run.sh",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p09_law_gate/tool.bend",
+      "bytes": 254,
+      "sha256": "7e6844ff9298e84da1418835ec6f75709656b1052e02dae0ecb4ea03f2095b90",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p09_law_gate/tool.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p10_js_loader/hello.bend",
+      "bytes": 326,
+      "sha256": "34f62481e4edf3e1017693e89c313079fcc1756f51f3a80d9867705cada82c1d",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p10_js_loader/hello.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p10_js_loader/host.mjs",
+      "bytes": 419,
+      "sha256": "0e43056d4d17a5a74011330ad3b4967df948063ecda3aa9579d8cc64dbaf285e",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p10_js_loader/host.mjs",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p10_js_loader/output.txt",
+      "bytes": 783,
+      "sha256": "3a049e0e980a30d6a96161ed0af04da1ed32719f77fa37365b3cd870665503f1",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p10_js_loader/output.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p10_js_loader/run.sh",
+      "bytes": 422,
+      "sha256": "1b8ad3c4bad3f985c54898aab2c744885dbe0da7f2b4ce7d02d85c4f2b638180",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p10_js_loader/run.sh",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p11_costs/run.sh",
+      "bytes": 1516,
+      "sha256": "129fb6ccf0ad81269aa39231ef6bd125d8cfca070389e419b641f895e816d499",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p11_costs/run.sh",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p12_template_guard/output.txt",
+      "bytes": 178,
+      "sha256": "b45f7f46d728528500fd9476ec8ad80ba15a9a984a6f6a4a681b7020cd08fcca",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p12_template_guard/output.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p12_template_guard/run.sh",
+      "bytes": 380,
+      "sha256": "4935ab2de8a4ddbb819af73e42434327f0ecb514bc3060b73899839031dcf642",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p12_template_guard/run.sh",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/bend-feasibility/probes/p12_template_guard/spin.bend",
+      "bytes": 335,
+      "sha256": "a6d9e2f06f0c706eeaddc8daa9f69975bb90ecea427c8d73ba3679309850512e",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p12_template_guard/spin.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/design-lead/probes/extlaw.bend",
+      "bytes": 102,
+      "sha256": "c674373cb5dacc3245349aa7e2055f737fb568d9e743d74fe8b98c854457398c",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/design-lead/probes/extlaw.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/design-lead/probes/hostprog.bend",
+      "bytes": 70,
+      "sha256": "cf3cf89de2fe26e7a79bd9bf47f2b9a2fb3295d88b89fed0df3642b8a8f491c7",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/design-lead/probes/hostprog.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/design-lead/probes/lawgate.txt",
+      "bytes": 437,
+      "sha256": "6e18f5dc1a46609e79e156d11100af9623b49f45ba19a273abc00b36c8405839",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/design-lead/probes/lawgate.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/design-lead/probes/lawgate_red.txt",
+      "bytes": 1228,
+      "sha256": "0376096686d00d6bcd236e56ab01444a5b6024faa7d6aeb0b106c7402d1913e8",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/design-lead/probes/lawgate_red.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/design-lead/probes/toolchain-probe.txt",
+      "bytes": 814,
+      "sha256": "e859245a516c9fd5ce324b1d31ca194f80f33c6ae7c767b4f3695ed445268d9f",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/design-lead/probes/toolchain-probe.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/design-lead/probes/trivial.bend",
+      "bytes": 48,
+      "sha256": "13f48cd8aa731b08210105482d9149eb38a8d047c721cce6c9b84c014510c869",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/design-lead/probes/trivial.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/design-lead/probes/trivial.c",
+      "bytes": 79884,
+      "sha256": "4f5be8523616e40de820fcab75958e4ddcbf41330a57db2378de0a58c0d1b8b6",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/design-lead/probes/trivial.c",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/evidence-lead/probes/law-gate/check-only-stderr.txt",
+      "bytes": 1223,
+      "sha256": "b0e55e0a96672c2dbde9cc1f8dd78d3780284387156b74e60ca858a48bcbe48c",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/evidence-lead/probes/law-gate/check-only-stderr.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/evidence-lead/probes/law-gate/check-only-stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/evidence-lead/probes/law-gate/check-only-stdout.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/evidence-lead/probes/law-gate/result.txt",
+      "bytes": 5,
+      "sha256": "91d957f8f2748a950526d4d21e0d5cd3bf5518e6c60b1beb470a13be1f978b1d",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/evidence-lead/probes/law-gate/result.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/evidence-lead/probes/law-gate/revision.txt",
+      "bytes": 41,
+      "sha256": "9a430bcafd1edae461ecaccea8b8d68c88981d2f18489a347dc8a7ccb3ca4c3b",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/evidence-lead/probes/law-gate/revision.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/failure-evaluation/probes/REVISION.txt",
+      "bytes": 41,
+      "sha256": "9a430bcafd1edae461ecaccea8b8d68c88981d2f18489a347dc8a7ccb3ca4c3b",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/failure-evaluation/probes/REVISION.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/failure-evaluation/probes/probe1-lawgate-drift.txt",
+      "bytes": 1402,
+      "sha256": "374db2c70318746b855b62b797e78e5123b82ce9da2d06667f56c45b13d315db",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/failure-evaluation/probes/probe1-lawgate-drift.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/failure-evaluation/probes/probe2-forge/lease.bend",
+      "bytes": 271,
+      "sha256": "4290b0282b61dbfffba8833f085222ce0b0e6254b468eaf5824bf241704f018f",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/failure-evaluation/probes/probe2-forge/lease.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/failure-evaluation/probes/probe2-forge/main.bend",
+      "bytes": 158,
+      "sha256": "da3ac3b64643e609b7efa0beaeebc41b78bd55cd478063764c4f6bbecded991e",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/failure-evaluation/probes/probe2-forge/main.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/failure-evaluation/probes/probe2-forge/run.txt",
+      "bytes": 411,
+      "sha256": "2366879a4910086b7a9abbd1ac45c9743930dde9fc59428705cdd64386d5d93e",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/failure-evaluation/probes/probe2-forge/run.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/failure-evaluation/probes/probe3-affine/main.bend",
+      "bytes": 272,
+      "sha256": "cca0ce6bdd28d4115879b415a01b59abec9fa5b40660e0b0897aff91d16679d1",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/failure-evaluation/probes/probe3-affine/main.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/failure-evaluation/probes/probe3-affine/run.txt",
+      "bytes": 450,
+      "sha256": "950e2624c162ad5bc9004392f36aaebefdb03e8f36062bcff06d4180b498fa3a",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/failure-evaluation/probes/probe3-affine/run.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/failure-evaluation/probes/probe4-match-do/main.bend",
+      "bytes": 116,
+      "sha256": "ef8c82177f281343467b6b8250970d25c54825bb14b10d2f3a38981c59317fd5",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/failure-evaluation/probes/probe4-match-do/main.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/failure-evaluation/probes/probe4-match-do/run.txt",
+      "bytes": 378,
+      "sha256": "b15c117a6d09e6de0d56e0f08b3693509504e79479e8ad8a6ccee02e2d815602",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/failure-evaluation/probes/probe4-match-do/run.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/failure-evaluation/probes/probe5-deadwait/main.bend",
+      "bytes": 384,
+      "sha256": "557264f5a24f7eb6dc6cae4cf9fc49d189ecba334061e4da6e176cbb90ddec17",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/failure-evaluation/probes/probe5-deadwait/main.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/failure-evaluation/probes/probe5-deadwait/run.txt",
+      "bytes": 411,
+      "sha256": "1504c52f1746c9ca91fc094537d455a06f42ef01bd28fb6e4ae3603fca27d3b6",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/failure-evaluation/probes/probe5-deadwait/run.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/failure-evaluation/probes/probe6-relation-hijack/run.txt",
+      "bytes": 825,
+      "sha256": "04d36a15f73ef3a9c35fbbe81428f69b5084c8751411481e44d5c5e28c2cdcd4",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/failure-evaluation/probes/probe6-relation-hijack/run.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/proposal-strongman/probes/extlaw.bend",
+      "bytes": 61,
+      "sha256": "0eb705469a7ead77c321ba7b9b9a1ad40737af83a8e893cb2945ada7aba01a07",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/proposal-strongman/probes/extlaw.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/proposal-strongman/probes/hostprog.bend",
+      "bytes": 99,
+      "sha256": "c8e658d79659f5760d7e6b812e5c96912cf3496e6af592571c839ad739e4646d",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/proposal-strongman/probes/hostprog.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/proposal-strongman/probes/lawgate.txt",
+      "bytes": 119,
+      "sha256": "61f81afe267a487a1ff367e6bd11a665ae5c9bd88804ba34c034270b2ed2081b",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/proposal-strongman/probes/lawgate.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/proposal-strongman/probes/timings.txt",
+      "bytes": 59,
+      "sha256": "bab99cf6961c8a84c02106f1e0e50936ad54163eb9272738dedfa8536cd4dfef",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/proposal-strongman/probes/timings.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/proposal-strongman/probes/trivial.bend",
+      "bytes": 76,
+      "sha256": "9242ae233ede25db1407163e350594af1274f61927e8895c84202b7abf0be1a3",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/proposal-strongman/probes/trivial.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/research-critic/probes/seed-variance/NOTES.md",
+      "bytes": 3040,
+      "sha256": "1254e41c94fbd01b5068f9be68429dd0cd453d5b8a534c1d70d43c74f5c16f8d",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/research-critic/probes/seed-variance/NOTES.md",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/research-critic/probes/seed-variance/probe_output.txt",
+      "bytes": 2276,
+      "sha256": "e13062295f8a341e994281d2cecbbb26b5ecf3acc1907f00dc9f3657350c23c0",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/research-critic/probes/seed-variance/probe_output.txt",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/runtime-lead/probes/hello.bend",
+      "bytes": 84,
+      "sha256": "8d3f0f1f887ea46134485574e0e7dd6d74ed2bd82f04f281fcf530a8d068c991",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/runtime-lead/probes/hello.bend",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "original/deliverables/runtime-lead/probes/hello.c",
+      "bytes": 81260,
+      "sha256": "2a837e9a8460b4d9e068638aa2c9dafd577d98f7f56318c2afb810d887ffeab9",
+      "custody": {
+        "capture": "proposal-live/verified-manifest.json",
+        "path": "deliverables/runtime-lead/probes/hello.c",
+        "status": "Original diagnostic source or output. Interpret actual compiler, child, and wrapper outcomes separately."
+      }
+    },
+    {
+      "path": "continuation/deliverables/baton-contracts/critique/critique.md",
+      "bytes": 8496,
+      "sha256": "db8c210ce99da6d16ad32ed87ed0f18aae5ff40f06738f0b10c58e8bbd88da7f",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/baton-contracts/critique/critique.md",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/baton-contracts/reciprocal/critique-reconciled.md",
+      "bytes": 7863,
+      "sha256": "fb6f57c2174f9c538bf78a9de3ab3b829185a714a28a834e96feb084b5157f23",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/baton-contracts/reciprocal/critique-reconciled.md",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/FINDINGS.md",
+      "bytes": 14607,
+      "sha256": "120da20f51e474d54f78e7a8eebb42b5e95430b55969e4c282433ceb41ee79be",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/FINDINGS.md",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/critique/critique.md",
+      "bytes": 14487,
+      "sha256": "86849d00ea239f302bd6b2631a11e2a70d291ecc0d2769a4b53ce70839fa2f6c",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/critique/critique.md",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/critique/evidence-sites.md",
+      "bytes": 5717,
+      "sha256": "2ede23c703710b5a7bf34d2a97a4f0c23a13de8d6a2f38c28955311e6ee57a22",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/critique/evidence-sites.md",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/README.md",
+      "bytes": 6728,
+      "sha256": "126d221ac492ab71e35b9d0231a3c020312d978d593739b9e32f049608c85a68",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/README.md",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/p04_unix_socket/output.txt",
+      "bytes": 346,
+      "sha256": "f015082f4d1c1a04b45fcbb6463527020a05077430e7c94483f236e791695196",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p04_unix_socket/output.txt",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/p04_unix_socket/run.sh",
+      "bytes": 886,
+      "sha256": "34ad7ae8e9af5fc039917f7f1a413e21bdc2e0cd88c1acc62b8fd1c6217bd3e7",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p04_unix_socket/run.sh",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/p06_http_tcp/http.bend",
+      "bytes": 2144,
+      "sha256": "525dfb5af075e306f778dc7862bcbfe6123c3635babe0adc8f3bccc9c178074c",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p06_http_tcp/http.bend",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/p06_http_tcp/output.txt",
+      "bytes": 571,
+      "sha256": "61b6529d755c3237965b368f0a52fbfedc4a8f7e70aac8dddfbab1577113d64d",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p06_http_tcp/output.txt",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/p09_law_gate/forge.bend",
+      "bytes": 496,
+      "sha256": "e1df61e0eae6b11bcdb36ed505892d4e046c1bc61c8d45e46fb99b1d03568cb2",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p09_law_gate/forge.bend",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/p09_law_gate/output.txt",
+      "bytes": 644,
+      "sha256": "5941871768852891222aaf2cfeca47c683b250c8d22b2f87a016eb46bb6473df",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p09_law_gate/output.txt",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/p09_law_gate/tool.bend",
+      "bytes": 255,
+      "sha256": "61da7769ec51fb42328a45e24dfd4a8f8149aaf5abf738d333356d91dd46a09f",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p09_law_gate/tool.bend",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/p10_js_loader/hello.bend",
+      "bytes": 327,
+      "sha256": "b7d5dd3d2605cab03d196211f429e6ef00c5c19f91be907a20a8b3a30b87e055",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p10_js_loader/hello.bend",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/p10_js_loader/host.mjs",
+      "bytes": 611,
+      "sha256": "afd0afb6e3fe99af91bc93e5d21fb603ee77316566e306ab79ecfaa010ebe0d8",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p10_js_loader/host.mjs",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/p10_js_loader/output.txt",
+      "bytes": 166,
+      "sha256": "902c5de74e74b6778627a3e7c9f5af1f415ee444024c45caaea5eb669fe0b738",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p10_js_loader/output.txt",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/p11_costs/output.txt",
+      "bytes": 311,
+      "sha256": "5acae5bca51cf6d8671bead253039b0ea4ec870c6b557d3af1393784c32aff6b",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p11_costs/output.txt",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/p11_costs/run.sh",
+      "bytes": 1519,
+      "sha256": "2956e2cbde85cb27ecc390d63d8e07bdf4b054b39d0baf52cf54ff7fd6031f99",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p11_costs/run.sh",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/p12_template_guard/output.txt",
+      "bytes": 86,
+      "sha256": "ab32b768797e90a8e0d3c3515824726536099ed84bcaaec9d64e01ed1615f266",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p12_template_guard/output.txt",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/p12_template_guard/run.sh",
+      "bytes": 466,
+      "sha256": "a017af88ee639288cb9628228dbe69feb6f35d1bda28b554a40c60c2ada59033",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p12_template_guard/run.sh",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/p12_template_guard/spin.bend",
+      "bytes": 343,
+      "sha256": "df9a182e2d2ed232cea98759499080b5057f1f3e60b949bebc595a0c6184f210",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p12_template_guard/spin.bend",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/probes/p12_template_guard/spin.stderr",
+      "bytes": 74,
+      "sha256": "ea87659ca1e5569afc04ab713facd5dd62687c099ebdbb002845d0ba9248acb6",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/probes/p12_template_guard/spin.stderr",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/bend-feasibility/review-corrections.md",
+      "bytes": 7465,
+      "sha256": "7ea8ee60d6819c78cbe0764f9f4e8c45ed68ba746801260434c558443ddbae07",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/bend-feasibility/review-corrections.md",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/citation-auditor/claim-register.md",
+      "bytes": 33283,
+      "sha256": "9ab135091e1aefadefbd1eda931b17ac75414a0ad0016f6eeee116c52d1815aa",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/citation-auditor/claim-register.md",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/evidence-lead/claim-register-v0.md",
+      "bytes": 26226,
+      "sha256": "02884c2a3cfc7785088a1b524abc07fdabe62a853bbc03bd65bb0177ed1a6003",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/evidence-lead/claim-register-v0.md",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/evidence-lead/interim-note.md",
+      "bytes": 3762,
+      "sha256": "fb98230f1fe7b1bb528e09b260e9cdfeaa74f5106932daf6b276aceccaf789e9",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/evidence-lead/interim-note.md",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/evidence-lead/synthesis-final.md",
+      "bytes": 10800,
+      "sha256": "d09477afa890ff2195720bc1faa5576a328446b39f1b090b79d23b92ea7a7739",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/evidence-lead/synthesis-final.md",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/failure-evaluation/round2-cross-critique.md",
+      "bytes": 20933,
+      "sha256": "51dcbf7db5e7ddea2cb3000c27940006c5f07837d1bd36783c45b05d14b8a9b2",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/failure-evaluation/round2-cross-critique.md",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/research-critic/candidate-review.md",
+      "bytes": 8340,
+      "sha256": "55db22ccb50f5447a177c4a9488f234b7c77f8f1550708be17a0d4a125b1b4a6",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/research-critic/candidate-review.md",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/research-critic/final-report-continuation.txt",
+      "bytes": 10964,
+      "sha256": "448884cb803c6d971e19fba1ea2edc29b2ad3b8d927c0ce708ab4b5f9cc83463",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/research-critic/final-report-continuation.txt",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/research-critic/final-report.txt",
+      "bytes": 10960,
+      "sha256": "312ac863406d0af5f260b388321843c8b5399165363b9c69ce4ee074c746b810",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/research-critic/final-report.txt",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/research-critic/reverse-critique.md",
+      "bytes": 7615,
+      "sha256": "2a9c8e013b50fd3f69750a2af32fb66c6da2142cf47f50e8d5e63903d887b654",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/research-critic/reverse-critique.md",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "continuation/deliverables/runtime-lead/probes/knowledge-laws-check.txt",
+      "bytes": 1332,
+      "sha256": "b899b5abfef966ccdff7d3fa6c65495da0d9cd1c42f807230a7e0566344c4e7c",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "path": "deliverables/runtime-lead/probes/knowledge-laws-check.txt",
+        "status": "Authored continuation body; completion and review status are separate records."
+      }
+    },
+    {
+      "path": "primary-source-checks.json",
+      "bytes": 7401,
+      "sha256": "37a98d982fef537a8f05f9c6d07649c9637eb96e03b6b632810f90fbb30f610a",
+      "custody": {
+        "capture": "proposal-orchestra/review-ready/primary-source-checks.json",
+        "status": "Root pre-continuation review record; later probe findings preserve and supersede its diagnostic classifications."
+      }
+    },
+    {
+      "path": "probe-evidence-review.json",
+      "bytes": 6909,
+      "sha256": "44a9e6a97bb583c5befc83aa8206f59c0a3822e1710ccf7edf285898c9539691",
+      "custody": {
+        "capture": "proposal-orchestra/review-ready/probe-evidence-review.json",
+        "status": "Root pre-continuation review record; later probe findings preserve and supersede its diagnostic classifications."
+      }
+    },
+    {
+      "path": "tomasullm-primary-check.json",
+      "bytes": 750,
+      "sha256": "ac223de1b281a4cf0cb4d569d58517c76ce0c096ca3c7005126f9d55db34a5be",
+      "custody": {
+        "capture": "continuation/tomasullm-primary-check-1826.json",
+        "status": "Root primary-source review of evidence-lead R1 and measured versus replay-estimated depth."
+      }
+    },
+    {
+      "path": "knowledge-cte-root-review.json",
+      "bytes": 6005,
+      "sha256": "7fb292bce62b9ba597919cf675520a138f103b9b08446a7815191808938c828f",
+      "custody": {
+        "capture": "delivery/knowledge-cte-root-review.json",
+        "status": "Root exact-source review rejecting the absent nodes/edges-table objection: graph_ctes defines both common table expressions. Main9 runtime evidence has separate provenance."
+      }
+    },
+    {
+      "path": "integration-source-review.json",
+      "bytes": 22952,
+      "sha256": "cb89f4d7a424f9e1630da6323e3ef14293c35d33444253cc4ea0824e644e33bd",
+      "custody": {
+        "capture": "continuation/source-and-process-1843.json",
+        "status": "Exact-source excerpts checking completion bodies, routing, knowledge pull instructions, launch predicates, relevant laws, and managed bootstrap storage."
+      }
+    },
+    {
+      "path": "recovery-observations.json",
+      "bytes": 7674,
+      "sha256": "147ea212a629615d934367c3dc02f43aad1d5514640dea87d581776f90658d05",
+      "custody": {
+        "capture": "continuation/source-and-process-1843.json",
+        "status": "Timestamped proposal-scoped process and retained-stream observations. Full source snapshot remains in local custody; no replay-algorithm cause is inferred."
+      }
+    },
+    {
+      "path": "compiler-build-result.json",
+      "bytes": 4998,
+      "sha256": "a7aeefc1bcc53488c2b7d49ea85456c88eccb67324e7e3ff7933460529dd8cdb",
+      "custody": {
+        "path": "/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/build-result.json",
+        "status": "Retained original build result, read without a compiler invocation."
+      }
+    },
+    {
+      "path": "compiler-source-checks.json",
+      "bytes": 6086,
+      "sha256": "0515f6c08533346cb17cfeb94890b6bc58e22d4001cd2b229b29a90bf27563e5",
+      "custody": {
+        "capture": "continuation/compiler-source-checks-1818.json",
+        "status": "Exact source hashes and selected source snippets; large fork manifest represented by selected fields."
+      }
+    },
+    {
+      "path": "records.json",
+      "bytes": 702300,
+      "sha256": "82a73f0b72cd8cd04eaa74c2f8bafd06ea9590200eeeaf94bbb48791cd3083c5",
+      "custody": {
+        "capture": "capture-20261016T183925Z/manifest.json",
+        "status": "Lifecycle rows are projected through an explicit metadata allowlist. Complete authored messages and reports are preserved; original native conversation rows remain in private custody.",
+        "originalSha256": "b74752e8d65c7d0b94bccd63e4526bcdba0d8296c81c0bbf22ea1d89c288a64c"
+      }
+    }
+  ],
+  "formalSynthesisStatus": {
+    "evidence-lead": "Exact completion request confirmed; no residual evidence conflicts reported.",
+    "runtime-lead": "Formal final synthesis and native continuation pending recovery; last observed native composing synthesis.",
+    "design-lead": "Formal final synthesis pending original pre-reboot stream reconciliation; no live native author established."
+  },
+  "followupIssues": [
+    "https://github.com/Flip-Engineering/baton-cli/issues/2",
+    "https://github.com/Flip-Engineering/baton-cli/issues/3",
+    "https://github.com/Flip-Engineering/baton-cli/issues/4"
+  ],
+  "publishedDesignSha256": "b49ab64a5464ce8f042c2321968a4a40c854c87f5d1dd660a365863a1d51f57a",
+  "publicationCorrection": {
+    "preparedUtc": "2026-10-16T19:16:37.195093+00:00",
+    "priorPublicationCommit": "32f5f9217c953ebb04c63dcb6d8bcb5b90a91436",
+    "scope": "Remove unintended private native conversation bodies from public lifecycle evidence. Complete originals remain in private custody. No Git history rewrite was performed.",
+    "packetFilesAudited": 137,
+    "affectedFiles": [
+      "records.json"
+    ],
+    "privateBlocksBefore": {
+      "nativeConversations": 10,
+      "toolCall": 244,
+      "thinking": 133
+    },
+    "privateBlocksAfter": {},
+    "authoredMessageRowsPreserved": 315,
+    "knowledgeRowsPreserved": 144,
+    "lifecycleRowsProjected": 28,
+    "credentialPatternMatches": 0,
+    "credentialPatternScanLimit": "Configured token and private-key patterns; this is not proof that every possible credential form is absent.",
+    "projection": {
+      "status": "Lifecycle metadata projection. Native conversation bodies, assistant reasoning, tool calls and duplicate terminal text are omitted. Authored reports and message bodies are preserved.",
+      "eventScalarAllowlist": [
+        "schema_version",
+        "id",
+        "sequence",
+        "recorded_at",
+        "record_type",
+        "durability",
+        "causation_id",
+        "payload_type",
+        "payload_schema_version",
+        "type",
+        "isTerminal"
+      ],
+      "eventStreamAllowlist": [
+        "id",
+        "kind"
+      ],
+      "payloadScalarAllowlist": [
+        "command_id",
+        "kind",
+        "reason",
+        "terminal"
+      ],
+      "payloadRunStreamAllowlist": [
+        "id",
+        "kind"
+      ],
+      "originalRecordsSha256": "b74752e8d65c7d0b94bccd63e4526bcdba0d8296c81c0bbf22ea1d89c288a64c",
+      "privateOriginalRetained": true
+    }
+  }
+}

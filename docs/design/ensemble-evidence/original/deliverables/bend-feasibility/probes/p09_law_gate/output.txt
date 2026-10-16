@@ -1,0 +1,38 @@
+== hostprog --check-only with open law in import (expect TODO error)
+Error:
+- expected : n
+- observed : n (consumed more than once)
+Location: tool.Tool.twice
+2 | 
+3>| def Tool.twice(n: U32) -> U32:
+4 |   (n + n : U32)
+exit=1
+== hostprog --checkup (per-import check+run markers)
+--- ./tool.bend ---
+Error:
+- expected : n
+- observed : n (consumed more than once)
+Location: Tool.twice
+2 | 
+3>| def Tool.twice(n: U32) -> U32:
+4 |   (n + n : U32)
+exit 1
+exit=1
+== reflexivity proof attempt (expect expected/observed mismatch)
+Error:
+- expected : n
+- observed : n (consumed more than once)
+Location: tool.Tool.twice
+2 | 
+3>| def Tool.twice(n: U32) -> U32:
+4 |   (n + n : U32)
+exit=0
+== forge.bend interpreted run (forged record accepted)
+Error:
+- expected : @-R:Type -> @k:(@_:Capability -> IO.OP<R>) -> IO.OP<R>
+- observed : non-inferrable term 'Capability.Mk{999}'
+Location: main
+15 |   do IO<Unit>:
+16>|     forged : Capability <- Capability.Mk{999}
+17 |     IO.print("forged capability released level " ++ U32.show(release(forged)))
+exit=1

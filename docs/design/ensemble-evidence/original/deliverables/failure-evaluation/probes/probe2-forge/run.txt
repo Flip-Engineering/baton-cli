@@ -1,0 +1,8 @@
+$ /run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/toolchain-home/bin/bend main.bend --check-only
+All terms check.
+bend 2.0.37 is available: run bend update
+EXIT:0
+$ /run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/toolchain-home/bin/bend main.bend (stderr shown)
+999
+bend 2.0.37 is available: run bend update
+EXIT:0

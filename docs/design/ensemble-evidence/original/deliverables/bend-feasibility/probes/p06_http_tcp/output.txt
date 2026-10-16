@@ -1,0 +1,22 @@
+== --check-only
+Error:
+- expected : Sigma<&1, &1, Socket, _ => Result<&1, &1, Sigma<&1, &1, U32, _ => String>, Maybe<&1, String>>>
+- observed : @-R:Type -> @k:(@_:Sigma<&1, &1, Socket, _ => Result<&1, &1, Sigma<&1, &1, U32, _ => String>, Maybe<&1, String>>> -> IO.OP<R>) -> IO.OP<R>
+Context:
+- sock : Socket
+- k    : U32
+Location: pump
+34 |   do IO<Unit>:
+35>|     got : Socket & Maybe<&1, String> <- poll_ok(TCP.poll(sock, 4096, 3000))
+36 |     step(got, k)
+exit=1
+Error:
+- expected : Sigma<&1, &1, Socket, _ => Result<&1, &1, Sigma<&1, &1, U32, _ => String>, Maybe<&1, String>>>
+- observed : @-R:Type -> @k:(@_:Sigma<&1, &1, Socket, _ => Result<&1, &1, Sigma<&1, &1, U32, _ => String>, Maybe<&1, String>>> -> IO.OP<R>) -> IO.OP<R>
+Context:
+- sock : Socket
+- k    : U32
+Location: pump
+34 |   do IO<Unit>:
+35>|     got : Socket & Maybe<&1, String> <- poll_ok(TCP.poll(sock, 4096, 3000))
+36 |     step(got, k)

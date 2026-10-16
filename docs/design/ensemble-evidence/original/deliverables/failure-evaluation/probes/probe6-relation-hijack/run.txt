@@ -1,0 +1,10 @@
+== 1. worker-a records finding F1 with a relation R1 (Baton-generated id) ==
+  row: ('knowledge-link:abc:0', 'worker-a', 'finding:F1', 'Supports', 'file:crash.log')
+== 2. scoped read, worker-a view (scope_findings_sql worker, knowledge.bend:84-91) ==
+  visible to worker-a: [('knowledge-link:abc:0', 'worker-a', 'Supports', 'file:crash.log')]
+== 3. peer-b records F2 with --links reusing R1's id (agent-native.bend:215 keeps it) ==
+  row: ('knowledge-link:abc:0', 'peer-b', 'finding:F2', 'Supports', 'http://attacker.example/poison')
+== 4. scoped reads after the rewrite ==
+  visible to worker-a: []   <-- the original edge vanished from its author's view
+  visible to peer-b:   [('knowledge-link:abc:0', 'peer-b', 'Supports', 'http://attacker.example/poison')]
+EXIT:0 (overwrite accepted; no refusal, no notice to worker-a)

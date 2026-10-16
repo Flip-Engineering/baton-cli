@@ -1,0 +1,10 @@
+check-only dispatcher: 353 ms exit=0
+emit C dispatcher: 420 ms exit=0
+clang -O1 link dispatcher: 855 ms exit=0
+native startup+run dispatcher: 32 ms exit=0
+interpreted run dispatcher: 409 ms exit=0
+emit JS dispatcher: 429 ms exit=0
+1089552 disp
+89898 disp.c
+12693 disp.js
+== emitted C size and binary size above

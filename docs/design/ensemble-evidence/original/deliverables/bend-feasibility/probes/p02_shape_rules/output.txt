@@ -1,0 +1,48 @@
+== match_in_do.bend --check-only
+Error:
+- expected : a term (a match heads a def body, not a term)
+- observed : ' '
+Location:
+5 |   do IO<Unit>:
+6>|     match True{}:
+7 |       case True{}:
+exit=1
+== computed_scrutinee.bend --check-only
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a local binder: give it its own def)
+Location:
+6 |   n = 2n
+7>|   m = Nat.add(n, 1n)
+8 |   match m:
+exit=1
+== closure_twice.bend --check-only
+Error:
+- expected : f
+- observed : f (consumed more than once)
+Location: apply_twice
+4 | # than once"); only top-level defs may be called freely.
+5>| def apply_twice(f: U32 -> U32, x: U32) -> U32:
+6 |   f(f(x))
+exit=1
+== dispatcher.bend --check-only
+All terms check.
+exit=0
+== waitloop.bend --check-only
+All terms check, but 2 defs rely on unsafe or foreign code:
+- loop
+- main
+exit=0
+== dispatcher.bend interpreted run
+read: /tmp/x
+bash: echo hi
+read: /tmp/y
+exit=0
+== waitloop.bend interpreted run
+All terms check, but 2 defs rely on unsafe or foreign code:
+- loop
+- main
+loop: tick
+loop: tick
+loop: tick
+loop: done
+exit=0

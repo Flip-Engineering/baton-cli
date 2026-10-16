@@ -1,0 +1,10 @@
+$ /run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/toolchain-home/bin/bend main.bend --check-only
+Error:
+- expected : a term (a match heads a def body, not a term)
+- observed : ' '
+Location:
+4 |   do IO<Unit>:
+5>|     match Bool.True{}:
+6 |       case True{}: IO.pure(Unit, Unit{})
+bend 2.0.37 is available: run bend update
+EXIT:1

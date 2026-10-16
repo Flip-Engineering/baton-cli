@@ -1,0 +1,31 @@
+== base exec ==
+bend: Base has no exec (see bend --help)
+rc=1
+== base File.sync ==
+bend: Base has no File.sync (see bend --help)
+rc=1
+== base File ==
+law File:
+  Type
+
+def File.open(path: String, mode: String) ->
+  IO(Result<&1, &1, U32 & String, File>):
+  import "./effs/file_open.c"
+  import "./effs/file_open.js"
+
+def File.read(file: File, max: U32) ->
+  IO(File & Result<&1, &1, U32 & String, String>):
+  import "./effs/file_read.c"
+  import "./effs/file_read.js"
+
+def File.read_bytes(file: File, max: U32) ->
+  IO(File & Result<&1, &1, U32 & String, List<&2, U32>>):
+  import "./effs/file_read.c"
+  import "./effs/file_read.js"
+
+def File.read_at(file: File, offset: U32, max: U32) ->
+  IO(File & Result<&1, &1, U32 & String, List<&2, U32>>):
+rc=0
+== base Json ==
+bend: Base has no Json (see bend --help)
+rc=1

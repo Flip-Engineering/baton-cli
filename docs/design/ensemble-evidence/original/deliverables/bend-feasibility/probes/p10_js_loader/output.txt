@@ -1,0 +1,19 @@
+652 |         && tld.x === 0 && tld.i === undefined
+653 |         && Comp.io_base(book, tld.T) === null;
+654 |     });
+655 |     return Comp.js_lib(book, outs, outs);
+656 |   } catch (e) {
+657 |     throw new Error(book_err(e));
+                    ^
+error: Error:
+- expected : n
+- observed : n (consumed more than once)
+Location: double
+4 | # exports every filled, non-base, non-IO def).
+5>| def double(n: U32) -> U32:
+6 |   (n + n : U32)
+      at load_js (/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/toolchain-home/bend2/main.ts:657:15)
+      at async <anonymous> (/run/baton2-native-homelab/retained/baton2-compiler-741-20261015/postrelease-751-761-20261015-9/toolchain-home/bend2/main.ts:84:26)
+
+Bun v1.3.14 (Linux x64)
+exit=1

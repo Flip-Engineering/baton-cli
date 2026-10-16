@@ -1,0 +1,15 @@
+== law gate: importing a module with an open law ==
+Error: 1 TODO found.
+The code is incomplete, and not a valid proof yet.
+bend 2.0.37 is available: run bend update
+rc=1
+== --checkup variant ==
+--- ./extlaw.bend ---
+Error: 1 TODO found.
+The code is incomplete, and not a valid proof yet.
+exit 1
+rc=1
+== emit C (timed) ==
+bend 2.0.37 is available: run bend update
+elapsed 0.33 s
+-rw------- 1 batonci batonci 79884 Oct 16 01:47 trivial.c

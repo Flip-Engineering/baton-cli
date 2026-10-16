@@ -1,0 +1,28 @@
+== --check-only
+All terms check, but 2 defs rely on unsafe or foreign code:
+- pump
+- main
+exit=0
+All terms check, but 2 defs rely on unsafe or foreign code:
+- pump
+- main
+server listening on 127.0.0.1:41739
+== native run
+server got request: b'GET /stream HTTP/1.1\r\nHost: 127.0.0.1\r\nConnection: close\r\n\r\n'...
+chunk 0: HTTP/1.1 200 OK
+Content-Type: text/plain
+
+
+chunk 1: data: tick 0
+
+server sent chunk 0
+server sent chunk 1chunk 2: data: tick 1
+
+
+chunk 3: data: tick 2
+
+server sent chunk 2
+server done, exiting
+closed by peer (empty read at EOF)
+exit=0
+== done

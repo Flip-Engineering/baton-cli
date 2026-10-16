@@ -1,0 +1,23 @@
+== hostprog --check-only with open law in import (expect TODO error)
+Error: 1 TODO found.
+The code is incomplete, and not a valid proof yet.
+exit=1
+== hostprog --checkup (per-import check+run markers)
+--- ./tool.bend ---
+Error: 1 TODO found.
+The code is incomplete, and not a valid proof yet.
+exit 1
+exit=1
+== reflexivity proof attempt (expect expected/observed mismatch)
+Error:
+- expected : U32.add(U32.add(n, n), U32.add(n, n))
+- observed : U32.mul(n, 4)
+Context:
+- n : U32
+Location: tool.twice_four
+6 | def T.twice_four(n):
+7>|   {==}
+exit=0
+== forge.bend interpreted run (forged record accepted)
+forged capability released level 999
+exit=0

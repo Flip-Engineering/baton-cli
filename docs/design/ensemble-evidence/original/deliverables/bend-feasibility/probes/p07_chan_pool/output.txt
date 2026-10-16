@@ -1,0 +1,28 @@
+== --check-only
+All terms check, but 3 defs rely on unsafe or foreign code:
+- drain_pool
+- start
+- main
+exit=0
+== interpreted run
+All terms check, but 3 defs rely on unsafe or foreign code:
+- drain_pool
+- start
+- main
+started 30 sent=True
+started 20 sent=True
+started 10 sent=True
+done 30
+done 20
+done 10
+pool drained
+exit=0
+== native run
+started 10 sent=True
+done 10
+started 20 sent=True
+done 20
+started 30 sent=True
+done 30
+pool drained
+exit=0
