@@ -41,6 +41,11 @@ The orchestra runs through existing authorized native clients on the homelab. Ba
   JS-hosted option as a separate process relative to the native seat") is superseded. The P10
   observation remains a property of the reviewed toolchain. The design of record states the ruling
   in its status block and in §5.
-- 2026-10-16: the rewrite context behind sketch revision `52f35b2` — the seven review documents in
-  this directory plus `audit-findings.md` — is dispatched to the audit ensemble, which is asked to
-  determine whether it alters any accepted finding, research correction, or retained dissent.
+- 2026-10-16: the recheck dispatch of the rewrite context behind sketch revision `52f35b2` — the
+  seven review documents in this directory plus `audit-findings.md` — could not be delivered: the
+  audit ensemble's runtime (orchestra database, instance home, client runtimes, checkout) lived
+  under `/run/baton2-native-homelab/` and was cleared, and the instance root now holds only a
+  compiler build. The task body is prepared as
+  [ensemble-recheck-dispatch.md](ensemble-recheck-dispatch.md) for the next time the round is
+  provisioned; the contributors' identities and invocation contracts survive in
+  `ensemble-evidence/records.json`.
