@@ -32,3 +32,15 @@ Accepted implementation work: [native seat integration](https://github.com/Flip-
 Related work in Baton: [knowledge retrieval audit](https://github.com/Flip-Engineering/baton/issues/779), [Bend2 REPL](https://github.com/Flip-Engineering/baton/issues/778), [context snapshots](https://github.com/Flip-Engineering/baton/issues/777), [ordinary delivery](https://github.com/Flip-Engineering/baton/issues/668), and [release qualification](https://github.com/Flip-Engineering/baton/pull/772).
 
 The orchestra runs through existing authorized native clients on the homelab. Baton stores task text in its database. Reports must distinguish implemented behavior, proposed changes, measured results, paper-reported results, and unresolved claims. The audit preserves source work and current release inputs.
+
+## Operator rulings
+
+- 2026-10-16: **the seat is Bend2 only.** Native compilation plus the pinned toolchain's own
+  interpreter are the entire execution story. The JS-hosted loader that the runtime audit raised as
+  a separate execution backend is not a design option, and that accepted finding ("evaluate the
+  JS-hosted option as a separate process relative to the native seat") is superseded. The P10
+  observation remains a property of the reviewed toolchain. The design of record states the ruling
+  in its status block and in §5.
+- 2026-10-16: the rewrite context behind sketch revision `52f35b2` — the seven review documents in
+  this directory plus `audit-findings.md` — is dispatched to the audit ensemble, which is asked to
+  determine whether it alters any accepted finding, research correction, or retained dissent.

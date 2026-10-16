@@ -5,6 +5,10 @@ Status: proposed seat design. The seat is unimplemented. The research corpus and
 This sketch distinguishes current source contracts, proposed interfaces, diagnostic observations,
 and paper-reported results. Implementation dependencies preserve the full design scope.
 
+Operator ruling (2026-10-16): the seat is Bend2 only. Native compilation plus the pinned
+toolchain's own interpreter are the entire execution story; no JavaScript or other secondary
+runtime participates in the design.
+
 The target is **Baton**, using its native Bend2 coordinator. Current-source statements here refer
 to `b1f006a6308bbb00e29a24322e4f7d5164774470` and its recorded Baton fork of Bend 2.0.25. Release
 installation and live acceptance require their own evidence. Historical JavaScript mechanisms are
@@ -273,11 +277,12 @@ host costs; a promoted program needs its own size and reuse measurement.
 
 The interpreter checks before running and reports reliance on unsafe or foreign definitions.
 Admission records the applicable checker result, including `--check-only` where that is the chosen
-gate. The JS-hosted loader also checks and can call exported non-IO Bend2 definitions, returning
-JS-projected values. P10 demonstrates that interface in a Bun host. This loader is an execution
-backend; the REPL accepts Bend2 source only. A typed seat result-codec
-contract remains untested. Relative to the native seat, the host is a separate process whose
-authority, startup cost, and SDK interaction still need evaluation.
+gate. The seat runs on the pinned Bend2 toolchain only: native compilation for the seat and for
+child programs, and the toolchain's own Bend2 interpreter for the program lane. No JavaScript,
+TypeScript, or other secondary runtime participates in the seat's execution path. The P10
+observation that a host can check Bend2 definitions and receive projected values stands as a
+property of the reviewed toolchain, not as a design option. A typed seat result-codec contract
+remains untested.
 
 Targeted test selection is one use of this path: generate or select relevant tests, execute them,
 and retain the selection basis and coverage limits ([research-open-questions.md](research-open-questions.md)

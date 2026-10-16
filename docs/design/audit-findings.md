@@ -286,3 +286,7 @@ Operator decisions on this round, recorded 2026-10-16:
   orchestrator-side changes.
 - **Disk**: the superseded codex session-log backups (about 5.5 GB) were deleted during this round,
   retaining the pre-surgery rollout copy as the historical record.
+- **Bend2 only** (operator ruling, 2026-10-16): the seat runs on the pinned Bend2 toolchain only —
+  native compilation plus the toolchain's own interpreter — and no JavaScript or other secondary
+  runtime participates. Design revision `52f35b2` and the later audit revision are both governed by
+  this; the JS-hosted loader raised by the runtime audit is not a design option.
