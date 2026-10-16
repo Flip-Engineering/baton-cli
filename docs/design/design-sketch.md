@@ -61,11 +61,14 @@ Pi's turn semantics as the reference: one assistant response plus its complete t
 the atom of persistence and compaction; a tool result never separates from its call (enforced
 in cut points and in ordering); a truncated response fails every pending tool call with a
 re-issue instruction ([pi.md](../research/pi.md) §4, §12). Hooks (`beforeToolCall`,
-`finishTurn`, `prepareRequest`, `prepareNextTurn`) are the only policy surfaces; approval,
-limits, and context policy live there, never in features. Steering is admitted only at
-declared boundary kinds — model, cancelled, finalizing ([fx.md](../research/fx.md) §7). Step
-budgets and wall-clock timeouts are declared, logged harness parameters
-([benchmarks.md](../research/benchmarks.md)).
+`finishTurn`, `prepareRequest`, `prepareNextTurn`) are the only policy surfaces;
+approval and context policy live there, never in features. Steering is admitted only at
+declared boundary kinds — model, cancelled, finalizing ([fx.md](../research/fx.md) §7). The
+loop rations nothing: no step counter, no run-level time allowance. Operations carry ordinary
+timeouts as part of their tool contracts — a shell command fails when its timeout expires —
+and elapsed time is telemetry, not a gate. Runaway control is the operator's stop, which is
+always effective; benchmark harnesses step-cap for measurement, and that is where step caps
+belong.
 
 ## Tools
 
@@ -110,10 +113,9 @@ accounting belongs to the orchestrator's operations plane, outside the harness.
 This is also what "bounded" means everywhere below: a property of a representation, checkable
 by reading its spec, never a running counter.
 
-
-Task-level budgets — step counts, wall-clock timeouts — are ordinary declared parameters and
-stay. The refusal is narrower: accounting on the context path, where the honest unit does not
-exist at the moment a bound would fire.
+And the harness rations nothing anywhere: no step counters, no time allowances over the run.
+The only external control on how long a seat works is the operator's stop — a judgment call,
+made by something that can see the work, at the moment it matters.
 
 ## Context and compaction
 
